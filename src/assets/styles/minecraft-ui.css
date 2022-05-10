@@ -6,3 +6,8 @@
   font-family: "minecraft-bold";
   src: url("../font/MinecraftBold.otf");
 }
+
+:root {
+  --background-color: #23232a;
+  --select-color: #fff;
+}
