@@ -14,17 +14,46 @@
   width: 100%;
   background-color: var(--slider-rail-bg-color);
 }
+.SliderTooltip {
+  position: absolute;
+  padding: 4px 12px;
+  transform: translate3d(-50%, -100%, 0);
+  top: calc(0px - 16px);
+  background: #4373e5;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.SliderTooltip:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 8px 0 8px;
+  border-color: #4373e5 transparent transparent transparent;
+}
+
+.Slider_focus .SliderTooltip,
+.Slider:hover .SliderTooltip {
+  opacity: 1;
+}
 
 .Slider .Button {
   position: absolute;
   top: 50%;
   transform: translate3d(-50%, calc(-50% - 2px), 0);
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
   padding: 0;
   box-sizing: border-box;
 }
 
+.Slider_focus,
 .Slider_dragging {
   --slider-rail-bg-color: #f4f6f9;
 }

@@ -18,18 +18,17 @@ const Template: ComponentStory<typeof Slider> = (args) => {
     setValue(value);
   };
 
-  return <Slider {...args} value={value} onChange={handleChange} />;
+  return (
+    <div style={{ padding: "32px" }}>
+      <Slider {...args} value={value} onChange={handleChange} />
+    </div>
+  );
 };
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
+
 Primary.args = {
-  variant: "primary",
-  children: "Hello world!",
-};
-
-export const Secondary = Template.bind({});
-
-Secondary.args = {
-  children: "Click me!",
+  value: 0,
+  max: 200,
 };

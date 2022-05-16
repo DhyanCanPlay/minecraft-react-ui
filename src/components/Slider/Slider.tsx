@@ -27,12 +27,23 @@ const Slider = ({
   min = 0,
   max = 100,
 }: SliderProps) => {
+  const [isFocus, setFocus] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
   const sliderRef = React.useRef<HTMLDivElement>(null);
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
 
-  const handleMouseDown = (event: MouseEvent) => {
+  const handleFocus = (event: React.FocusEvent<HTMLButtonElement>) => {
+    setFocus(true);
+  };
+
+  const handleBlur = (event: React.FocusEvent<HTMLButtonElement>) => {
+    setFocus(false);
+  };
+
+  const handleMouseDown: React.MouseEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
     setIsDragging(true);
+    buttonRef.current.focus();
   };
 
   const handleMouseUp = (event: MouseEvent) => {
@@ -77,21 +88,28 @@ const Slider = ({
       className={cn("Slider", className, {
         Slider_disabled: disabled,
         Slider_dragging: isDragging,
+        Slider_focus: isFocus,
       })}
-      ref={sliderRef}
       onClick={handleClick}
       onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
     >
       <div
+        ref={sliderRef}
         className={cn("SliderRail", className, { Slider_disabled: disabled })}
       >
         <Button
           variant={"primary"}
           disabled={disabled}
-          style={{ left: `${relativeValue}%` }}
+          style={{ left: `calc(${relativeValue}% ` }}
           onKeyDown={handleKeyDown}
-        />
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          ref={buttonRef}
+        >
+          <span className={cn("SliderTooltip")} style={{ left: "50%" }}>
+            {value}
+          </span>
+        </Button>
       </div>
     </div>
   );
