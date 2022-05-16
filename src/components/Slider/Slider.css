@@ -1,0 +1,30 @@
+.Slider {
+  --slider-rail-bg-color: #d0d1d4;
+  --slider-rail-bg-hover-color: #f4f6f9;
+  width: 100%;
+  padding: 8px 16px;
+  position: relative;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.SliderRail {
+  height: 4px;
+  position: relative;
+  width: 100%;
+  background-color: var(--slider-rail-bg-color);
+}
+
+.Slider .Button {
+  position: absolute;
+  top: 50%;
+  transform: translate3d(-50%, calc(-50% - 2px), 0);
+  height: 24px;
+  width: 24px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.Slider_dragging {
+  --slider-rail-bg-color: #f4f6f9;
+}

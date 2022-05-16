@@ -55,5 +55,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/josempineiro"
   },
-  "dependencies": {}
+  "dependencies": {
+    "usehooks-ts": "^2.5.3"
+  }
 }

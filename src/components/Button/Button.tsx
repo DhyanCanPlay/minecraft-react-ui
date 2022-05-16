@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import "./Button.css";
 
-export type ButtonProps = {
-  children: React.ReactNode;
-  onClick: () => void;
+export type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
+  children?: React.ReactNode;
+  onClick?: () => void;
   disabled?: boolean;
   className?: string;
   type?: "button" | "submit" | "reset";
@@ -19,9 +19,11 @@ const Button = ({
   className,
   type,
   variant,
+  ...rest
 }: ButtonProps) => {
   return (
     <button
+      {...rest}
       type={type}
       onClick={onClick}
       className={cn("Button", className, {
