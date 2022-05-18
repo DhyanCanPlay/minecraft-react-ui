@@ -1,0 +1,32 @@
+:root {
+  --input-background-color: #313234;
+}
+
+.Input {
+  padding: 6px 12px;
+  background-color: var(--input-background-color);
+  color: #fff;
+  font-family: "Minecraft";
+  font-size: 16px;
+  line-height: 1.4;
+  border-radius: 0;
+  border-style: solid;
+  border-width: 4px 2px 2px;
+  border-color: #242326;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.Input::placeholder {
+  color: #eee;
+  opacity: 0.4;
+}
+
+.Input:focus {
+  outline: none;
+}
+
+.Input-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
