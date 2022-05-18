@@ -30,7 +30,6 @@ const Slider = ({
   const [isFocus, setFocus] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
   const sliderRef = React.useRef<HTMLDivElement>(null);
-  const buttonRef = React.useRef<HTMLButtonElement>(null);
 
   const handleFocus = (event: React.FocusEvent<HTMLButtonElement>) => {
     setFocus(true);
@@ -43,7 +42,6 @@ const Slider = ({
   const handleMouseDown: React.MouseEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
     setIsDragging(true);
-    buttonRef.current.focus();
   };
 
   const handleMouseUp = (event: MouseEvent) => {
@@ -104,7 +102,6 @@ const Slider = ({
           onKeyDown={handleKeyDown}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          ref={buttonRef}
         >
           <span className={cn("SliderTooltip")} style={{ left: "50%" }}>
             {value}
