@@ -7,6 +7,7 @@ export type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
   children?: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
+  active?: boolean;
   className?: string;
   type?: "button" | "submit" | "reset";
   variant?: "primary" | "secondary" | "tertiary";
@@ -15,6 +16,7 @@ export type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
 const Button = ({
   children,
   onClick,
+  active,
   disabled,
   className,
   type,
@@ -28,7 +30,8 @@ const Button = ({
       onClick={onClick}
       className={cn("Button", className, {
         [`Button_${variant}`]: variant,
-        Button_disabled: disabled,
+        [`Button_active`]: active,
+        [`Button_disabled`]: disabled,
       })}
     >
       <span className={cn("ButtonText")}>{children}</span>
@@ -39,6 +42,7 @@ const Button = ({
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
+  active: PropTypes.bool,
   disabled: PropTypes.bool,
   className: PropTypes.string,
   type: PropTypes.oneOf(["button", "submit", "reset"]),

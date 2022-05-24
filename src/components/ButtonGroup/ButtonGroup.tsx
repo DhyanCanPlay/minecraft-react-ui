@@ -38,6 +38,10 @@ const ButtonGroup = ({
           key={index}
           disabled={disabled}
           type={"button"}
+          active={option.value === value}
+          className={cn("ButtonGroupButton", {
+            "ButtonGroupButton-active": option.value === value,
+          })}
           onClick={() => handleClick(option)}
           variant={option.value === value ? "primary" : "secondary"}
         >
