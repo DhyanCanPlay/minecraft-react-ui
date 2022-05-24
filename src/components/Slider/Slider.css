@@ -1,11 +1,20 @@
 .Slider {
-  --slider-rail-bg-color: #d0d1d4;
+  --slider-rail-bg-color: #8c8d90;
   --slider-rail-bg-hover-color: #f4f6f9;
+  --slider-rail-fill-color: #3b8526;
   width: 100%;
   padding: 8px 16px;
   position: relative;
   box-sizing: border-box;
   cursor: pointer;
+}
+
+.Slider:hover {
+  --slider-rail-fill-color: #52a535;
+}
+
+.Slider_active:hover {
+  --slider-rail-fill-color: #2a641c;
 }
 
 .SliderRail {
@@ -14,6 +23,7 @@
   width: 100%;
   background-color: var(--slider-rail-bg-color);
 }
+
 .SliderTooltip {
   position: absolute;
   padding: 4px 12px;
@@ -53,6 +63,7 @@
   box-sizing: border-box;
 }
 
+.Slider:hover,
 .Slider_focus,
 .Slider_dragging {
   --slider-rail-bg-color: #f4f6f9;

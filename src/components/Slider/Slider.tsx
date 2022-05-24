@@ -51,14 +51,14 @@ const Slider = ({
     }
   };
 
-  const relativeValue = (value * 100) / (max - min);
+  const relativeValue = ((value - min) / (max - min)) * 100;
 
   const handleMouseMove = (event) => {
     if (isDragging) {
       const { clientX } = event;
       const { left, width } = sliderRef.current.getBoundingClientRect();
       const relativeX = (clientX - left) / width;
-      const newValue = Math.round(relativeX * (max - min));
+      const newValue = Math.round(relativeX * (max - min)) + min;
       onChange(Math.min(max, Math.max(min, newValue)));
     }
   };
@@ -66,7 +66,7 @@ const Slider = ({
     const { clientX } = event;
     const { left, width } = sliderRef.current.getBoundingClientRect();
     const relativeX = (clientX - left) / width;
-    const newValue = Math.round(relativeX * (max - min));
+    const newValue = Math.round(relativeX * (max - min)) + min;
     onChange(Math.min(max, Math.max(min, newValue)));
   };
 
@@ -77,6 +77,34 @@ const Slider = ({
       onChange(Math.min(max, value + 1));
     }
   };
+
+  const backgroundRailStyles = (() => ({
+    backgroundImage: `
+    linear-gradient(to right, ${
+      value === min ? "transparent" : "var(--slider-rail-fill-color)"
+    }, ${Array.from(new Array(max - min - 1))
+      .map(
+        (_, index) =>
+          `${
+            index + 1 <= value - min
+              ? "var(--slider-rail-fill-color)"
+              : "transparent"
+          } calc(${(100 / (max - min)) * (index + 1)}% - 2px), ` +
+          `black calc(${(100 / (max - min)) * (index + 1)}% - 2px), ` +
+          `black calc(${(100 / (max - min)) * (index + 1)}% + 2px), ` +
+          `${
+            index + 2 <= value - min
+              ? "var(--slider-rail-fill-color)"
+              : "transparent"
+          } calc(${(100 / (max - min)) * (index + 1)}% + 2px)`
+      )
+      .join(", ")}, ${
+      value === max ? "var(--slider-rail-fill-color)" : "transparent"
+    })
+`,
+  }))();
+
+  console.log(backgroundRailStyles);
 
   useEventListener("mousemove", handleMouseMove);
   useEventListener("mouseup", handleMouseUp);
@@ -94,9 +122,14 @@ const Slider = ({
       <div
         ref={sliderRef}
         className={cn("SliderRail", className, { Slider_disabled: disabled })}
+        style={backgroundRailStyles}
       >
+        <span
+          className={cn("SliderRailFill")}
+          style={{ width: `calc(${relativeValue}%` }}
+        />
         <Button
-          variant={"primary"}
+          variant={"secondary"}
           disabled={disabled}
           style={{ left: `calc(${relativeValue}% ` }}
           onKeyDown={handleKeyDown}

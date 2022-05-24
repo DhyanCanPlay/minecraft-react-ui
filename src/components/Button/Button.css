@@ -73,12 +73,11 @@
 .Button_primary {
   --button-bg-color: #3b8526;
   --button-bg-hover-color: #52a535;
-  --button-bg-hover-color: #52a535;
   --button-bg-active-color: #2a641c;
   --button-text-color: #fff;
   --button-text-hover-color: #fff;
   --button-text-active-color: #fff;
-  --button-border-color: #6a9759;
+  --button-border-color: #1d4d13;
   font-family: minecraft-bold;
   text-transform: uppercase;
 }
