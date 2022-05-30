@@ -1,0 +1,65 @@
+:root {
+  --select-background-color: #313234;
+}
+
+.Select {
+  background-color: var(--select-background-color);
+  border-radius: 0;
+  border-style: solid;
+  border-width: 4px 2px 2px;
+  border-color: #242326;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+}
+
+.Select_focus .SelectOptions {
+  display: block;
+}
+.SelectOption,
+.SelectValue {
+  font-family: "Minecraft";
+  font-size: 16px;
+  line-height: 1.4;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.SelectIcon {
+  height: 8px;
+  width: 8px;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.SelectOptions {
+  display: none;
+  position: absolute;
+  top: 100%;
+  background-color: var(--select-background-color);
+  width: 100%;
+  border-style: solid;
+  border-width: 4px 2px 2px;
+  border-color: #242326;
+}
+
+.SelectOption {
+  padding: 6px 12px;
+  color: #d0d1d4;
+}
+
+.SelectOptions:hover .SelectOption {
+  background-color: transparent;
+}
+
+.SelectOption_selected {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.SelectOption:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
