@@ -10,7 +10,7 @@ export type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
   active?: boolean;
   className?: string;
   type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "tertiary";
+  variant?: "primary" | "secondary" | "clear";
 };
 
 const Button = ({
@@ -46,7 +46,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
   type: PropTypes.oneOf(["button", "submit", "reset"]),
-  variant: PropTypes.oneOf(["primary", "secondary", "tertiary"]),
+  variant: PropTypes.oneOf(["primary", "secondary", "clear"]),
 };
 
 Button.defaultProps = {

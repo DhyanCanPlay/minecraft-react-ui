@@ -82,6 +82,17 @@
   text-transform: uppercase;
 }
 
+.Button_clear {
+  border: none;
+  --button-bg-color: transparent;
+  --button-bg-hover-color: rgba(244, 246, 249, 0.2);
+  --button-bg-active-color: rgba(244, 246, 249, 0.1);
+  --button-text-color: #fff;
+  --button-text-hover-color: #fff;
+  --button-text-active-color: #fff;
+  --button-border-color: transparent;
+}
+
 .Button_secondary {
   --button-bg-color: #d0d1d4;
   --button-bg-hover-color: #f4f6f9;

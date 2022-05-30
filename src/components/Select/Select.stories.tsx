@@ -27,6 +27,7 @@ export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   placeholder: "Select a value",
+  searchPlaceholder: "Search for a value",
   options: [
     {
       label: "Option 1",

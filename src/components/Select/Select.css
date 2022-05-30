@@ -14,6 +14,10 @@
   position: relative;
 }
 
+.SelectValue {
+  flex: 1;
+}
+
 .Select_focus .SelectOptions {
   display: block;
 }
@@ -26,13 +30,34 @@
   box-sizing: border-box;
 }
 
-.SelectIcon {
-  height: 8px;
-  width: 8px;
+.SelectActions {
+  padding: 0 16px;
+  display: flex;
+  gap: 8px;
   position: absolute;
+  right: 0;
   top: 50%;
-  right: 16px;
-  transform: translateY(-50%) rotate(90deg);
+  transform: translateY(-50%);
+  height: calc(100% - 16px);
+  align-items: center;
+}
+
+.SelectAction {
+  height: 100%;
+  padding: 0;
+  min-width: 24px;
+}
+
+.SelectAction:focus::after {
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  box-shadow: inset 0 0 0 2px white;
+}
+
+.Select_focus .SelectActionOpen {
+  transform: rotate(90deg);
 }
 
 .SelectOptions {

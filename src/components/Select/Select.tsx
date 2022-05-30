@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import Input from "../Input";
+import Button from "../Button";
 import { useEventListener } from "usehooks-ts";
 import "./Select.css";
 
@@ -20,6 +21,7 @@ type SelectProps = {
   className: string;
   disabled?: boolean;
   placeholder: string;
+  searchPlaceholder: string;
 };
 
 const Select = ({
@@ -28,6 +30,7 @@ const Select = ({
   options,
   value,
   placeholder,
+  searchPlaceholder,
   onChange,
   onFocus,
   onBlur,
@@ -67,6 +70,24 @@ const Select = ({
     );
   });
 
+  const inputPlaceholder = (() => {
+    if (focus && searchPlaceholder) {
+      return searchPlaceholder;
+    }
+    return placeholder;
+  })();
+
+  const selectedOption = options.find((option) => option.value === value);
+
+  const inputValue = (() => {
+    if (focus) {
+      return filter;
+    } else if (value && selectedOption) {
+      return selectedOption.label;
+    }
+    return "";
+  })();
+
   return (
     <div
       className={cn("Select", className, {
@@ -80,22 +101,29 @@ const Select = ({
         disabled={disabled}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        value={
-          focus
-            ? filter
-            : value
-            ? options.find((option) => option.value === value)?.label
-            : placeholder
-        }
+        placeholder={inputPlaceholder}
+        value={inputValue}
         onChange={handleFilter}
       />
+      <div className={cn("SelectActions")}>
+        <Button
+          onClick={() => onChange(undefined)}
+          className={cn("SelectAction", "SelectActionClear")}
+          variant="clear"
+        >
+          {"✕"}
+        </Button>
+        <Button
+          onClick={() => {
+            inputRef.current.focus();
+          }}
+          className={cn("SelectAction", "SelectActionOpen")}
+          variant="clear"
+        >
+          {">"}
+        </Button>
+      </div>
 
-      <span
-        onClick={() => inputRef.current.focus()}
-        className={cn("SelectIcon")}
-      >
-        {">"}
-      </span>
       <div className={cn("SelectOptions")}>
         {filteredOptions.map((option) => (
           <div
@@ -118,6 +146,7 @@ Select.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   placeholder: PropTypes.string,
+  searchPlaceholder: PropTypes.string,
   disabled: PropTypes.bool,
   options: PropTypes.shape({
     label: PropTypes.string,
