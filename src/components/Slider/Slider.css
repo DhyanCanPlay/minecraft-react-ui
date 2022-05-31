@@ -2,6 +2,8 @@
   --slider-rail-bg-color: #8c8d90;
   --slider-rail-bg-hover-color: #f4f6f9;
   --slider-rail-fill-color: #3b8526;
+  --slider-tooltip-pixel-size: 4px;
+  --slider-tooltip-bg-color: #2e6be5;
   width: 100%;
   padding: 8px 16px;
   position: relative;
@@ -23,16 +25,37 @@
   width: 100%;
   background-color: var(--slider-rail-bg-color);
 }
-
 .SliderTooltip {
-  position: absolute;
-  padding: 4px 12px;
-  transform: translate3d(-50%, -100%, 0);
-  top: calc(0px - 16px);
-  background: #4373e5;
-  box-sizing: border-box;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
+  transform: translate3d(-50%, -100%, 0);
+  top: calc(0px - 16px);
+  position: absolute;
+}
+.SliderTooltipWrapper {
+  background: #4373e5;
+  box-sizing: border-box;
+  display: flex;
+  background-color: var(--slider-tooltip-bg-color);
+  padding: 0 calc(var(--slider-tooltip-pixel-size) * 3);
+  margin-bottom: calc(var(--tooltip-pixel-size) * 2);
+  clip-path: polygon(
+    0% var(--slider-tooltip-pixel-size),
+    var(--slider-tooltip-pixel-size) var(--slider-tooltip-pixel-size),
+    var(--slider-tooltip-pixel-size) 0%,
+    calc(100% - var(--slider-tooltip-pixel-size)) 0%,
+    calc(100% - var(--slider-tooltip-pixel-size))
+      var(--slider-tooltip-pixel-size),
+    100% var(--slider-tooltip-pixel-size),
+    100% calc(100% - var(--slider-tooltip-pixel-size)),
+    calc(100% - var(--slider-tooltip-pixel-size))
+      calc(100% - var(--slider-tooltip-pixel-size)),
+    calc(100% - var(--slider-tooltip-pixel-size)) 100%,
+    var(--slider-tooltip-pixel-size) 100%,
+    var(--slider-tooltip-pixel-size)
+      calc(100% - var(--slider-tooltip-pixel-size)),
+    0% calc(100% - var(--slider-tooltip-pixel-size))
+  );
 }
 
 .SliderTooltip:before {
@@ -41,11 +64,23 @@
   top: 100%;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 8px 8px 0 8px;
-  border-color: #4373e5 transparent transparent transparent;
+  width: calc(var(--slider-tooltip-pixel-size) * 3);
+  height: calc(var(--slider-tooltip-pixel-size) * 2);
+  background-color: var(--slider-tooltip-bg-color);
+  clip-path: polygon(
+    40% 100%,
+    60% 100%,
+    60% 66%,
+    80% 66%,
+    80% 33%,
+    100% 33%,
+    100% 0%,
+    0% 0%,
+    0% 33%,
+    20% 33%,
+    20% 66%,
+    40% 66%
+  );
 }
 
 .Slider_focus .SliderTooltip,

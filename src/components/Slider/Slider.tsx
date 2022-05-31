@@ -104,17 +104,15 @@ const Slider = ({
 `,
   }))();
 
-  console.log(backgroundRailStyles);
-
   useEventListener("mousemove", handleMouseMove);
   useEventListener("mouseup", handleMouseUp);
 
   return (
     <div
       className={cn("Slider", className, {
-        Slider_disabled: disabled,
-        Slider_dragging: isDragging,
-        Slider_focus: isFocus,
+        ["Slider_disabled"]: disabled,
+        ["Slider_dragging"]: isDragging,
+        ["Slider_focus"]: isFocus,
       })}
       onClick={handleClick}
       onMouseDown={handleMouseDown}
@@ -137,7 +135,7 @@ const Slider = ({
           onBlur={handleBlur}
         >
           <span className={cn("SliderTooltip")} style={{ left: "50%" }}>
-            {value}
+            <span className={cn("SliderTooltipWrapper")}>{value}</span>
           </span>
         </Button>
       </div>
