@@ -6,6 +6,13 @@
   font-family: "minecraft-bold";
   src: url("../font/MinecraftBold.otf");
 }
+body {
+  font-family: "minecraft";
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+  background-color: #23232a;
+}
 
 :root {
   --background-color: #23232a;
