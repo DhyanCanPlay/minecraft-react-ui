@@ -4,6 +4,7 @@ import cn from "classnames";
 import Input from "../Input";
 import Button from "../Button";
 import { useEventListener } from "usehooks-ts";
+import Dropdown from "../Dropdown";
 import "./Select.css";
 
 type SelectOption = {
@@ -89,56 +90,74 @@ const Select = ({
   })();
 
   return (
-    <div
-      className={cn("Select", className, {
-        ["Select_disabled"]: disabled,
-        ["Select_focus"]: focus,
-      })}
+    <Dropdown
+      content={
+        <div className={cn("SelectOptions")}>
+          {filteredOptions.map((option) => (
+            <div
+              key={option.value}
+              className={cn("SelectOption", {
+                ["SelectOption_disabled"]: option.disabled,
+                ["SelectOption_selected"]: option.value === value,
+              })}
+              onMouseDown={() => selectOption(option)}
+            >
+              {option.label}
+            </div>
+          ))}
+        </div>
+      }
     >
-      <Input
-        ref={inputRef}
-        className={cn("SelectValue")}
-        disabled={disabled}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        placeholder={inputPlaceholder}
-        value={inputValue}
-        onChange={handleFilter}
-      />
-      <div className={cn("SelectActions")}>
-        <Button
-          onClick={() => onChange(undefined)}
-          className={cn("SelectAction", "SelectActionClear")}
-          variant="clear"
+      {({ open, close, visible, ref, className: dropdownClassName }) => (
+        <div
+          ref={ref}
+          className={cn(className, dropdownClassName, "Select", {
+            ["Select_disabled"]: disabled,
+            ["Select_focus"]: focus,
+            ["Select_visible"]: visible,
+          })}
         >
-          {"✕"}
-        </Button>
-        <Button
-          onClick={() => {
-            inputRef.current.focus();
-          }}
-          className={cn("SelectAction", "SelectActionOpen")}
-          variant="clear"
-        >
-          {">"}
-        </Button>
-      </div>
-
-      <div className={cn("SelectOptions")}>
-        {filteredOptions.map((option) => (
-          <div
-            key={option.value}
-            className={cn("SelectOption", {
-              ["SelectOption_disabled"]: option.disabled,
-              ["SelectOption_selected"]: option.value === value,
-            })}
-            onMouseDown={() => selectOption(option)}
-          >
-            {option.label}
+          <Input
+            ref={inputRef}
+            className={cn("SelectValue")}
+            disabled={disabled}
+            onFocus={(event) => {
+              open();
+              handleFocus(event);
+            }}
+            onBlur={(event) => {
+              close();
+              handleBlur(event);
+            }}
+            placeholder={inputPlaceholder}
+            value={inputValue}
+            onChange={handleFilter}
+          />
+          <div className={cn("SelectActions")}>
+            <Button
+              onClick={() => onChange(undefined)}
+              className={cn("SelectAction", "SelectActionClear")}
+              variant="clear"
+            >
+              {"✕"}
+            </Button>
+            <Button
+              onClick={() => {
+                if (visible) {
+                  close();
+                } else {
+                  open();
+                }
+              }}
+              className={cn("SelectAction", "SelectActionOpen")}
+              variant="clear"
+            >
+              {">"}
+            </Button>
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      )}
+    </Dropdown>
   );
 };
 
@@ -148,11 +167,17 @@ Select.propTypes = {
   placeholder: PropTypes.string,
   searchPlaceholder: PropTypes.string,
   disabled: PropTypes.bool,
-  options: PropTypes.shape({
-    label: PropTypes.string,
-    value: PropTypes.string,
-    disabled: PropTypes.bool,
-  }),
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string,
+      disabled: PropTypes.bool,
+    })
+  ),
+};
+Select.defaultProps = {
+  onFocus: () => {},
+  onBlur: () => {},
 };
 
 export default Select;

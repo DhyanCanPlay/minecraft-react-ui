@@ -20,7 +20,36 @@ const Template: ComponentStory<typeof Select> = (args) => {
     setValue(value);
     args.onChange(value);
   };
-  return <Select {...args} value={value} onChange={handleChange} />;
+  return (
+    <Select
+      {...args}
+      options={[
+        {
+          label: "Option 1",
+          value: "option-1",
+        },
+        {
+          label: "Option 2",
+          value: "option-2",
+        },
+        {
+          label: "Option 3",
+          value: "option-3",
+        },
+        {
+          label: "Option 3 (disabled)",
+          value: "option-disabled",
+          disabled: true,
+        },
+        {
+          label: "Option 4",
+          value: "option-4",
+        },
+      ]}
+      value={value}
+      onChange={handleChange}
+    />
+  );
 };
 
 export const Primary = Template.bind({});
@@ -28,28 +57,4 @@ export const Primary = Template.bind({});
 Primary.args = {
   placeholder: "Select a value",
   searchPlaceholder: "Search for a value",
-  options: [
-    {
-      label: "Option 1",
-      value: "option-1",
-    },
-    {
-      label: "Option 2",
-      value: "option-2",
-    },
-    {
-      label: "Option 3",
-      value: "option-3",
-    },
-    {
-      label: "Option 4",
-      value: "option-4",
-    },
-  ],
-};
-
-export const Secondary = Template.bind({});
-
-Secondary.args = {
-  children: "Click me!",
 };
