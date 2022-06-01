@@ -93,6 +93,10 @@
   --button-border-color: transparent;
 }
 
+.Button_clear:focus::after {
+  height: calc(100% + 2px);
+}
+
 .Button_secondary {
   --button-bg-color: #d0d1d4;
   --button-bg-hover-color: #f4f6f9;
