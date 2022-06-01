@@ -37,8 +37,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.propTypes = {
-  children: PropTypes.node.isRequired,
-  onClick: PropTypes.func.isRequired,
+  children: PropTypes.node,
+  onClick: PropTypes.func,
   active: PropTypes.bool,
   disabled: PropTypes.bool,
   className: PropTypes.string,
