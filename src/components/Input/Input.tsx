@@ -4,24 +4,22 @@ import cn from "classnames";
 import "./Input.css";
 
 export type InputProps = Omit<React.HTMLProps<HTMLInputElement>, "onChange"> & {
-  onChange: (value: string) => void;
+  onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
   className?: string;
 };
 
-const Input = React.forwardRef(
-  ({ onChange, disabled, className, ...rest }: InputProps, ref: React.Ref) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ onChange, disabled, className, ...rest }, ref) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(event.target.value);
+      onChange(event.target.value, event);
     };
     return (
       <input
         ref={ref}
         disabled={disabled}
         onChange={handleChange}
-        className={cn("Input", className, {
-          "Input-disabled": disabled,
-        })}
+        className={cn("Input", className)}
         {...rest}
       />
     );

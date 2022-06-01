@@ -1,8 +1,5 @@
-:root {
-  --input-background-color: #313234;
-}
-
 .Input {
+  --input-background-color: #313234;
   padding: 6px 12px;
   background-color: var(--input-background-color);
   color: #fff;
@@ -26,7 +23,11 @@
   outline: none;
 }
 
-.Input-disabled {
+.Input[readonly],
+.Input[disabled] {
   pointer-events: none;
+}
+
+.Input[disabled] {
   opacity: 0.5;
 }
