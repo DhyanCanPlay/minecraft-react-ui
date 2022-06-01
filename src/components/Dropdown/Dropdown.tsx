@@ -6,18 +6,18 @@ import { usePopper } from "react-popper";
 import cn from "classnames";
 import "./Dropdown.css";
 
-type DropdownProps = {
+export type DropdownProps = {
   content: React.ReactNode;
   children: any;
   placement?: Placement;
 };
 
-const Dropdown = ({ content, children }: DropdownProps) => {
+const Dropdown = ({ content, children, placement }: DropdownProps) => {
   const [visible, setVisible] = React.useState<boolean>(false);
   const [referenceElement, setReferenceElement] = React.useState(null);
   const [popperElement, setPopperElement] = React.useState(null);
   const instance = usePopper(referenceElement, popperElement, {
-    placement: "bottom-start",
+    placement,
     modifiers: [],
   });
   const { styles, attributes } = instance;
@@ -56,7 +56,6 @@ const Dropdown = ({ content, children }: DropdownProps) => {
         : React.cloneElement(children, {
             ref: setReferenceElement,
             onMouseDown: handleMouseDown,
-            visible,
             className: cn("DropdownTarget", { visible }),
           })}
       {visible &&
@@ -80,8 +79,11 @@ const Dropdown = ({ content, children }: DropdownProps) => {
 Dropdown.propTypes = {
   content: PropTypes.node.isRequired,
   children: PropTypes.node.isRequired,
+  placement: PropTypes.string,
 };
 
-Dropdown.defaultProps = {};
+Dropdown.defaultProps = {
+  placement: "bottom-end",
+};
 
 export default Dropdown;
