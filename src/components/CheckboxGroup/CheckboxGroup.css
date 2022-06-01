@@ -1,0 +1,44 @@
+.CheckboxGroup {
+  display: flex;
+  gap: 1rem;
+}
+.CheckboxGroup_row {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.CheckboxGroup_column {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.CheckboxOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+.CheckboxOption span {
+  flex: 1;
+  min-width: 0;
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.CheckboxOption_readOnly,
+.CheckboxGroup_readOnly label {
+  pointer-events: none;
+  cursor: default;
+}
+.CheckboxOption_disabled span,
+.CheckboxGroup_disabled .CheckboxOption span {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.CheckboxGroup_row .CheckboxOption {
+  white-space: pre;
+}
