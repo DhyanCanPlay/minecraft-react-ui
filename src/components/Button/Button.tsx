@@ -13,31 +13,28 @@ export type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
   variant?: "primary" | "secondary" | "clear";
 };
 
-const Button = ({
-  children,
-  onClick,
-  active,
-  disabled,
-  className,
-  type,
-  variant,
-  ...rest
-}: ButtonProps) => {
-  return (
-    <button
-      {...rest}
-      type={type}
-      onClick={onClick}
-      className={cn("Button", className, {
-        [`Button_${variant}`]: variant,
-        [`Button_active`]: active,
-        [`Button_disabled`]: disabled,
-      })}
-    >
-      <span className={cn("ButtonText")}>{children}</span>
-    </button>
-  );
-};
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    { children, onClick, active, disabled, className, type, variant, ...rest },
+    ref
+  ) => {
+    return (
+      <button
+        ref={ref}
+        {...rest}
+        type={type}
+        onClick={onClick}
+        className={cn("Button", className, {
+          [`Button_${variant}`]: variant,
+          [`Button_active`]: active,
+          [`Button_disabled`]: disabled,
+        })}
+      >
+        <span className={cn("ButtonText")}>{children}</span>
+      </button>
+    );
+  }
+);
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
