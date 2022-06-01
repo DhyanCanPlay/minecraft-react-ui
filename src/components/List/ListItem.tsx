@@ -5,28 +5,39 @@ import "./ListItem.css";
 import DropdownMenu, { DropdownMenuProps } from "../DropdownMenu";
 
 export type ListItemSelectionProps = {
-  toggle: (id: string) => void;
+  toggle: () => void;
   selected: boolean;
   selectedIds: string[];
   disabled: boolean;
-  checkbox: React.ReactNode;
+  checkbox: React.ReactElement;
 };
 
-export type ListItemProps = {
+export type ListItemProps = React.HTMLProps<HTMLLIElement> & {
   children: React.ReactNode;
   selection: ListItemSelectionProps;
   options: DropdownMenuProps["items"];
 };
 
-const ListItem = ({ children, selection, options }: ListItemProps) => {
+const ListItem = ({ children, selection, options, onClick }: ListItemProps) => {
   const selectionEnable = selection && selection.selectedIds.length > 0;
+  const handleClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    if (selectionEnable) {
+      selection.toggle();
+    } else if (onClick) {
+      onClick(event);
+    }
+  };
   return (
     <li
       className={cn("ListItem", {
         ["ListItem_selection"]: selectionEnable,
       })}
+      onClick={handleClick}
     >
-      {selection && selection.checkbox}
+      {selection &&
+        React.cloneElement(selection.checkbox, {
+          className: "ListItemCheckbox",
+        })}
       <div className={cn("ListItemContent")}>{children}</div>
       {options && <DropdownMenu placement="bottom-end" items={options} />}
     </li>
