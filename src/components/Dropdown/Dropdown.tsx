@@ -12,7 +12,7 @@ type DropdownProps = {
   placement?: Placement;
 };
 
-const Dropdown = React.forwardRef(({ content, children }: DropdownProps) => {
+const Dropdown = ({ content, children }: DropdownProps) => {
   const [visible, setVisible] = React.useState<boolean>(false);
   const [referenceElement, setReferenceElement] = React.useState(null);
   const [popperElement, setPopperElement] = React.useState(null);
@@ -75,7 +75,7 @@ const Dropdown = React.forwardRef(({ content, children }: DropdownProps) => {
         )}
     </>
   );
-});
+};
 
 Dropdown.propTypes = {
   content: PropTypes.node.isRequired,
