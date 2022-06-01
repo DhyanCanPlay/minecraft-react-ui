@@ -1,0 +1,30 @@
+.ListItem {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  gap: 1rem;
+  width: 100%;
+  border-bottom: 1px solid #e6e6e611;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.ListItem:hover {
+  background-color: #f5f5f511;
+}
+
+.ListItem:hover .ListItemSelect,
+.ListItem_selection .ListItemSelect {
+  opacity: 1;
+}
+
+.ListItemSelect {
+  display: flex;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+.ListItemContent {
+  flex: 1;
+}

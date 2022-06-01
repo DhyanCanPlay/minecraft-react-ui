@@ -1,0 +1,17 @@
+.List {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.List_row {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.List_column {
+  flex-direction: column;
+  align-items: flex-start;
+}
