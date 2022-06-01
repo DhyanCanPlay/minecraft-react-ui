@@ -18,23 +18,30 @@ export default {
     readOnly: {
       control: { type: "boolean" },
     },
+    indeterminate: {
+      control: { type: "boolean" },
+    },
   },
 } as ComponentMeta<typeof Checkbox>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Checkbox> = (args: CheckboxProps) => {
-  const [value, setValue] = React.useState<boolean>(
-    (args.value as boolean) || false
+const Template: ComponentStory<typeof Checkbox> = ({
+  value,
+  onChange,
+  ...args
+}: CheckboxProps) => {
+  const [localValue, setLocalValue] = React.useState<boolean>(
+    (value as boolean) || false
   );
   const handleChange = (
     value: boolean,
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setValue(value);
-    args.onChange(value, event);
+    setLocalValue(value);
+    onChange(value, event);
   };
 
-  return <Checkbox {...args} value={value} onChange={handleChange} />;
+  return <Checkbox value={localValue} onChange={handleChange} {...args} />;
 };
 
 export const Default = Template.bind({});
@@ -46,10 +53,11 @@ Default.args = {
   },
 };
 
-export const Secondary = Template.bind({});
+export const Indeterminate = Template.bind({});
 
-Secondary.args = {
-  placeholder: "Placeholder",
+Indeterminate.args = {
+  readOnly: true,
+  indeterminate: true,
   onChange: (value) => {
     console.log(value);
   },
