@@ -9,10 +9,16 @@ import "./Dropdown.css";
 export type DropdownProps = {
   content: React.ReactNode;
   children: any;
+  closeOnContentClick?: boolean;
   placement?: Placement;
 };
 
-const Dropdown = ({ content, children, placement }: DropdownProps) => {
+const Dropdown = ({
+  content,
+  children,
+  placement,
+  closeOnContentClick,
+}: DropdownProps) => {
   const [visible, setVisible] = React.useState<boolean>(false);
   const [referenceElement, setReferenceElement] = React.useState(null);
   const [popperElement, setPopperElement] = React.useState(null);
@@ -24,6 +30,12 @@ const Dropdown = ({ content, children, placement }: DropdownProps) => {
 
   const handleMouseDown = (event: React.MouseEvent) => {
     setVisible(!visible);
+  };
+
+  const handleClickOnContent = (event: React.MouseEvent) => {
+    if (closeOnContentClick) {
+      setVisible(false);
+    }
   };
 
   React.useEffect(() => {
@@ -66,6 +78,7 @@ const Dropdown = ({ content, children, placement }: DropdownProps) => {
             className={cn("Dropdown", {
               ["Dropdown_visible"]: visible,
             })}
+            onClick={handleClickOnContent}
             {...attributes.popper}
           >
             {content}
@@ -80,6 +93,7 @@ Dropdown.propTypes = {
   content: PropTypes.node.isRequired,
   children: PropTypes.node.isRequired,
   placement: PropTypes.string,
+  closeOnContentClick: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
