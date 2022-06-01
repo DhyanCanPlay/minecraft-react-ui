@@ -1,0 +1,44 @@
+.RadioGroup {
+  display: flex;
+  gap: 1rem;
+}
+.RadioGroup_row {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.RadioGroup_column {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.RadioOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+.RadioOption span {
+  flex: 1;
+  min-width: 0;
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.RadioOption_readOnly,
+.RadioGroup_readOnly label {
+  pointer-events: none;
+  cursor: default;
+}
+.RadioOption_disabled span,
+.RadioGroup_disabled .RadioOption span {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.RadioGroup_row .RadioOption {
+  white-space: pre;
+}
