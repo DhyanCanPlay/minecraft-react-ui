@@ -14,6 +14,12 @@ body {
   background-color: #23232a;
 }
 
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 :root {
   --background-color: #23232a;
   --input-background-color: #23232a;
