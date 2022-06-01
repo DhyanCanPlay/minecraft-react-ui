@@ -11,7 +11,11 @@ const DropdownMenu = ({
   placement,
 }: MenuProps & ButtonProps & Omit<DropdownProps, "children" | "content">) => {
   return (
-    <Dropdown placement={placement} content={<Menu items={items} z />}>
+    <Dropdown
+      closeOnContentClick
+      placement={placement}
+      content={<Menu items={items} />}
+    >
       <Button variant={"clear"}>
         <MenuIcon />
       </Button>
