@@ -75,6 +75,7 @@
 .Checkbox[readonly],
 .Checkbox[disabled] {
   pointer-events: none;
+  cursor: pointer;
 }
 
 .Checkbox[disabled] {
