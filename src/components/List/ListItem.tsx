@@ -39,7 +39,13 @@ const ListItem = ({ children, selection, options, onClick }: ListItemProps) => {
           className: "ListItemCheckbox",
         })}
       <div className={cn("ListItemContent")}>{children}</div>
-      {options && <DropdownMenu placement="bottom-end" items={options} />}
+      {options && (
+        <DropdownMenu
+          onClick={(event) => event.stopPropagation()}
+          placement="bottom-end"
+          items={options}
+        />
+      )}
     </li>
   );
 };
