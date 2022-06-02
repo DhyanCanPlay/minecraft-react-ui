@@ -2,7 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import { useEventListener } from "usehooks-ts";
-import Button from "../Button";
+import Button from "../../Button";
 import "./Slider.css";
 
 export type SliderProps = {
