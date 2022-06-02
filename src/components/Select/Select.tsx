@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import Input from "../Input";
 import Button from "../Button";
-import { useEventListener } from "usehooks-ts";
 import Dropdown from "../Dropdown";
 import "./Select.css";
 

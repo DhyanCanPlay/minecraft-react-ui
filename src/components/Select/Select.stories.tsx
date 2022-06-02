@@ -4,7 +4,7 @@ import Select from "./Select";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/Select",
+  title: "ReactComponentLibrary/inputs/Select",
   component: Select,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},

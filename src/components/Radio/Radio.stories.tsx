@@ -5,7 +5,7 @@ import type { RadioProps } from "./Radio";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/Radio",
+  title: "ReactComponentLibrary/inputs/Radio",
   component: Radio,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {

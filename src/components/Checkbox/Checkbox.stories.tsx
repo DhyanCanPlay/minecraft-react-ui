@@ -5,7 +5,7 @@ import type { CheckboxProps } from "./Checkbox";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/Checkbox",
+  title: "ReactComponentLibrary/inputs/Checkbox",
   component: Checkbox,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {

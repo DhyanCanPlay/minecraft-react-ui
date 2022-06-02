@@ -5,7 +5,7 @@ import type { InputProps } from "./Input";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/Input",
+  title: "ReactComponentLibrary/inputs/Input",
   component: Input,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
