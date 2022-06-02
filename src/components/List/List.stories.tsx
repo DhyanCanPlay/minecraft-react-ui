@@ -2,11 +2,9 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import List from "./List";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "ReactComponentLibrary/List",
   component: List,
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},
 } as ComponentMeta<typeof List>;
 
@@ -25,12 +23,11 @@ const Container = ({ children }) => (
   </div>
 );
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof List> = (args) => {
   return (
     <Container>
       <List
-        selectable
+        {...args}
         items={[
           { id: "1", text: "Text 1" },
           { id: "2", text: "Text 2" },
@@ -53,7 +50,8 @@ const Template: ComponentStory<typeof List> = (args) => {
   );
 };
 
-export const Click = Template.bind({});
-Click.args = {
-  children: "Click me!",
+export const Selectable = Template.bind({});
+
+Selectable.args = {
+  selectable: true,
 };
