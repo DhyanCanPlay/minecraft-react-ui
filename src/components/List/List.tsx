@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
-import Checkbox from "../Checkbox";
+import Checkbox from "../inputs/Checkbox";
 import ListItem, { ListItemProps, ListItemSelectionProps } from "./ListItem";
 import { MenuItemProps } from "../Menu";
 import "./List.css";

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import Input from "../Input";
 import Button from "../../Button";
-import Dropdown from "....//Dropdown";
+import Dropdown from "../../Dropdown";
 import "./Select.css";
 
 type SelectOption = {
