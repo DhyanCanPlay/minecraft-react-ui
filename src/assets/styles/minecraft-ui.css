@@ -24,5 +24,11 @@ body {
   --background-color: #23232a;
   --input-background-color: #23232a;
   --select-color: #fff;
-  --primary-color: ;
+
+  --primary-color: #3b8526;
+  --primary-color-30: rgba(59, 133, 38, 0.3);
+  --primary-color-hover: #52a535;
+  --primary-color-hover-30: rgba(52, 165, 53, 0.3);
+  --primary-color-active: #2a641c;
+  --primary-color-active-30: rgba(42, 100, 28, 0.3);
 }

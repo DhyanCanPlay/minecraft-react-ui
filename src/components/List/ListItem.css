@@ -20,6 +20,13 @@
   opacity: 1;
 }
 
+.ListItem_selected {
+  background-color: var(--primary-color-30);
+}
+.ListItem_selected:hover {
+  background-color: var(--primary-color-hover-30);
+}
+
 .ListItemCheckbox {
   display: flex;
   opacity: 0;

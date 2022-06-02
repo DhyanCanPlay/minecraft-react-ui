@@ -20,6 +20,7 @@ export type ListItemProps = React.HTMLProps<HTMLLIElement> & {
 
 const ListItem = ({ children, selection, options, onClick }: ListItemProps) => {
   const selectionEnable = selection && selection.selectedIds.length > 0;
+  const selected = selection && selection.selected;
   const handleClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     if (selectionEnable) {
       selection.toggle();
@@ -30,6 +31,7 @@ const ListItem = ({ children, selection, options, onClick }: ListItemProps) => {
   return (
     <li
       className={cn("ListItem", {
+        ["ListItem_selected"]: selected,
         ["ListItem_selection"]: selectionEnable,
       })}
       onClick={handleClick}
