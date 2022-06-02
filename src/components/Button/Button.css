@@ -2,9 +2,9 @@
   --button-bg-color: #00c0ff;
   --button-bg-hover-color: #00b0ff;
   --button-bg-active-color: #00a0ff;
-  --button-text-color: #fff;
-  --button-text-hover-color: #fff;
-  --button-text-active-color: #fff;
+  --button-text-color: var(--text-color);
+  --button-text-hover-color: var(--text-color);
+  --button-text-active-color: var(--text-color);
   --button-border-color: #00c0ff;
   --button-border-hover-color: #00b0ff;
   --button-border-active-color: #00a0ff;
@@ -53,7 +53,7 @@
   left: -2px;
   width: calc(100% + 4px);
   height: calc(100% + 8px);
-  box-shadow: inset 0 0 0 1px white;
+  box-shadow: inset 0 0 0 1px var(--text-color);
 }
 
 .Button_active::after,
@@ -68,15 +68,16 @@
   box-shadow: none;
   border-width: 4px 0 0;
   border-bottom-color: var(--button-bg-color);
+  background-color: var(--button-bg-active-color);
 }
 
 .Button_primary {
-  --button-bg-color: #3b8526;
-  --button-bg-hover-color: #52a535;
-  --button-bg-active-color: #2a641c;
-  --button-text-color: #fff;
-  --button-text-hover-color: #fff;
-  --button-text-active-color: #fff;
+  --button-bg-color: var(--primary-color);
+  --button-bg-hover-color: var(--primary-color-hover);
+  --button-bg-active-color: var(--primary-color-active);
+  --button-text-color: var(--text-color);
+  --button-text-hover-color: var(--text-color);
+  --button-text-active-color: var(--text-color);
   --button-border-color: #1d4d13;
   font-family: minecraft-bold;
   text-transform: uppercase;
@@ -88,9 +89,9 @@
   --button-bg-color: transparent;
   --button-bg-hover-color: rgba(244, 246, 249, 0.2);
   --button-bg-active-color: rgba(244, 246, 249, 0.1);
-  --button-text-color: #fff;
-  --button-text-hover-color: #fff;
-  --button-text-active-color: #fff;
+  --button-text-color: var(--text-color);
+  --button-text-hover-color: var(--text-color);
+  --button-text-active-color: var(--text-color);
   --button-border-color: transparent;
 }
 
@@ -102,11 +103,11 @@
 }
 
 .Button_secondary {
-  --button-bg-color: #d0d1d4;
-  --button-bg-hover-color: #f4f6f9;
-  --button-bg-active-color: #b1b2b5;
-  --button-text-color: #1e1e1f;
-  --button-text-hover-color: #1e1e1f;
-  --button-text-active-color: #1e1e1f;
   --button-border-color: #58585a;
+  --button-bg-color: var(--secondary-color);
+  --button-bg-hover-color: var(--secondary-color-hover);
+  --button-bg-active-color: var(--secondary-color-active);
+  --button-text-color: var(--text-color-invert);
+  --button-text-hover-color: var(--text-color-invert);
+  --button-text-active-color: var(--text-color-invert);
 }

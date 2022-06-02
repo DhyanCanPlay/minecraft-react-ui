@@ -10,7 +10,7 @@ body {
   font-family: "minecraft";
   font-size: 16px;
   line-height: 1.5;
-  color: #fff;
+  color: var(--text-color);
   background-color: #23232a;
 }
 
@@ -31,4 +31,16 @@ body {
   --primary-color-hover-30: rgba(52, 165, 53, 0.3);
   --primary-color-active: #2a641c;
   --primary-color-active-30: rgba(42, 100, 28, 0.3);
+
+  --accent-color: #2e6be5;
+
+  --secondary-color: #d0d1d4;
+  --secondary-color-30: rgba(208, 209, 212, 0.3);
+  --secondary-color-hover: #f4f6f9;
+  --secondary-color-hover-30: rgba(244, 246, 249, 0.3);
+  --secondary-color-active: #b1b2b5;
+  --secondary-color-active-30: rgba(177, 178, 181, 0.3);
+
+  --text-color: #fff;
+  -text-color-invert: #23232a;
 }

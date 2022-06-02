@@ -1,7 +1,7 @@
 :root {
   --checkbox-bg-color: #23232a;
-  --checkbox-bg-checked-color: #3b8526;
-  --checkbox-bg-checked-hover-color: #52a535;
+  --checkbox-bg-checked-color: var(--primary-color);
+  --checkbox-bg-checked-hover-color: var(--primary-color-hover);
   --checkbox-text-color: #fff;
   --checkbox-text-hover-color: #f4f6f9;
 }

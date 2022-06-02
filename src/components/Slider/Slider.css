@@ -1,9 +1,10 @@
 .Slider {
-  --slider-rail-bg-color: #8c8d90;
-  --slider-rail-bg-hover-color: #f4f6f9;
-  --slider-rail-fill-color: #3b8526;
+  --slider-rail-bg-color: var(--secondary-color);
+  --slider-rail-bg-hover-color: var(--secondary-color-hover);
+  --slider-rail-bg-active-color: var(--secondary-color-active);
+  --slider-rail-fill-color: var(--primary-color);
   --slider-tooltip-pixel-size: 4px;
-  --slider-tooltip-bg-color: #2e6be5;
+  --slider-tooltip-bg-color: var(--accent-color);
   width: 100%;
   padding: 8px 16px;
   position: relative;
@@ -12,11 +13,11 @@
 }
 
 .Slider:hover {
-  --slider-rail-fill-color: #52a535;
+  --slider-rail-fill-color: var(--primary-color-hover);
 }
 
 .Slider_active:hover {
-  --slider-rail-fill-color: #2a641c;
+  --slider-rail-fill-color: var(--primary-color-active);
 }
 
 .SliderRail {
@@ -33,7 +34,6 @@
   position: absolute;
 }
 .SliderTooltipWrapper {
-  background: #4373e5;
   box-sizing: border-box;
   display: flex;
   background-color: var(--slider-tooltip-bg-color);
@@ -101,5 +101,5 @@
 .Slider:hover,
 .Slider_focus,
 .Slider_dragging {
-  --slider-rail-bg-color: #f4f6f9;
+  --slider-rail-bg-color: var(--secondary-color-hover);
 }
