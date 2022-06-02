@@ -29,7 +29,7 @@ const Template: ComponentStory<typeof Dropdown> = (args) => {
   return (
     <Container>
       <Dropdown content={<p>Dropdown message</p>} {...args}>
-        <div>Hover me!</div>
+        <div>Click me!</div>
       </Dropdown>
     </Container>
   );

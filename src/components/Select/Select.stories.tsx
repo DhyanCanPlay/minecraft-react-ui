@@ -52,9 +52,11 @@ const Template: ComponentStory<typeof Select> = (args) => {
   );
 };
 
-export const Primary = Template.bind({});
+export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {
+Default.args = {
   placeholder: "Select a value",
   searchPlaceholder: "Search for a value",
+  value: "option-1",
+  onChange: (value: string): void => console.log(value),
 };

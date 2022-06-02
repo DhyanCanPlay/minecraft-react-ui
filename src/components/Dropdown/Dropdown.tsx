@@ -9,7 +9,16 @@ import "./Dropdown.css";
 export type DropdownProps = {
   content: React.ReactNode;
   children: any;
-  closeOnContentClick?: boolean;
+  /**
+   * If true, Dropdown closes by clicking on the content.
+   */
+  closeOnClickContent?: boolean;
+
+  /**
+   * If true, Dropdown closes by clicking outside the content.
+   */
+  closeOnClickOutside?: boolean;
+
   placement?: Placement;
 };
 
@@ -17,11 +26,13 @@ const Dropdown = ({
   content,
   children,
   placement,
-  closeOnContentClick,
+  closeOnClickContent,
+  closeOnClickOutside,
 }: DropdownProps) => {
   const [visible, setVisible] = React.useState<boolean>(false);
   const [referenceElement, setReferenceElement] = React.useState(null);
   const [popperElement, setPopperElement] = React.useState(null);
+
   const instance = usePopper(referenceElement, popperElement, {
     placement,
     modifiers: [],
@@ -33,7 +44,7 @@ const Dropdown = ({
   };
 
   const handleClickOnContent = (event: React.MouseEvent) => {
-    if (closeOnContentClick) {
+    if (closeOnClickContent) {
       setVisible(false);
     }
   };
@@ -42,6 +53,7 @@ const Dropdown = ({
     if (visible) {
       const handler = (event) => {
         if (
+          closeOnClickOutside &&
           !referenceElement.contains(event.target) &&
           !popperElement.contains(event.target)
         ) {
@@ -74,7 +86,10 @@ const Dropdown = ({
         ReactDOM.createPortal(
           <div
             ref={setPopperElement}
-            style={styles.popper}
+            style={{
+              ...styles.popper,
+              minWidth: `${instance?.state?.elements?.reference?.offsetWidth}px`,
+            }}
             className={cn("Dropdown", {
               ["Dropdown_visible"]: visible,
             })}
@@ -93,11 +108,12 @@ Dropdown.propTypes = {
   content: PropTypes.node.isRequired,
   children: PropTypes.node.isRequired,
   placement: PropTypes.string,
-  closeOnContentClick: PropTypes.bool,
+  closeOnClickContent: PropTypes.bool,
+  closeOnClickOutside: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
-  placement: "bottom-end",
+  placement: "bottom-start",
 };
 
 export default Dropdown;

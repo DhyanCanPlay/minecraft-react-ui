@@ -91,6 +91,7 @@ const Select = ({
 
   return (
     <Dropdown
+      closeOnClickOutside
       content={
         <div className={cn("SelectOptions")}>
           {filteredOptions.map((option) => (
