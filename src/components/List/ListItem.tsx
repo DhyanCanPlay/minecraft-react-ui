@@ -41,7 +41,9 @@ const ListItem = ({ children, selection, options, onClick }: ListItemProps) => {
       <div className={cn("ListItemContent")}>{children}</div>
       {options && (
         <DropdownMenu
-          onClick={(event) => event.stopPropagation()}
+          onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+            event.stopPropagation()
+          }
           placement="bottom-end"
           items={options}
         />

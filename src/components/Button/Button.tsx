@@ -5,7 +5,7 @@ import "./Button.css";
 
 export type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
   children?: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
   active?: boolean;
   className?: string;
