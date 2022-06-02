@@ -18,7 +18,13 @@ export type ListItemProps = React.HTMLProps<HTMLLIElement> & {
   options: DropdownMenuProps["items"];
 };
 
-const ListItem = ({ children, selection, options, onClick }: ListItemProps) => {
+const ListItem = ({
+  children,
+  selection,
+  options,
+  onClick,
+  ...rest
+}: ListItemProps) => {
   const selectionEnable = selection && selection.selectedIds.length > 0;
   const selected = selection && selection.selected;
   const handleClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
@@ -35,6 +41,7 @@ const ListItem = ({ children, selection, options, onClick }: ListItemProps) => {
         ["ListItem_selection"]: selectionEnable,
       })}
       onClick={handleClick}
+      {...rest}
     >
       {selection &&
         React.cloneElement(selection.checkbox, {

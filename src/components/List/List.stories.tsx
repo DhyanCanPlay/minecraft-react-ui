@@ -12,11 +12,8 @@ const Container = ({ children }) => (
   <div
     style={{
       width: "100%",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      padding: "64px",
-      boxSizing: "border-box",
+      padding: "32px",
+      height: "100vh",
     }}
   >
     {children}
@@ -28,10 +25,11 @@ const Template: ComponentStory<typeof List> = (args) => {
     <Container>
       <List
         {...args}
-        items={[
-          { id: "1", text: "Text 1" },
-          { id: "2", text: "Text 2" },
-        ]}
+        virtualized
+        items={Array.from({ length: 1000 }, (_, i) => ({
+          id: i.toString(),
+          text: `Item ${i}`,
+        }))}
         renderItem={({ item }) => <>{item.text}</>}
         itemOptions={() => [
           {
