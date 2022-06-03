@@ -82,6 +82,7 @@ const Dropdown = ({
         : React.cloneElement(children, {
             ref: setReferenceElement,
             onMouseDown: handleMouseDown,
+            active: visible,
             className: cn("DropdownTarget", children.props.className, {
               ["DropdownTarget_visible"]: visible,
             }),
