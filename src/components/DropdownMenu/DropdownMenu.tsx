@@ -11,6 +11,7 @@ const DropdownMenu = ({
   placement,
   className,
   onClick,
+  tabIndex,
 }: MenuProps & ButtonProps & Omit<DropdownProps, "children" | "content">) => {
   return (
     <Dropdown
@@ -19,7 +20,12 @@ const DropdownMenu = ({
       placement={placement}
       content={<Menu items={items} />}
     >
-      <Button onClick={onClick} variant={"clear"} className={className}>
+      <Button
+        onClick={onClick}
+        variant={"clear"}
+        className={className}
+        tabIndex={tabIndex}
+      >
         <MenuIcon />
       </Button>
     </Dropdown>

@@ -37,7 +37,6 @@ export const useListContext = () =>
 export const useListItemContext = (index) => {
   const {
     items,
-    filteredItems,
     selectable,
     selectedIds,
     setSelectedIds,

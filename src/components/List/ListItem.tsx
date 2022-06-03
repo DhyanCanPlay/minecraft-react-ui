@@ -31,7 +31,7 @@ const ListItem = ({ children, index, ...rest }: ListItemProps) => {
   const selected = selection && selection.selected;
 
   const handleClick = () => {
-    if (selection) {
+    if (selection && selection.selectedIds.length > 0) {
       selection.toggle(item);
     }
   };
@@ -59,6 +59,7 @@ const ListItem = ({ children, index, ...rest }: ListItemProps) => {
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
             event.stopPropagation()
           }
+          tabIndex={selection?.selectedIds.length > 0 ? -1 : undefined}
           placement="bottom-end"
           items={options}
         />
