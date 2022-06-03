@@ -25,3 +25,10 @@ export const Secondary = Template.bind({});
 Secondary.args = {
   children: "Click me!",
 };
+
+export const Clear = Template.bind({});
+
+Clear.args = {
+  variant: "clear",
+  children: "Click me!",
+};

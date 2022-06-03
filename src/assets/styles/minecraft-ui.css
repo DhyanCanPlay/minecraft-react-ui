@@ -7,11 +7,6 @@
   src: url("../font/MinecraftBold.otf");
 }
 
-@font-face {
-  font-family: "lotr";
-  src: url("../font/LOTR.ttf");
-}
-
 body {
   font-family: "minecraft";
   font-size: 16px;
@@ -49,4 +44,7 @@ body {
 
   --text-color: #fff;
   --text-color-invert: #23232a;
+
+  --bezel-color: rgba(0, 0, 0, 0.4);
+  --bezel-color-invert: rgba(255, 255, 255, 0.4);
 }
