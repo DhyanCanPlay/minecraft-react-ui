@@ -6,6 +6,12 @@
   font-family: "minecraft-bold";
   src: url("../font/MinecraftBold.otf");
 }
+
+@font-face {
+  font-family: "lotr";
+  src: url("../font/LOTR.ttf");
+}
+
 body {
   font-family: "minecraft";
   font-size: 16px;
@@ -27,9 +33,9 @@ body {
 
   --primary-color: #3b8526;
   --primary-color-30: rgba(59, 133, 38, 0.3);
-  --primary-color-hover: #52a535;
+  --primary-color-hover: #50ad2e;
   --primary-color-hover-30: rgba(52, 165, 53, 0.3);
-  --primary-color-active: #2a641c;
+  --primary-color-active: #4bbc22;
   --primary-color-active-30: rgba(42, 100, 28, 0.3);
 
   --accent-color: #2e6be5;
@@ -38,9 +44,9 @@ body {
   --secondary-color-30: rgba(208, 209, 212, 0.3);
   --secondary-color-hover: #f4f6f9;
   --secondary-color-hover-30: rgba(244, 246, 249, 0.3);
-  --secondary-color-active: #b1b2b5;
+  --secondary-color-active: #ffffff;
   --secondary-color-active-30: rgba(177, 178, 181, 0.3);
 
   --text-color: #fff;
-  -text-color-invert: #23232a;
+  --text-color-invert: #23232a;
 }

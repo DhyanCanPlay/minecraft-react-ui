@@ -8,6 +8,7 @@
   --button-border-color: #00c0ff;
   --button-border-hover-color: #00b0ff;
   --button-border-active-color: #00a0ff;
+  --button-bezel-color: rgba(255, 255, 255, 0.2);
 
   display: inline-block;
   padding: 8px 16px;
@@ -30,6 +31,11 @@
   background-color: var(--button-bg-color);
   background-clip: padding-box;
   box-sizing: border-box;
+  text-transform: uppercase;
+  box-shadow: inset 0px 2px 0px 0px var(--button-bezel-color),
+    inset 0px -2px 0px 0px var(--button-bezel-color),
+    inset 2px 0px 0px 0px var(--button-bezel-color),
+    inset -2px 0px 0px 0px var(--button-bezel-color);
 }
 
 .Button:hover {
@@ -43,7 +49,6 @@
 
 .Button:focus {
   outline: none;
-  box-shadow: none;
 }
 
 .Button:focus::after {
@@ -65,7 +70,6 @@
 .Button:active {
   border-bottom-color: transparent;
   outline: none;
-  box-shadow: none;
   border-width: 4px 0 0;
   border-bottom-color: var(--button-bg-color);
   background-color: var(--button-bg-active-color);
@@ -80,12 +84,11 @@
   --button-text-active-color: var(--text-color);
   --button-border-color: #1d4d13;
   font-family: minecraft-bold;
-  text-transform: uppercase;
 }
 
 .Button_clear {
   border: none;
-  padding: 4px;
+  padding: 0.5rem;
   --button-bg-color: transparent;
   --button-bg-hover-color: rgba(244, 246, 249, 0.2);
   --button-bg-active-color: rgba(244, 246, 249, 0.1);
