@@ -9,6 +9,7 @@ export type DropdownMenuProps = MenuProps & ButtonProps & DropdownProps;
 const DropdownMenu = ({
   items,
   placement,
+  className,
   onClick,
 }: MenuProps & ButtonProps & Omit<DropdownProps, "children" | "content">) => {
   return (
@@ -18,7 +19,7 @@ const DropdownMenu = ({
       placement={placement}
       content={<Menu items={items} />}
     >
-      <Button onClick={onClick} variant={"clear"}>
+      <Button onClick={onClick} variant={"clear"} className={className}>
         <MenuIcon />
       </Button>
     </Dropdown>

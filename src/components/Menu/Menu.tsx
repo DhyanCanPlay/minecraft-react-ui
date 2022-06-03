@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
-import MenuItem, { MenuItemProps } from "./MenuItem";
+import MenuItem from "./MenuItem";
 import "./Menu.css";
 
 export type MenuProps = {

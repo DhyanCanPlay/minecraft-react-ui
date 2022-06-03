@@ -3,31 +3,26 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import { FixedSizeList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
-import Checkbox from "../inputs/Checkbox";
-import ListItem, { ListItemProps, ListItemSelectionProps } from "./ListItem";
+import ListItem, { ListItemProps } from "./ListItem";
 import { MenuItemProps } from "../Menu";
+import ListOptions from "./ListOptions";
+import { ListContextProvider } from "./ListContext";
 import "./List.css";
-
-interface Item {
-  id: string;
-  [key: string]: any;
-}
-
-type RenderItemProps = {
-  item: Item;
-  selection: ListItemSelectionProps;
-  options: Array<MenuItemProps>;
-};
 
 type ListProps = {
   className?: string;
   children?: React.ReactNode;
-  items: Array<Item>;
-  ListItem?: React.ComponentType<ListItemProps>;
-  renderItem: (renderItemProps: RenderItemProps) => React.ReactNode;
-  initialSelectedIds?: string[];
-  itemDisabled?: (item: Item) => boolean;
-  itemOptions?: (item: Item) => Array<MenuItemProps>;
+  items: Array<ListItemProps["item"]>;
+  ListItem: React.ComponentType<ListItemProps>;
+  renderItem: (renderItemProps: {
+    item: ListItemProps["item"];
+    index: number;
+  }) => React.ReactNode;
+  initialSelectedIds?: Array<ListItemProps["item"]["id"]>;
+  itemDisabled?: (item: ListItemProps["item"]) => boolean;
+  itemOptions?: (item: ListItemProps["item"]) => Array<MenuItemProps>;
+  filterable: boolean;
+  itemFilter?: (item: ListItemProps["item"], search: string) => boolean;
   selectable?: boolean;
   direction?: "row" | "column";
   virtualized?: boolean;
@@ -44,102 +39,71 @@ const List = ({
   direction,
   selectable,
   virtualized,
+  filterable = true,
+  itemFilter,
 }: ListProps) => {
-  const [selectedIds, setSelectedIds] =
-    React.useState<string[]>(initialSelectedIds);
-
-  const itemSelected = (item) => {
-    return selectedIds.includes(item.id);
-  };
-
-  const toggle = (item: Item) => {
-    if (itemSelected(item)) {
-      setSelectedIds((selectedIds) => [
-        ...selectedIds.filter((id) => id !== item.id),
-      ]);
-    } else {
-      setSelectedIds((selectedIds) => [...selectedIds, item.id]);
-    }
-  };
+  const [keywords, setKeywords] = React.useState<string>("Item");
+  const filteredItems = filterable
+    ? items.filter((item) => itemFilter(item, keywords))
+    : items;
 
   if (virtualized) {
     return (
-      <AutoSizer>
-        {({ height, width }) => {
-          return (
-            <FixedSizeList
-              height={height}
-              itemCount={items.length}
-              itemSize={60}
-              width={width}
-            >
-              {({ index, style }) => {
-                const item = items[index];
-                const selection = selectable
-                  ? ({
-                      toggle: () => toggle(item),
-                      disabled: itemDisabled(item),
-                      selected: itemSelected(item),
-                      selectedIds,
-                      checkbox: (
-                        <Checkbox
-                          onChange={() => toggle(item)}
-                          value={itemSelected(item)}
-                        />
-                      ),
-                    } as ListItemSelectionProps)
-                  : null;
-                return (
+      <ListContextProvider
+        items={filteredItems}
+        filteredItems={filteredItems}
+        selectable={selectable}
+        initialSelectedIds={initialSelectedIds}
+        itemDisabled={itemDisabled}
+        itemOptions={itemOptions}
+      >
+        <ListOptions
+          options={[
+            {
+              id: "select-all",
+              label: "Select all",
+              onClick: () => {},
+            },
+          ]}
+          filter={{
+            keywords,
+          }}
+          onFilter={(filter) => {
+            setKeywords(filter.keywords);
+          }}
+        />
+        <AutoSizer>
+          {({ height, width }) => {
+            return (
+              <FixedSizeList
+                height={height}
+                itemCount={filteredItems.length}
+                itemSize={48}
+                width={width}
+              >
+                {({ index, style }) => (
                   <ListItemComponent
-                    selection={selection}
-                    options={itemOptions(item)}
+                    item={filteredItems[index]}
+                    index={index}
                     style={style}
                   >
-                    {renderItem({
-                      item,
-                      selection,
-                      options: itemOptions(item),
-                    })}
+                    {renderItem({ item: filteredItems[index], index })}
                   </ListItemComponent>
-                );
-              }}
-            </FixedSizeList>
-          );
-        }}
-      </AutoSizer>
+                )}
+              </FixedSizeList>
+            );
+          }}
+        </AutoSizer>
+      </ListContextProvider>
     );
   }
   return (
     <ul className={cn("List", className, { [`List_${direction}`]: true })}>
-      {items.map((item) => {
-        const selection = selectable
-          ? ({
-              toggle: () => toggle(item),
-              disabled: itemDisabled(item),
-              selected: itemSelected(item),
-              selectedIds,
-              checkbox: (
-                <Checkbox
-                  onChange={() => toggle(item)}
-                  value={itemSelected(item)}
-                />
-              ),
-            } as ListItemSelectionProps)
-          : null;
-        return (
-          <ListItemComponent
-            key={item.id}
-            selection={selection}
-            options={itemOptions(item)}
-          >
-            {renderItem({
-              item,
-              selection,
-              options: itemOptions(item),
-            })}
-          </ListItemComponent>
-        );
-      })}
+      {filteredItems.map((item, index) => (
+        <ListItemComponent key={item.id} item={item} index={index}>
+          {renderItem({ item, index })}
+        </ListItemComponent>
+      ))}
     </ul>
   );
 };
@@ -153,7 +117,9 @@ List.propTypes = {
     })
   ).isRequired,
   itemDisabled: PropTypes.func,
-  initialSelectedIds: PropTypes.arrayOf(PropTypes.string),
+  initialSelectedIds: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
   selectable: PropTypes.bool,
   direction: PropTypes.oneOf(["column", "row"]),
   ListItem: PropTypes.elementType,
@@ -164,8 +130,20 @@ List.defaultProps = {
   renderItem: ({ item }) => <div>{item.id}</div>,
   itemDisabled: () => false,
   itemOptions: () => null,
-  direction: "column",
-  ListItem,
+  itemFilter: (item, keyword) => {
+    const search = (itemPropertyValue) => {
+      if (typeof itemPropertyValue === "string") {
+        return itemPropertyValue.toLowerCase().includes(keyword.toLowerCase());
+      } else if (typeof itemPropertyValue === "object") {
+        return Object.values(itemPropertyValue).some(search);
+      }
+      return false;
+    };
+    return Object.values(item).some(search);
+  },
+  selectable: false,
+  direction: "row",
+  ListItem: ListItem,
 };
 
 export default List;

@@ -15,10 +15,23 @@ export type CheckboxProps = Omit<
   disabled?: boolean;
   indeterminate?: boolean;
   className?: string;
+  label?: string;
 };
 
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ onChange, disabled, className, value, indeterminate, ...rest }, ref) => {
+  (
+    {
+      onChange,
+      disabled,
+      className,
+      value,
+      indeterminate,
+      label,
+      onClick,
+      ...rest
+    },
+    ref
+  ) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       onChange(event.target.checked, event);
     };

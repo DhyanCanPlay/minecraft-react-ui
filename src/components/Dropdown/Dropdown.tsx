@@ -75,12 +75,16 @@ const Dropdown = ({
             open: () => setVisible(true),
             close: () => setVisible(false),
             visible,
-            className: cn("DropdownTarget", { visible }),
+            className: cn("DropdownTarget", {
+              ["DropdownTarget_visible"]: visible,
+            }),
           })
         : React.cloneElement(children, {
             ref: setReferenceElement,
             onMouseDown: handleMouseDown,
-            className: cn("DropdownTarget", { visible }),
+            className: cn("DropdownTarget", children.props.className, {
+              ["DropdownTarget_visible"]: visible,
+            }),
           })}
       {visible &&
         ReactDOM.createPortal(
