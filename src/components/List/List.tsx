@@ -26,6 +26,7 @@ type ListProps = {
   selectable?: boolean;
   direction?: "row" | "column";
   virtualized?: boolean;
+  initialFilter: string;
 };
 
 const List = ({
@@ -41,8 +42,9 @@ const List = ({
   virtualized,
   filterable = true,
   itemFilter,
+  initialFilter,
 }: ListProps) => {
-  const [keywords, setKeywords] = React.useState<string>("Item");
+  const [keywords, setKeywords] = React.useState<string>(initialFilter);
   const filteredItems = filterable
     ? items.filter((item) => itemFilter(item, keywords))
     : items;
@@ -144,6 +146,7 @@ List.defaultProps = {
   selectable: false,
   direction: "row",
   ListItem: ListItem,
+  initialFilter: "",
 };
 
 export default List;

@@ -26,7 +26,7 @@ export type ListItemProps = React.HTMLProps<HTMLLIElement> & {
 };
 
 const ListItem = ({ children, index, ...rest }: ListItemProps) => {
-  const { item, selection, options } = useListItemContext(index);
+  const { item, selection, options, selectable } = useListItemContext(index);
   const selectionEnable = selection && selection.selectedIds.length > 0;
   const selected = selection && selection.selected;
 

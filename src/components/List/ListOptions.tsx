@@ -8,7 +8,7 @@ import { MenuItemProps } from "../Menu";
 import { useListContext } from "./ListContext";
 import "./ListOptions.css";
 
-export type ListOptions = {
+export type ListOptions = React.HTMLProps<HTMLDivElement> & {
   className?: string;
   options?: Array<MenuItemProps>;
   filter?: {
@@ -18,7 +18,7 @@ export type ListOptions = {
 };
 
 const ListOptions = React.forwardRef<HTMLDivElement, ListOptions>(
-  ({ className, options, filter, onFilter, ...rest }, ref) => {
+  ({ className, options, filter, onFilter, children, ...rest }, ref) => {
     const { selectedIds, setSelectedIds, items } = useListContext();
     const noneSelected = !selectedIds?.length;
     const allSelected = items.every(({ id }) => selectedIds.includes(id));
@@ -38,14 +38,19 @@ const ListOptions = React.forwardRef<HTMLDivElement, ListOptions>(
             value={allSelected}
             indeterminate={someSelected}
           />
-          <span>
+          <span className={"SelectAllCheckbox"}>
             {noneSelected ? "Select all" : `Selected ${selectedIds.length}`}
           </span>
         </label>
 
-        <div className={cn("ListOptionsContent")} {...rest} />
+        {children && (
+          <div className={cn("ListOptionsContent")} {...rest}>
+            {children}
+          </div>
+        )}
         {filter && (
           <Input
+            className={cn("ListOptionsFilter")}
             placeholder={"Search items"}
             value={filter.keywords}
             onChange={(keywords) => onFilter({ ...filter, keywords })}

@@ -12,7 +12,6 @@ const Container = ({ children }) => (
   <div
     style={{
       width: "100%",
-      padding: "32px",
       height: "100vh",
     }}
   >
