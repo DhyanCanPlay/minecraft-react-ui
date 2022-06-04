@@ -1,15 +1,19 @@
-:root {
-  --checkbox-bg-color: #23232a;
-  --checkbox-bg-checked-color: var(--primary-color);
-  --checkbox-bg-checked-hover-color: var(--primary-color-hover);
-  --checkbox-text-color: #fff;
-  --checkbox-text-hover-color: #f4f6f9;
-}
-
 .Radio {
+  --radio-bg-color: #23232a;
+  --radio-bg-checked-color: var(--primary-color);
+  --radio-bg-checked-hover-color: var(--primary-color-hover);
+  --radio-text-color: #fff;
+  --radio-text-color-30: rgba(255, 255, 255, 0.3);
+
+  --radio-text-hover-color: #f4f6f9;
+  --radio-bezel-color: var(--bezel-color);
+  --radio-bezel-color-semi: var(--bezel-color-semi);
+  --radio-bezel-color-invert: var(--bezel-color-invert);
+
   width: 16px;
   height: 16px;
-  background-color: var(--checkbox-background-color);
+  background-color: transparent;
+  color: transparent;
   position: relative;
   border: none;
   outline: none;
@@ -18,8 +22,8 @@
 }
 
 .Radio:focus:not(:active) {
-  box-shadow: 0 0 0px 1px var(--checkbox-bg-color),
-    0 0 0 2px var(--checkbox-text-color);
+  box-shadow: 0 0 0px 1px var(--radio-bg-color),
+    0 0 0 2px var(--radio-text-color);
 }
 
 .Radio:before,
@@ -34,43 +38,60 @@
 .Radio:before {
   width: 16px;
   height: 16px;
-  background-color: var(--checkbox-text-color);
+  background-color: var(--text-color-invert);
+  box-shadow: inset 0px -2px 0px 0px var(--radio-bezel-color-semi),
+    inset -2px 0px 0px 0px var(--radio-bezel-color-invert),
+    inset 0px 2px 0px 0px var(--radio-bezel-color-semi),
+    inset 2px 0px 0px 0px var(--radio-bezel-color);
 }
 
 .Radio:after {
-  width: 8px;
-  height: 8px;
-  background-color: transparent;
+  width: 5px;
+  height: 5px;
 }
 
 .Radio:checked:before {
-  background-color: var(--checkbox-bg-checked-color);
+  background-color: var(--radio-bg-checked-color);
+
+  box-shadow: inset 0px -2px 0px 0px var(--radio-bezel-color-semi),
+    inset -2px 0px 0px 0px var(--radio-bezel-color),
+    inset 0px 2px 0px 0px var(--radio-bezel-color-semi),
+    inset 2px 0px 0px 0px var(--radio-bezel-color-invert);
 }
 
 .Radio:hover:before {
-  background-color: var(--checkbox-text-hover-color);
+  background-color: var(--radio-text-hover-color);
 }
 
 .Radio:hover:checked:before {
-  background-color: var(--checkbox-bg-checked-hover-color);
+  background-color: var(--radio-bg-checked-hover-color);
 }
 
 .Radio:checked:after {
-  background-color: var(--checkbox-text-color);
+  background-color: var(--radio-text-color);
+
+  box-shadow: 0px -2px 0px 0px var(--radio-bezel-color-semi),
+    -2px 0px 0px 0px var(--radio-bezel-color),
+    0px 2px 0px 0px var(--radio-bezel-color-semi),
+    2px 0px 0px 0px var(--radio-bezel-color-invert);
 }
 
 .Radio:hover:checked:after {
-  background-color: var(--checkbox-text-hover-color);
+  background-color: var(--radio-text-hover-color);
 }
 
 .Radio_indeterminate:after {
-  background-color: var(--checkbox-bg-checked-color);
-  width: 12px;
-  height: 4px;
+  background-color: var(--radio-bg-checked-color);
+  width: 8px;
+  height: 8px;
+  box-shadow: inset 0px -2px 0px 0px var(--radio-bezel-color),
+    inset -2px 0px 0px 0px var(--radio-bezel-color-semi),
+    inset 0px 2px 0px 0px var(--radio-bezel-color-invert),
+    inset 2px 0px 0px 0px var(--radio-bezel-color-semi);
 }
 
 .Radio_indeterminate:hover:after {
-  background-color: var(--checkbox-bg-checked-hover-color);
+  background-color: var(--radio-bg-checked-hover-color);
 }
 
 .Radio[readonly],
