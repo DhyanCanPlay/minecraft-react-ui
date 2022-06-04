@@ -122,10 +122,6 @@ const Slider = ({
         className={cn("SliderRail", className, { Slider_disabled: disabled })}
         style={backgroundRailStyles}
       >
-        <span
-          className={cn("SliderRailFill")}
-          style={{ width: `calc(${relativeValue}%` }}
-        />
         <Button
           variant={"secondary"}
           disabled={disabled}
