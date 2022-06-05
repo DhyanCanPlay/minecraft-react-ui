@@ -24,6 +24,10 @@ export type ListItemProps = Omit<React.HTMLProps<HTMLLIElement>, "data"> & {
   className?: string;
   index: number;
   item: Item;
+  data: {
+    items: Array<ListItemProps["item"]>;
+    draggable: boolean;
+  };
 };
 
 const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(

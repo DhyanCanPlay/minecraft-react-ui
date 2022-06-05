@@ -36,6 +36,7 @@ export type ListProps = {
 type DragDropItemProps = ListItemProps & {
   provided?: any;
   isDragging?: boolean;
+  isScrolling?: boolean;
 };
 
 const DragDropItem = ({
@@ -66,44 +67,35 @@ const DragDropItem = ({
   );
 };
 
-const DragDropListItem = React.memo(
-  (
-    props: DragDropItemProps & {
-      data: {
-        items: Array<ListItemProps["item"]>;
-        draggable: boolean;
-      };
-    }
-  ) => {
-    const {
-      index,
-      data: { items, draggable },
-      style,
-    } = props;
-    return (
-      <Draggable
-        isDragDisabled={!draggable}
-        draggableId={items[index].id}
-        index={index}
-        key={items[index].id}
-      >
-        {(provided, snapshot) => {
-          return (
-            <DragDropItem
-              {...props}
-              provided={provided}
-              isDragging={snapshot.isDragging}
-              item={items[index]}
-              index={index}
-              style={style}
-            />
-          );
-        }}
-      </Draggable>
-    );
-  },
-  areEqual
-);
+const DragDropListItem = React.memo((props: DragDropItemProps) => {
+  const {
+    index,
+    data: { items, draggable },
+    isScrolling,
+    style,
+  } = props;
+  return (
+    <Draggable
+      isDragDisabled={!draggable || isScrolling}
+      draggableId={items[index].id}
+      index={index}
+      key={items[index].id}
+    >
+      {(provided, snapshot) => {
+        return (
+          <DragDropItem
+            {...props}
+            provided={provided}
+            isDragging={snapshot.isDragging}
+            item={items[index]}
+            index={index}
+            style={style}
+          />
+        );
+      }}
+    </Draggable>
+  );
+}, areEqual);
 
 const List = React.forwardRef<HTMLUListElement, ListProps>(
   (
@@ -145,6 +137,12 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
       }
     };
 
+    const handleDropStart = (result) => {
+      if (window.navigator.vibrate) {
+        window.navigator.vibrate(100);
+      }
+    };
+
     const [keywords, setKeywords] = React.useState<string>(initialFilter);
 
     const filteredItems = filterable
@@ -161,7 +159,10 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
         itemOptions={itemOptions}
         renderItem={renderItem}
       >
-        <DragDropContext onDragEnd={handleDropEnd}>
+        <DragDropContext
+          onDragStart={handleDropStart}
+          onDragEnd={handleDropEnd}
+        >
           <Droppable
             droppableId={"List"}
             mode="virtual"

@@ -48,3 +48,7 @@
 .ListItemOptions {
   opacity: 1;
 }
+
+.DragDropItem_dragging {
+  background-color: var(--primary-color-hover-30);
+}
