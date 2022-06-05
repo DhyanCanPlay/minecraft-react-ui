@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import MenuItem from "./MenuItem";
+import type { MenuItemProps } from "./MenuItem";
 import "./Menu.css";
 
 export type MenuProps = {

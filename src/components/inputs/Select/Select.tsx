@@ -35,8 +35,8 @@ const Select = ({
   onFocus,
   onBlur,
 }: SelectProps) => {
-  const [focus, setFocus] = React.useState(false);
-  const [filter, setFilter] = React.useState("");
+  const [focus, setFocus] = React.useState<boolean>(false);
+  const [filter, setFilter] = React.useState<string>("");
 
   const inputRef = React.useRef(null);
 

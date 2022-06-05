@@ -10,7 +10,7 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof DropdownMenu>;
 
-const Container = ({ children }) => (
+const Container = ({ children }: { children: React.ReactNode }) => (
   <div
     style={{
       width: "100%",

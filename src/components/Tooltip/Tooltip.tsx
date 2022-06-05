@@ -16,9 +16,12 @@ type TooltipProps = {
 const Tooltip = React.forwardRef(
   ({ content, children, placement, trigger }: TooltipProps, ref: any) => {
     const [visible, setVisible] = React.useState<boolean>(false);
-    const [referenceElement, setReferenceElement] = React.useState(null);
-    const [popperElement, setPopperElement] = React.useState(null);
-    const [arrowElement, setArrowElement] = React.useState(null);
+    const [referenceElement, setReferenceElement] =
+      React.useState<HTMLSpanElement | null>();
+    const [popperElement, setPopperElement] =
+      React.useState<HTMLDivElement | null>(null);
+    const [arrowElement, setArrowElement] =
+      React.useState<HTMLSpanElement | null>();
     const instance = usePopper(referenceElement, popperElement, {
       placement,
       modifiers: [
@@ -53,16 +56,18 @@ const Tooltip = React.forwardRef(
 
     useEffect(() => {
       if (visible && trigger === "click") {
-        const handler = (event) => {
+        const handler: (event: MouseEvent | TouchEvent) => void = (event) => {
           if (
-            !referenceElement.contains(event.target) &&
-            !popperElement.contains(event.target)
+            !referenceElement?.contains(event.target as HTMLElement) &&
+            !popperElement?.contains(event.target as HTMLElement)
           ) {
             setVisible(false);
           }
         };
+        document.addEventListener("touchstart", handler);
         document.addEventListener("mousedown", handler);
         return () => {
+          document.removeEventListener("touchstart", handler);
           document.removeEventListener("mousedown", handler);
         };
       }

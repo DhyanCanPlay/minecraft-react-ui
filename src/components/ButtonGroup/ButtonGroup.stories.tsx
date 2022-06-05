@@ -1,6 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import ButtonGroup from "./ButtonGroup";
+import type { ButtonGroupProps } from "./ButtonGroup";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -11,22 +12,24 @@ export default {
 } as ComponentMeta<typeof ButtonGroup>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof ButtonGroup> = (args) => {
-  const [value, setValue] = React.useState("option-1");
+const Template: ComponentStory<typeof ButtonGroup> = (
+  args: ButtonGroupProps
+) => {
+  const [value, setValue] = React.useState<string>("option-1");
 
-  const handleChange = (value: string): void => {
-    console.log("Template.handleChange", value);
+  const handleChange = (newValue: string): void => {
+    console.log("Template.handleChange", newValue);
 
-    setValue(value);
-    args.onChange(value);
+    setValue(newValue);
+    args.onChange && args.onChange(newValue);
   };
-  return <ButtonGroup value={value} {...args} onChange={handleChange} />;
+  return <ButtonGroup {...args} value={value} onChange={handleChange} />;
 };
 
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Default.args = {
-  onChange: (value) => {
+  onChange: (value: string) => {
     console.log("Default.args.onChange", value);
   },
   options: [

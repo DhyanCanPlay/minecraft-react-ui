@@ -12,7 +12,7 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof Slider> = (args) => {
-  const [value, setValue] = React.useState(args.value);
+  const [value, setValue] = React.useState<number>(args.value);
   const handleChange = (value: number) => {
     setValue(value);
   };

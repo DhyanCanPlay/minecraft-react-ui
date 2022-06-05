@@ -10,7 +10,7 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof Dropdown>;
 
-const Container = ({ children }) => (
+const Container = ({ children }: { children: React.ReactNode }) => (
   <div
     style={{
       width: "100%",
@@ -28,7 +28,7 @@ const Container = ({ children }) => (
 const Template: ComponentStory<typeof Dropdown> = (args) => {
   return (
     <Container>
-      <Dropdown content={<p>Dropdown message</p>} {...args}>
+      <Dropdown {...args} content={<p>Dropdown message</p>}>
         <div>Click me!</div>
       </Dropdown>
     </Container>

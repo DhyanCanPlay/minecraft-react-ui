@@ -8,40 +8,47 @@ import { MenuItemProps } from "../Menu";
 import { useListContext } from "./ListContext";
 import "./ListOptions.css";
 
-export type ListOptions = React.HTMLProps<HTMLDivElement> & {
-  className?: string;
-  options?: Array<MenuItemProps>;
-  filter?: {
-    [key: string]: any;
-  };
-  onFilter: (filter: { [key: string]: any }) => void;
+const ListSelectAll = () => {
+  const { selection, items } = useListContext();
+  if (selection) {
+    const { selectedIds, setSelectedIds } = selection;
+    const allSelected = items.every(({ id }) =>
+      selection.selectedIds.includes(id)
+    );
+    const someSelected =
+      !allSelected && items.some(({ id }) => selectedIds.includes(id));
+
+    return (
+      <label className={cn("SelectAll")}>
+        <Checkbox
+          onChange={() => {
+            if (allSelected) {
+              setSelectedIds([]);
+            } else {
+              setSelectedIds(items.map(({ id }) => id));
+            }
+          }}
+          value={allSelected}
+          indeterminate={someSelected}
+        />
+        <span className={"SelectAllCheckbox"}>
+          {!selection.selectedIds?.length
+            ? "Select all"
+            : `Selected ${selection.selectedIds.length}`}
+        </span>
+      </label>
+    );
+  }
+  return null;
 };
 
 const ListOptions = React.forwardRef<HTMLDivElement, ListOptions>(
-  ({ className, options, filter, onFilter, children, ...rest }, ref) => {
-    const { selectedIds, setSelectedIds, items } = useListContext();
-    const noneSelected = !selectedIds?.length;
-    const allSelected = items.every(({ id }) => selectedIds.includes(id));
-    const someSelected =
-      !allSelected && items.some(({ id }) => selectedIds.includes(id));
+  ({ className, children, ...rest }, ref) => {
+    const { selection, menu, filter } = useListContext();
+
     return (
       <div className={cn("ListOptions", className)} ref={ref}>
-        <label className={cn("SelectAll")}>
-          <Checkbox
-            onChange={() => {
-              if (allSelected) {
-                setSelectedIds([]);
-              } else {
-                setSelectedIds(items.map(({ id }) => id));
-              }
-            }}
-            value={allSelected}
-            indeterminate={someSelected}
-          />
-          <span className={"SelectAllCheckbox"}>
-            {noneSelected ? "Select all" : `Selected ${selectedIds.length}`}
-          </span>
-        </label>
+        {selection && <ListSelectAll />}
 
         {children && (
           <div className={cn("ListOptionsContent")} {...rest}>
@@ -52,11 +59,11 @@ const ListOptions = React.forwardRef<HTMLDivElement, ListOptions>(
           <Input
             className={cn("ListOptionsFilter")}
             placeholder={"Search items"}
-            value={filter.keywords}
-            onChange={(keywords) => onFilter({ ...filter, keywords })}
+            value={filter.value}
+            onChange={(keywords) => filter.onChange(keywords)}
           />
         )}
-        <DropdownMenu items={options} />
+        {menu && <DropdownMenu items={menu.items()} />}
       </div>
     );
   }
@@ -64,13 +71,6 @@ const ListOptions = React.forwardRef<HTMLDivElement, ListOptions>(
 
 ListOptions.propTypes = {
   className: PropTypes.string,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      label: PropTypes.string,
-      disabled: PropTypes.bool,
-    })
-  ),
 };
 
 export default ListOptions;

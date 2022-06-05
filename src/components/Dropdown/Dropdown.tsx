@@ -30,8 +30,10 @@ const Dropdown = ({
   closeOnClickOutside,
 }: DropdownProps) => {
   const [visible, setVisible] = React.useState<boolean>(false);
-  const [referenceElement, setReferenceElement] = React.useState(null);
-  const [popperElement, setPopperElement] = React.useState(null);
+  const [referenceElement, setReferenceElement] =
+    React.useState<React.LegacyRef<HTMLDivElement> | undefined>(null);
+  const [popperElement, setPopperElement] =
+    React.useState<React.LegacyRef<HTMLDivElement> | undefined>(null);
 
   const instance = usePopper(referenceElement, popperElement, {
     placement,

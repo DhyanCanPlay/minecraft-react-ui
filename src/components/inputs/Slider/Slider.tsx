@@ -27,8 +27,8 @@ const Slider = ({
   min = 0,
   max = 100,
 }: SliderProps) => {
-  const [isFocus, setFocus] = React.useState(false);
-  const [isDragging, setIsDragging] = React.useState(false);
+  const [isFocus, setFocus] = React.useState<boolean>(false);
+  const [isDragging, setIsDragging] = React.useState<boolean>(false);
   const sliderRef = React.useRef<HTMLDivElement>(null);
 
   const handleFocus = (event: React.FocusEvent<HTMLButtonElement>) => {

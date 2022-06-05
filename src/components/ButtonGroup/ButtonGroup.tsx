@@ -23,9 +23,12 @@ const ButtonGroup = ({
 }: ButtonGroupProps) => {
   console.log("ButtonGroup", value);
   console.log(onChange);
-  const handleClick = (option: ButtonGroupOptionProps) => {
+  const handleClick = (
+    option: ButtonGroupOptionProps,
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     if (option.onClick) {
-      option.onClick();
+      option.onClick(event);
     }
     if (onChange) {
       onChange(option.value);
@@ -42,7 +45,7 @@ const ButtonGroup = ({
           className={cn("ButtonGroupButton", {
             "ButtonGroupButton-active": option.value === value,
           })}
-          onClick={() => handleClick(option)}
+          onClick={(event) => handleClick(option, event)}
           variant={option.value === value ? "primary" : "secondary"}
         >
           {option.label}

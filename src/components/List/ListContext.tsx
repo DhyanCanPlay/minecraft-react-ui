@@ -1,114 +1,100 @@
 import React from "react";
-
-type Item = {
-  id: string | number;
-  [key: string]: any;
-};
-
-type ListContextValue = {
-  items: Array<Item>;
-  filteredItems: Array<Item>;
-  selectable: boolean;
-  itemDisabled?: (item: Item) => boolean;
-  itemOptions?: (item: Item) => any[];
-  itemSelected?: (item: Item) => boolean;
-  renderItem: (renderItemProps: {
-    item: Item;
-    index: number;
-  }) => React.ReactNode;
-  selectedIds?: Array<Item["id"]>;
-  setSelectedIds?: React.Dispatch<React.SetStateAction<Array<Item["id"]>>>;
-};
-
-type ListContextProviderProps = ListContextValue & {
-  children: React.ReactNode;
-  initialSelectedIds: Array<Item["id"]>;
-};
+import type {
+  Item,
+  RenderItemProps,
+  ListContextValue,
+  ListItemContextValue,
+  ListContextProviderProps,
+} from "./types";
 
 const ListContext = React.createContext<ListContextValue>({
-  selectedIds: [],
-  filteredItems: [],
-  setSelectedIds: () => {},
   items: [],
-  itemDisabled: () => false,
-  itemSelected: () => false,
-  itemOptions: () => [],
-  renderItem: ({ item }) => item.id,
-  selectable: false,
+  renderItem: ({ item }: RenderItemProps) => item.id,
 });
 
 export const useListContext = () =>
   React.useContext<ListContextValue>(ListContext);
 
-export const useListItemContext = (index) => {
-  const {
-    items,
-    selectable,
-    selectedIds,
-    setSelectedIds,
-    itemSelected,
-    itemDisabled,
-    itemOptions,
-    renderItem,
-  } = useListContext();
+export const useListItemContext: ({
+  item,
+  index,
+}: RenderItemProps) => ListItemContextValue = ({ item, index }) => {
+  const { selection, menu, renderItem } = useListContext();
 
-  const item = items[index];
+  const itemMenu = (() => {
+    if (menu) {
+      return {
+        items: menu.items(item),
+      };
+    }
+    return undefined;
+  })();
 
-  const selected = itemSelected(item);
+  const itemSelection = (() => {
+    if (selection) {
+      const { itemSelected, selectedIds, setSelectedIds, itemDisabled } =
+        selection;
+      const selected = Boolean(itemSelected && itemSelected(item));
+      const disabled = Boolean(itemDisabled && itemDisabled(item));
+      const toggle = () => {
+        setSelectedIds([
+          ...selectedIds.filter((id) => id !== item.id),
+          ...(selected ? [] : [item.id]),
+        ]);
+      };
+      return {
+        selected,
+        selectedIds,
+        toggle,
+        disabled,
+      };
+    }
+    return undefined;
+  })();
 
-  const toggle = (item) => {
-    setSelectedIds(
-      (selectedIds: Array<Item["id"]>): Array<Item["id"]> => [
-        ...selectedIds.filter((id) => id !== item.id),
-        ...(itemSelected(item) ? [] : [item.id]),
-      ]
-    );
-  };
   return {
     index,
     item,
     renderItem,
-    options: itemOptions(item),
-    selection: selectable
-      ? {
-          selected,
-          selectedIds,
-          toggle,
-          disabled: itemDisabled(item),
-        }
-      : undefined,
+    menu: itemMenu,
+    selection: itemSelection,
   };
 };
 
 export const ListContextProvider = ({
-  items,
-  filteredItems,
+  value,
   children,
-  selectable,
-  initialSelectedIds,
-  itemOptions,
-  itemDisabled,
-  renderItem,
 }: ListContextProviderProps) => {
-  const [selectedIds, setSelectedIds] =
-    React.useState<Array<Item["id"]>>(initialSelectedIds);
+  const { selection, filter } = value;
 
-  const itemSelected = (item) => {
+  const [selectedIds, setSelectedIds] = React.useState<Array<Item["id"]>>(
+    selection?.initialSelectedIds || []
+  );
+
+  const itemSelected = (item: Item) => {
     return selectedIds.includes(item.id);
   };
+
+  const [keywords, setKeywokds] = React.useState<string>(
+    (filter && filter.value) || ""
+  );
 
   return (
     <ListContext.Provider
       value={{
-        filteredItems,
-        selectedIds,
-        setSelectedIds,
-        items,
-        selectable,
-        itemDisabled,
-        itemOptions,
-        itemSelected,
-        renderItem,
+        ...value,
+        filter: filter && {
+          ...filter,
+          filterItem: (item, filter) => item.id === filter,
+          value: keywords,
+          onChange: setKeywokds,
+        },
+        selection: selection && {
+          ...selection,
+          selectedIds,
+          setSelectedIds,
+          itemSelected,
+        },
       }}
     >
       {children}

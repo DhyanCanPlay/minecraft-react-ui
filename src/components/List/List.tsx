@@ -4,67 +4,21 @@ import cn from "classnames";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList, areEqual } from "react-window";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import ListItem, { ListItemProps } from "./ListItem";
-import { MenuItemProps } from "../Menu";
+import ListItem from "./ListItem";
 import ListOptions from "./ListOptions";
 import { ListContextProvider } from "./ListContext";
+import type { ListProps, ListItemProps } from "./types";
 import "./List.css";
 
-export type ListProps = {
-  className?: string;
-  children?: React.ReactNode;
-  items: Array<ListItemProps["item"]>;
-  ListItem: React.ComponentType<ListItemProps>;
-  renderItem: (renderItemProps: {
-    item: ListItemProps["item"];
-    index: number;
-  }) => React.ReactNode;
-  initialSelectedIds?: Array<ListItemProps["item"]["id"]>;
-  itemDisabled?: (item: ListItemProps["item"]) => boolean;
-  itemOptions?: (item: ListItemProps["item"]) => Array<MenuItemProps>;
-  filterable: boolean;
-  itemFilter?: (item: ListItemProps["item"], search: string) => boolean;
-  selectable?: boolean;
-  direction?: "row" | "column";
-  initialFilter: string;
-  draggable?: boolean;
-  estimatedItemSize?: number;
-  itemSize?: number;
-  innerRef: (ref: any) => void;
+type AutoSizerProps = {
+  width: number;
+  height: number;
 };
 
 type DragDropItemProps = ListItemProps & {
   provided?: any;
   isDragging?: boolean;
   isScrolling?: boolean;
-};
-
-const DragDropItem = ({
-  provided,
-  item,
-  style,
-  index,
-  isDragging,
-  className,
-  ...rest
-}: DragDropItemProps) => {
-  return (
-    <ListItem
-      {...provided.draggableProps}
-      {...provided.dragHandleProps}
-      ref={provided.innerRef}
-      item={item}
-      index={index}
-      style={{
-        ...style,
-        ...provided.draggableProps.style,
-      }}
-      className={cn(className, "DragDropItem", {
-        [`DragDropItem_dragging`]: isDragging,
-      })}
-      {...rest}
-    />
-  );
 };
 
 const DragDropListItem = React.memo((props: DragDropItemProps) => {
@@ -81,15 +35,23 @@ const DragDropListItem = React.memo((props: DragDropItemProps) => {
       index={index}
       key={items[index].id}
     >
-      {(provided, snapshot) => {
+      {(provided: any, snapshot: any) => {
         return (
-          <DragDropItem
+          <ListItem
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
             {...props}
-            provided={provided}
-            isDragging={snapshot.isDragging}
+            ref={provided.innerRef}
+            style={{
+              ...style,
+              ...provided.draggableProps.style,
+            }}
+            className={cn({
+              [`ListItem_dragging`]: snapshot.isDraggin,
+            })}
+            dragging={snapshot.isDragging}
             item={items[index]}
             index={index}
-            style={style}
           />
         );
       }}
@@ -103,16 +65,11 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
       className,
       renderItem,
       items,
-      itemDisabled,
-      itemOptions,
-      initialSelectedIds,
+      selection,
+      menu,
+      filter,
       direction,
-      selectable,
-      filterable = true,
-      itemFilter,
-      initialFilter,
       draggable,
-      estimatedItemSize,
       itemSize,
       innerRef,
       ...rest
@@ -122,7 +79,7 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
     const [localItems, setLocalItems] =
       React.useState<ListProps["items"]>(items);
 
-    const handleDropEnd = (result) => {
+    const handleDropEnd = (result: any) => {
       const {
         source: { index: sourceIndex },
         destination,
@@ -137,27 +94,21 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
       }
     };
 
-    const handleDropStart = (result) => {
+    const handleDropStart = (result: any) => {
       if (window.navigator.vibrate) {
         window.navigator.vibrate(100);
       }
     };
 
-    const [keywords, setKeywords] = React.useState<string>(initialFilter);
-
-    const filteredItems = filterable
-      ? localItems.filter((item) => itemFilter(item, keywords))
-      : localItems;
-
     return (
       <ListContextProvider
-        items={filteredItems}
-        filteredItems={filteredItems}
-        selectable={selectable}
-        initialSelectedIds={initialSelectedIds}
-        itemDisabled={itemDisabled}
-        itemOptions={itemOptions}
-        renderItem={renderItem}
+        value={{
+          items,
+          selection,
+          menu,
+          filter,
+          renderItem,
+        }}
       >
         <DragDropContext
           onDragStart={handleDropStart}
@@ -166,36 +117,27 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
           <Droppable
             droppableId={"List"}
             mode="virtual"
-            renderClone={(provided, snapshot, rubric) => (
-              <DragDropItem
-                provided={provided}
-                isDragging={snapshot.isDragging}
+            renderClone={(provided: any, snapshot: any, rubric: any) => (
+              <ListItem
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                ref={provided.innerRef}
+                className={cn({
+                  [`ListItem_dragging`]: snapshot.isDragging,
+                })}
+                dragging={snapshot.isDragging}
                 item={localItems[rubric.source.index]}
                 index={rubric.source.index}
               />
             )}
           >
-            {(dropProvided) => {
+            {(dropProvided: any) => {
               return (
                 <div className="List">
-                  <ListOptions
-                    options={[
-                      {
-                        id: "select-all",
-                        label: "Select all",
-                        onClick: () => {},
-                      },
-                    ]}
-                    filter={{
-                      keywords,
-                    }}
-                    onFilter={(filter) => {
-                      setKeywords(filter.keywords);
-                    }}
-                  />
+                  <ListOptions />
                   <div className="ListWrapper">
                     <AutoSizer>
-                      {({ width, height }) => (
+                      {({ width, height }: AutoSizerProps) => (
                         <FixedSizeList
                           outerRef={dropProvided.innerRef}
                           height={height}
@@ -223,35 +165,13 @@ List.propTypes = {
   className: PropTypes.string,
   renderItem: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(PropTypes.any).isRequired,
-  itemDisabled: PropTypes.func,
-  initialSelectedIds: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ),
-  selectable: PropTypes.bool,
+  selection: PropTypes.any,
   direction: PropTypes.oneOf(["column", "row"]),
-  ListItem: PropTypes.any,
 };
 
 List.defaultProps = {
-  initialSelectedIds: [],
-  renderItem: ({ item }) => <div>{item.id}</div>,
-  itemDisabled: () => false,
-  itemOptions: () => null,
-  itemFilter: (item, keyword) => {
-    const search = (itemPropertyValue) => {
-      if (typeof itemPropertyValue === "string") {
-        return itemPropertyValue.toLowerCase().includes(keyword.toLowerCase());
-      } else if (typeof itemPropertyValue === "object") {
-        return Object.values(itemPropertyValue).some(search);
-      }
-      return false;
-    };
-    return Object.values(item).some(search);
-  },
-  selectable: false,
   direction: "row",
   itemSize: 48,
-  initialFilter: "",
 };
 
 export default List;
