@@ -12,6 +12,10 @@ type ListContextValue = {
   itemDisabled?: (item: Item) => boolean;
   itemOptions?: (item: Item) => any[];
   itemSelected?: (item: Item) => boolean;
+  renderItem: (renderItemProps: {
+    item: Item;
+    index: number;
+  }) => React.ReactNode;
   selectedIds?: Array<Item["id"]>;
   setSelectedIds?: React.Dispatch<React.SetStateAction<Array<Item["id"]>>>;
 };
@@ -27,7 +31,9 @@ const ListContext = React.createContext<ListContextValue>({
   setSelectedIds: () => {},
   items: [],
   itemDisabled: () => false,
+  itemSelected: () => false,
   itemOptions: () => [],
+  renderItem: ({ item }) => item.id,
   selectable: false,
 });
 
@@ -43,6 +49,7 @@ export const useListItemContext = (index) => {
     itemSelected,
     itemDisabled,
     itemOptions,
+    renderItem,
   } = useListContext();
 
   const item = items[index];
@@ -60,6 +67,7 @@ export const useListItemContext = (index) => {
   return {
     index,
     item,
+    renderItem,
     options: itemOptions(item),
     selection: selectable
       ? {
@@ -80,6 +88,7 @@ export const ListContextProvider = ({
   initialSelectedIds,
   itemOptions,
   itemDisabled,
+  renderItem,
 }: ListContextProviderProps) => {
   const [selectedIds, setSelectedIds] =
     React.useState<Array<Item["id"]>>(initialSelectedIds);
@@ -99,6 +108,7 @@ export const ListContextProvider = ({
         itemDisabled,
         itemOptions,
         itemSelected,
+        renderItem,
       }}
     >
       {children}

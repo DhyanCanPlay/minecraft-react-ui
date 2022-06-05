@@ -1,10 +1,10 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import List from "./List";
+import BaseList from "./List";
 
 export default {
   title: "ReactComponentLibrary/List",
-  component: List,
+  component: BaseList,
   argTypes: {},
 } as ComponentMeta<typeof List>;
 
@@ -12,19 +12,21 @@ const Container = ({ children }) => (
   <div
     style={{
       width: "100%",
-      height: "100vh",
+      height: "100%",
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
     }}
   >
     {children}
   </div>
 );
 
-const Template: ComponentStory<typeof List> = (args) => {
+const Template: ComponentStory<typeof BaseList> = (args) => {
   return (
     <Container>
-      <List
+      <BaseList
         {...args}
-        virtualized
         items={Array.from({ length: 1000 }, (_, i) => ({
           id: i.toString(),
           text: `Item ${i}`,
@@ -47,8 +49,20 @@ const Template: ComponentStory<typeof List> = (args) => {
   );
 };
 
+export const List = Template.bind({});
+
+List.args = {};
+
 export const Selectable = Template.bind({});
 
 Selectable.args = {
   selectable: true,
+  draggable: false,
+};
+
+export const Draggable = Template.bind({});
+
+Draggable.args = {
+  selectable: true,
+  draggable: true,
 };
