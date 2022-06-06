@@ -1,8 +1,8 @@
 {
+  "main": "dist/index.js",
   "name": "minecraft-react-ui",
   "version": "1.0.0",
   "description": "Minecraft React UI components library",
-  "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
     "dist"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -7,7 +7,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ListItem from "./ListItem";
 import ListOptions from "./ListOptions";
 import { ListContextProvider } from "./ListContext";
-import type { ListProps, ListItemProps } from "./types";
+import type { Item, ListProps, ListItemProps } from "./types";
 import "./List.css";
 
 type AutoSizerProps = {
@@ -41,6 +41,9 @@ const DragDropListItem = React.memo((props: DragDropItemProps) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             {...props}
+            index={index}
+            item={items[index]}
+            dragging={snapshot.isDragging}
             ref={provided.innerRef}
             style={{
               ...style,
@@ -49,9 +52,6 @@ const DragDropListItem = React.memo((props: DragDropItemProps) => {
             className={cn({
               [`ListItem_dragging`]: snapshot.isDraggin,
             })}
-            dragging={snapshot.isDragging}
-            item={items[index]}
-            index={index}
           />
         );
       }}
@@ -67,12 +67,9 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
       items,
       selection,
       menu,
-      filter,
-      direction,
+      search,
       draggable,
       itemSize,
-      innerRef,
-      ...rest
     },
     ref
   ) => {
@@ -94,24 +91,113 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
       }
     };
 
-    const handleDropStart = (result: any) => {
+    const handleDragStart = ({ draggableId }: any) => {
       if (window.navigator.vibrate) {
         window.navigator.vibrate(100);
       }
     };
 
+    const [selectedIds, setSelectedIds] = React.useState<Array<Item["id"]>>(
+      selection?.initialSelectedIds || []
+    );
+
+    const itemSelected = (item: Item) => {
+      return selectedIds.includes(item.id);
+    };
+
+    const [keywords, setKeywokds] = React.useState<string>("Item 22");
+    const [currentResultItemIndex, setCurrentResultItemIndex] =
+      React.useState<number>(-1);
+
+    const listRef = React.useRef<any>(null);
+
+    useEffect(() => {
+      if (search) {
+        setCurrentResultItemIndex(
+          items.findIndex((item) => search.searchItem(item, keywords))
+        );
+      }
+    }, [keywords]);
+
+    const nextResult = () => {
+      if (search) {
+        const searchResults = items.filter((item) =>
+          search.searchItem(item, keywords)
+        );
+        if (searchResults.length > 1) {
+          const nextResultIndex = items.findIndex(
+            (item, index) =>
+              index > currentResultItemIndex &&
+              search.searchItem(item, keywords)
+          );
+          if (nextResultIndex === -1) {
+            setCurrentResultItemIndex(
+              items.findIndex((item, index) =>
+                search.searchItem(item, keywords)
+              )
+            );
+          } else {
+            setCurrentResultItemIndex(nextResultIndex);
+          }
+        }
+      }
+    };
+
+    const prevResult = () => {
+      if (search) {
+        const searchResultIndexes = items.reduce<number[]>(
+          (indexes, item, index) => {
+            if (search.searchItem(item, keywords)) {
+              return [...indexes, index];
+            }
+            return indexes;
+          },
+          []
+        );
+        if (searchResultIndexes.length > 1) {
+          const prevResultIndex =
+            searchResultIndexes.indexOf(currentResultItemIndex) - 1;
+          if (prevResultIndex === -1) {
+            setCurrentResultItemIndex(
+              searchResultIndexes[searchResultIndexes.length - 1]
+            );
+          } else {
+            setCurrentResultItemIndex(searchResultIndexes[prevResultIndex]);
+          }
+        }
+      }
+    };
+
+    useEffect(() => {
+      if (currentResultItemIndex > -1) {
+        listRef.current.scrollToItem(currentResultItemIndex, "center");
+      }
+    }, [currentResultItemIndex]);
+
     return (
       <ListContextProvider
         value={{
           items,
-          selection,
           menu,
-          filter,
           renderItem,
+          search: search && {
+            ...search,
+            keywords,
+            onChange: setKeywokds,
+            next: nextResult,
+            prev: prevResult,
+            currentResultItemIndex,
+          },
+          selection: selection && {
+            ...selection,
+            selectedIds,
+            setSelectedIds,
+            itemSelected,
+          },
         }}
       >
         <DragDropContext
-          onDragStart={handleDropStart}
+          onDragStart={handleDragStart}
           onDragEnd={handleDropEnd}
         >
           <Droppable
@@ -122,9 +208,6 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
-                className={cn({
-                  [`ListItem_dragging`]: snapshot.isDragging,
-                })}
                 dragging={snapshot.isDragging}
                 item={localItems[rubric.source.index]}
                 index={rubric.source.index}
@@ -133,17 +216,18 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
           >
             {(dropProvided: any) => {
               return (
-                <div className="List">
+                <div className={cn("List", className)}>
                   <ListOptions />
                   <div className="ListWrapper">
                     <AutoSizer>
                       {({ width, height }: AutoSizerProps) => (
                         <FixedSizeList
+                          ref={listRef}
                           outerRef={dropProvided.innerRef}
                           height={height}
                           width={width}
                           itemCount={localItems.length}
-                          itemSize={48}
+                          itemSize={itemSize}
                           itemData={{ items: localItems, draggable }}
                         >
                           {DragDropListItem}

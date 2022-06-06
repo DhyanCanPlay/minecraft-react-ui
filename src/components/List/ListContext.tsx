@@ -1,6 +1,5 @@
 import React from "react";
 import type {
-  Item,
   RenderItemProps,
   ListContextValue,
   ListItemContextValue,
@@ -19,7 +18,7 @@ export const useListItemContext: ({
   item,
   index,
 }: RenderItemProps) => ListItemContextValue = ({ item, index }) => {
-  const { selection, menu, renderItem } = useListContext();
+  const { selection, menu, search, renderItem } = useListContext();
 
   const itemMenu = (() => {
     if (menu) {
@@ -52,12 +51,23 @@ export const useListItemContext: ({
     return undefined;
   })();
 
+  const itemSearch = (() => {
+    if (search) {
+      return {
+        ...search,
+        filtered: search.searchItem(item, search.keywords),
+      };
+    }
+    return undefined;
+  })();
+
   return {
     index,
     item,
     renderItem,
     menu: itemMenu,
     selection: itemSelection,
+    search: itemSearch,
   };
 };
 
@@ -65,41 +75,7 @@ export const ListContextProvider = ({
   value,
   children,
 }: ListContextProviderProps) => {
-  const { selection, filter } = value;
-
-  const [selectedIds, setSelectedIds] = React.useState<Array<Item["id"]>>(
-    selection?.initialSelectedIds || []
-  );
-
-  const itemSelected = (item: Item) => {
-    return selectedIds.includes(item.id);
-  };
-
-  const [keywords, setKeywokds] = React.useState<string>(
-    (filter && filter.value) || ""
-  );
-
-  return (
-    <ListContext.Provider
-      value={{
-        ...value,
-        filter: filter && {
-          ...filter,
-          filterItem: (item, filter) => item.id === filter,
-          value: keywords,
-          onChange: setKeywokds,
-        },
-        selection: selection && {
-          ...selection,
-          selectedIds,
-          setSelectedIds,
-          itemSelected,
-        },
-      }}
-    >
-      {children}
-    </ListContext.Provider>
-  );
+  return <ListContext.Provider value={value}>{children}</ListContext.Provider>;
 };
 
 export default ListContext;

@@ -49,6 +49,15 @@ Selectable.args = {
   draggable: false,
 };
 
+export const Filter = Template.bind({});
+
+Filter.args = {
+  search: {
+    searchItem: (item, keywords) => item.text.includes(keywords),
+  },
+  draggable: false,
+};
+
 export const Draggable = Template.bind({});
 
 Draggable.args = {

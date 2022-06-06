@@ -4,7 +4,6 @@ import cn from "classnames";
 import DropdownMenu from "../DropdownMenu";
 import Checkbox from "../inputs/Checkbox";
 import Input from "../inputs/Input";
-import { MenuItemProps } from "../Menu";
 import { useListContext } from "./ListContext";
 import "./ListOptions.css";
 
@@ -42,32 +41,43 @@ const ListSelectAll = () => {
   return null;
 };
 
-const ListOptions = React.forwardRef<HTMLDivElement, ListOptions>(
-  ({ className, children, ...rest }, ref) => {
-    const { selection, menu, filter } = useListContext();
+const ListOptions = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLProps<HTMLDivElement>
+>(({ className, children, ...rest }, ref) => {
+  const { selection, menu, search } = useListContext();
 
-    return (
-      <div className={cn("ListOptions", className)} ref={ref}>
-        {selection && <ListSelectAll />}
+  return (
+    <div className={cn("ListOptions", className)} ref={ref}>
+      {selection && <ListSelectAll />}
 
-        {children && (
-          <div className={cn("ListOptionsContent")} {...rest}>
-            {children}
-          </div>
-        )}
-        {filter && (
-          <Input
-            className={cn("ListOptionsFilter")}
-            placeholder={"Search items"}
-            value={filter.value}
-            onChange={(keywords) => filter.onChange(keywords)}
-          />
-        )}
-        {menu && <DropdownMenu items={menu.items()} />}
-      </div>
-    );
-  }
-);
+      {children && (
+        <div className={cn("ListOptionsContent")} {...rest}>
+          {children}
+        </div>
+      )}
+      {search && (
+        <Input
+          className={cn("ListOptionsFilter")}
+          placeholder={"Search items"}
+          value={search.keywords}
+          onChange={(keywords) => search.onChange(keywords)}
+          onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+            var key = event.key || event.keyCode;
+            if ((key === "Enter" && event.shiftKey) || key === "ArrowUp") {
+              event.preventDefault();
+              search.prev(event);
+            } else if (key === "Enter" || key === "ArrowDown") {
+              event.preventDefault();
+              search.next(event);
+            }
+          }}
+        />
+      )}
+      {menu && <DropdownMenu items={menu.items()} />}
+    </div>
+  );
+});
 
 ListOptions.propTypes = {
   className: PropTypes.string,

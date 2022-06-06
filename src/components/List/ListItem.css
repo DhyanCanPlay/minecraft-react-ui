@@ -34,9 +34,8 @@
 
 .ListItemCheckbox {
   display: flex;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
 }
+
 .ListItemContent {
   display: flex;
   flex: 1;
@@ -49,6 +48,11 @@
   opacity: 1;
 }
 
-.DragDropItem_dragging {
+.ListItem_filtered {
+  background-color: var(--secondary-color-hover-30);
+}
+
+.ListItem_highlighted,
+.ListItem_dragging {
   background-color: var(--primary-color-hover-30);
 }

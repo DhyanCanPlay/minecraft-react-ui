@@ -8,8 +8,11 @@ import type { ListItemProps } from "./types";
 import "./ListItem.css";
 
 const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
-  ({ children, index, className, item, ...rest }, ref) => {
-    const { selection, menu, renderItem } = useListItemContext({ item, index });
+  ({ children, index, className, item, dragging, ...rest }, ref) => {
+    const { selection, menu, renderItem, search } = useListItemContext({
+      item,
+      index,
+    });
     const selectionEnable = selection && selection.selectedIds.length > 0;
     const selected = selection && selection.selected;
 
@@ -18,6 +21,8 @@ const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
         selection.toggle();
       }
     };
+
+    console.log("search", search);
     return (
       <li
         ref={ref}
@@ -25,6 +30,9 @@ const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
         className={cn("ListItem", className, {
           ["ListItem_selected"]: selected,
           ["ListItem_selection"]: selectionEnable,
+          ["ListItem_dragging"]: dragging,
+          ["ListItem_filtered"]: search?.filtered,
+          ["ListItem_highlighted"]: search?.currentResultItemIndex === index,
         })}
       >
         {selection && (
@@ -55,13 +63,6 @@ const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
 
 ListItem.propTypes = {
   children: PropTypes.node,
-  selection: PropTypes.shape({
-    toggle: PropTypes.func,
-    selected: PropTypes.bool,
-    selectedIds: PropTypes.arrayOf(PropTypes.string),
-    disabled: PropTypes.bool,
-    checkbox: PropTypes.node,
-  }),
 };
 
 export default ListItem;

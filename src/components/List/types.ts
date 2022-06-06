@@ -6,7 +6,7 @@ export type ListProps = {
   children?: React.ReactNode;
   items: Array<Item>;
   menu?: ListMenuProps | undefined;
-  filter?: ListFilterProps | undefined;
+  search?: ListSearchProps | undefined;
   selection?: ListSelectionProps | undefined;
   renderItem: (renderItemProps: RenderItemProps) => React.ReactNode;
   direction?: "row" | "column";
@@ -20,12 +20,8 @@ export type Item = {
   [key: string]: any;
 };
 
-export type FilterValue = string;
-
-export type ListFilterProps = {
-  onChange: (filter: FilterValue) => void;
-  value: FilterValue;
-  filterItem: (item: Item, filter: FilterValue) => boolean;
+export type ListSearchProps = {
+  searchItem: (item: Item, keywords: string) => boolean;
 };
 
 export type ListMenuProps = Omit<MenuProps, "items"> & {
@@ -35,7 +31,7 @@ export type ListMenuProps = Omit<MenuProps, "items"> & {
 export type ListContextValue = {
   items: Array<Item>;
   selection?: ListSelectionContextValue;
-  filter?: ListFilterProps;
+  search?: ListSearchContextValue;
   menu?: ListMenuProps;
   renderItem: (props: RenderItemProps) => React.ReactNode;
 };
@@ -43,8 +39,8 @@ export type ListContextValue = {
 export type ListContextProviderProps = {
   value: {
     items: Array<Item>;
-    selection?: ListSelectionProps;
-    filter?: ListFilterProps;
+    selection?: ListSelectionContextValue;
+    search?: ListSearchContextValue;
     menu?: ListMenuProps;
     renderItem: (props: RenderItemProps) => React.ReactNode;
   };
@@ -71,10 +67,20 @@ export type ListItemProps = Omit<React.HTMLProps<HTMLLIElement>, "data"> & {
   className?: string;
   index: number;
   item: Item;
+  dragging: boolean;
   data: {
     items: Array<ListItemProps["item"]>;
     draggable: boolean;
   };
+};
+
+export type ListItemSearchProps = {
+  searchItem: (item: Item, keywords: string) => boolean;
+};
+
+export type ListItemSearchContextValue = ListItemSearchProps & {
+  filtered: boolean;
+  currentResultItemIndex: number;
 };
 
 export type ListItemContextValue = {
@@ -83,6 +89,7 @@ export type ListItemContextValue = {
   renderItem: (props: RenderItemProps) => React.ReactNode;
   menu: MenuProps | undefined;
   selection: ListItemSelectionProps | undefined;
+  search: ListItemSearchContextValue | undefined;
 };
 
 export type ListSelectionProps = {
@@ -111,4 +118,12 @@ export type RenderItemProps = {
 
 export type ListOptions = React.HTMLProps<HTMLDivElement> & {
   className?: string;
+};
+
+export type ListSearchContextValue = ListSearchProps & {
+  onChange: (keywords: string) => void;
+  keywords: string;
+  next: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  prev: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  currentResultItemIndex: number;
 };
