@@ -53,7 +53,7 @@ export const Filter = Template.bind({});
 
 Filter.args = {
   search: {
-    searchItem: (item, keywords) => item.text.includes(keywords),
+    searchItem: (item, keywords) => keywords && item.text.includes(keywords),
   },
   draggable: false,
 };

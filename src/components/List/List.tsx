@@ -113,9 +113,13 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
 
     useEffect(() => {
       if (search) {
-        setCurrentResultItemIndex(
-          items.findIndex((item) => search.searchItem(item, keywords))
-        );
+        if (!keywords) {
+          setCurrentResultItemIndex(-1);
+        } else {
+          setCurrentResultItemIndex(
+            items.findIndex((item) => search.searchItem(item, keywords))
+          );
+        }
       }
     }, [keywords]);
 
