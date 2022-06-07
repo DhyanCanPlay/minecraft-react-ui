@@ -1,6 +1,8 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import List from "./List";
+import FlexBox from "../FlexBox";
+import Tag from "../Tag";
 
 export default {
   title: "ReactComponentLibrary/List",
@@ -8,19 +10,70 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof List>;
 
-const Container = ({ children }: { children: React.ReactNode }) => (
-  <div
-    style={{
-      width: "100%",
-      height: "100%",
-      position: "relative",
-      display: "flex",
-      flexDirection: "column",
-    }}
-  >
-    {children}
-  </div>
-);
+const menu = {
+  items: (item) => {
+    if (item) {
+      const options = [];
+      if (item.status === "pending") {
+        options.push({
+          label: "Cancel",
+          onClick: console.log,
+          id: `${item.id}-cancel`,
+        });
+      }
+      if (item.status === "running") {
+        options.push({
+          label: "Abort",
+          onClick: console.log,
+          id: `${item.id}-abort`,
+        });
+      }
+      if (item.status === "finished") {
+        options.push({
+          label: "View results",
+          onClick: console.log,
+          id: `${item.id}-results`,
+        });
+      }
+      if (item.status === "aborted" || item.status === "canceled") {
+        options.push({
+          label: "Remove",
+          onClick: console.log,
+          id: `${item.id}-results`,
+        });
+      }
+      return options;
+    }
+    return [
+      {
+        label: "Global option",
+        onClick: console.log,
+        id: `global-option`,
+      },
+    ];
+  },
+};
+
+const selection = {
+  itemDisabled: (item) => item.status === "deleted",
+};
+
+const search = {
+  searchItem: (item, keywords) =>
+    keywords &&
+    (item.text.includes(keywords) || item.status.includes(keywords)),
+};
+
+const globalSeed = Math.floor(Math.random() * 5);
+
+const Execution = ({ item }) => {
+  return (
+    <FlexBox align="center" justify="space-between">
+      <div>{item.text}</div>
+      <Tag>{item.status}</Tag>
+    </FlexBox>
+  );
+};
 
 const Template: ComponentStory<typeof List> = (args) => {
   return (
@@ -30,8 +83,16 @@ const Template: ComponentStory<typeof List> = (args) => {
         id: i.toString(),
         text: `Item ${i}`,
         type: i % 2 === 0 ? "odd" : "even",
+        status: (() => {
+          const seed = Math.round(Math.random() * 5);
+          if (seed === 0) return "pending";
+          if (seed === 1) return "running";
+          if (seed === 2) return "finished";
+          if (seed === 3) return "aborted";
+          return "canceled";
+        })(),
       }))}
-      renderItem={({ item }) => <>{item.text}</>}
+      renderItem={Execution}
     />
   );
 };
@@ -61,42 +122,22 @@ Filter.args = {
 export const Draggable = Template.bind({});
 
 Draggable.args = {
-  selection: {
-    itemDisabled: () => false,
-  },
+  selection,
   draggable: true,
 };
 
 export const Menu = Template.bind({});
 
 Menu.args = {
-  menu: {
-    items: (item) => {
-      if (item) {
-        return item.type === "odd"
-          ? [
-              {
-                label: "Odd option",
-                onClick: console.log,
-                id: `${item.id}-option-odd`,
-              },
-            ]
-          : [
-              {
-                label: "Even option",
-                onClick: console.log,
-                id: `${item.id}-option-odd`,
-              },
-            ];
-      }
-      return [
-        {
-          label: "Global option",
-          onClick: console.log,
-          id: `global-option`,
-        },
-      ];
-    },
-  },
+  menu,
+  draggable: true,
+};
+
+export const All = Template.bind({});
+
+All.args = {
+  menu,
+  selection,
+  search,
   draggable: true,
 };

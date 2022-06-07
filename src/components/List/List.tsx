@@ -81,7 +81,7 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
         source: { index: sourceIndex },
         destination,
       } = result;
-
+      setDragging(false);
       if (destination && sourceIndex !== destination.index) {
         setLocalItems(([...localItems]) => {
           const [removed] = localItems.splice(sourceIndex, 1);
@@ -91,10 +91,13 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
       }
     };
 
+    const [dragging, setDragging] = React.useState<boolean>(false);
+
     const handleDragStart = ({ draggableId }: any) => {
       if (window.navigator.vibrate) {
         window.navigator.vibrate(100);
       }
+      setDragging(true);
     };
 
     const [selectedIds, setSelectedIds] = React.useState<Array<Item["id"]>>(
@@ -220,25 +223,25 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
           >
             {(dropProvided: any) => {
               return (
-                <div className={cn("List", className)}>
+                <div className={cn("ListContainer", className)}>
                   <ListOptions />
-                  <div className="ListWrapper">
-                    <AutoSizer>
-                      {({ width, height }: AutoSizerProps) => (
-                        <FixedSizeList
-                          ref={listRef}
-                          outerRef={dropProvided.innerRef}
-                          height={height}
-                          width={width}
-                          itemCount={localItems.length}
-                          itemSize={itemSize}
-                          itemData={{ items: localItems, draggable }}
-                        >
-                          {DragDropListItem}
-                        </FixedSizeList>
-                      )}
-                    </AutoSizer>
-                  </div>
+                  <AutoSizer className="ListAutoSizer">
+                    {({ width, height }: AutoSizerProps) => (
+                      <FixedSizeList
+                        className={cn("List", className, "List_dragging")}
+                        ref={listRef}
+                        outerRef={dropProvided.innerRef}
+                        height={height}
+                        width={width}
+                        itemCount={localItems.length}
+                        innerElementType={"ul"}
+                        itemSize={itemSize}
+                        itemData={{ items: localItems, draggable }}
+                      >
+                        {DragDropListItem}
+                      </FixedSizeList>
+                    )}
+                  </AutoSizer>
                 </div>
               );
             }}

@@ -1,0 +1,26 @@
+.Tag {
+  --tag-pixel-size: 4px;
+  display: inline-flex;
+  background-color: var(--secondary-color);
+  color: var(--text-color-invert);
+  font-size: 12px;
+  padding: 0.25rem 0.5rem;
+  clip-path: polygon(
+    0% var(--tag-pixel-size),
+    var(--tag-pixel-size) var(--tag-pixel-size),
+    var(--tag-pixel-size) 0%,
+    calc(100% - var(--tag-pixel-size)) 0%,
+    calc(100% - var(--tag-pixel-size)) var(--tag-pixel-size),
+    100% var(--tag-pixel-size),
+    100% calc(100% - var(--tag-pixel-size)),
+    calc(100% - var(--tag-pixel-size)) calc(100% - var(--tag-pixel-size)),
+    calc(100% - var(--tag-pixel-size)) 100%,
+    var(--tag-pixel-size) 100%,
+    var(--tag-pixel-size) calc(100% - var(--tag-pixel-size)),
+    0% calc(100% - var(--tag-pixel-size))
+  );
+}
+
+.Tag_success {
+  background-color: var(--success-color);
+}
