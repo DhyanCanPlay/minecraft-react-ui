@@ -22,7 +22,6 @@ const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
       }
     };
 
-    console.log("search", search);
     return (
       <li
         ref={ref}

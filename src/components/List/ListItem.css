@@ -7,21 +7,7 @@
   gap: 1rem;
   width: 100%;
   border-bottom: 1px solid #e6e6e611;
-  cursor: pointer;
   transition: background-color 0.2s ease-in-out;
-}
-
-.ListItem:hover {
-  background-color: #f5f5f511;
-}
-
-.ListItemOptions.Button:focus,
-.ListItemOptions.DropdownTarget_visible,
-.ListItem:hover .ListItemOptions,
-.ListItem:hover .ListItemCheckbox,
-.ListItem .ListItemCheckbox:focus,
-.ListItem_selection .ListItemCheckbox {
-  opacity: 1;
 }
 
 .ListItem_selected {
@@ -44,13 +30,23 @@
   opacity: 1;
 }
 
-.ListItem_filtered {
-  background-color: var(--secondary-color-hover-30);
+.ListItem:focus {
+  background-color: #f5f5f511;
+}
+.ListItem:hover {
+  background-color: #f5f5f511;
 }
 
-.ListItem_highlighted {
+.ListItem_filtered,
+.ListItem_filtered:hover {
+  background-color: var(--primary-color-active-30);
+}
+
+.ListItem_highlighted,
+.ListItem_highlighted:hover {
   background-color: var(--primary-color-hover-30);
 }
+
 .ListItem_dragging {
   background-color: var(--secondary-color-hover-30);
   backdrop-filter: blur(4px);

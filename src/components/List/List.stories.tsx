@@ -122,7 +122,6 @@ Filter.args = {
 export const Draggable = Template.bind({});
 
 Draggable.args = {
-  selection,
   draggable: true,
 };
 

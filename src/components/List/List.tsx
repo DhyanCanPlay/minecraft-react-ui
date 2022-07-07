@@ -48,6 +48,9 @@ const DragDropListItem = React.memo((props: DragDropItemProps) => {
             style={{
               ...style,
               ...provided.draggableProps.style,
+              ...(snapshot.isDragging && {
+                transform: `${provided.draggableProps.style.transform} scale(1.1)`,
+              }),
             }}
             className={cn({
               [`ListItem_dragging`]: snapshot.isDraggin,
@@ -210,16 +213,25 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
           <Droppable
             droppableId={"List"}
             mode="virtual"
-            renderClone={(provided: any, snapshot: any, rubric: any) => (
-              <ListItem
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-                ref={provided.innerRef}
-                dragging={snapshot.isDragging}
-                item={localItems[rubric.source.index]}
-                index={rubric.source.index}
-              />
-            )}
+            renderClone={(provided: any, snapshot: any, rubric: any) => {
+              console.log(provided.draggableProps.style.transform);
+              return (
+                <ListItem
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  style={{
+                    ...provided.draggableProps.style,
+                    transform: `${
+                      provided.draggableProps.style.transform || ""
+                    } scale(1.02)`,
+                  }}
+                  ref={provided.innerRef}
+                  dragging={snapshot.isDragging}
+                  item={localItems[rubric.source.index]}
+                  index={rubric.source.index}
+                />
+              );
+            }}
           >
             {(dropProvided: any) => {
               return (
