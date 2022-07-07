@@ -17,11 +17,7 @@ const Template: ComponentStory<typeof Slider> = (args) => {
     setValue(value);
   };
 
-  return (
-    <div style={{ padding: "32px" }}>
-      <Slider {...args} value={value} onChange={handleChange} />
-    </div>
-  );
+  return <Slider {...args} value={value} onChange={handleChange} />;
 };
 
 export const Primary = Template.bind({});
