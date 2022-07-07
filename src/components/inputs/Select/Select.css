@@ -23,26 +23,18 @@
 }
 
 .SelectActions {
-  padding: 0 16px;
   display: flex;
-  gap: 8px;
   position: absolute;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  height: calc(100% - 16px);
+  height: 100%;
   align-items: center;
 }
 
 .SelectAction {
   height: 100%;
-  padding: 0;
-  min-width: 24px;
-}
-
-.Select_visible .SelectActionOpen,
-.Select_focus .SelectActionOpen {
-  transform: rotate(90deg);
+  min-width: 36px;
 }
 
 .SelectOptions {

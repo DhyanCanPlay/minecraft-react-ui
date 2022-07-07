@@ -152,7 +152,7 @@ const Select = ({
               className={cn("SelectAction", "SelectActionOpen")}
               variant="clear"
             >
-              {">"}
+              {visible ? "▲" : "▼"}
             </Button>
           </div>
         </div>
