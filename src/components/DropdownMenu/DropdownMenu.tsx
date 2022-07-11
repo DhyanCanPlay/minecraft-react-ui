@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Dropdown, { DropdownProps } from "../Dropdown";
+import Dropdown, { DropdownProps } from "../layers/Dropdown";
 import Button, { ButtonProps } from "../Button";
 import Menu, { MenuProps, MenuIcon } from "../Menu";
 

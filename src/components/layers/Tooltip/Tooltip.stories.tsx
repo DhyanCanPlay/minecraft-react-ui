@@ -4,7 +4,7 @@ import Tooltip from "./Tooltip";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/Tooltip",
+  title: "ReactComponentLibrary/layers/Tooltip",
   component: Tooltip,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},
