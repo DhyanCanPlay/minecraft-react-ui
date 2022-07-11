@@ -60,7 +60,7 @@
 }
 
 .Checkbox:hover:before {
-  background-color: var(--checkbox-text-hover-color);
+  background-color: var(--background-color-hover);
 }
 
 .Checkbox:hover:checked:before {

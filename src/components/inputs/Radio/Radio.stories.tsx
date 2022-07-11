@@ -61,16 +61,6 @@ Default.args = {
   },
 };
 
-export const Indeterminate = Template.bind({});
-
-Indeterminate.args = {
-  readOnly: true,
-  indeterminate: true,
-  onChange: (value) => {
-    console.log(value);
-  },
-};
-
 export const Disabled = Template.bind({});
 
 Disabled.args = {
@@ -84,7 +74,8 @@ export const DisabledChecked = Template.bind({});
 
 DisabledChecked.args = {
   disabled: true,
-  value: "true",
+  value: "value",
+  checked: true,
   onChange: (value) => {
     console.log(value);
   },
@@ -94,7 +85,8 @@ export const ReadOnly = Template.bind({});
 
 ReadOnly.args = {
   readOnly: true,
-  value: "true",
+  value: "value",
+  checked: true,
   onChange: (value) => {
     console.log(value);
   },
@@ -103,7 +95,8 @@ ReadOnly.args = {
 export const Checked = Template.bind({});
 
 Checked.args = {
-  value: "true",
+  value: "value",
+  checked: true,
   onChange: (value) => {
     console.log(value);
   },

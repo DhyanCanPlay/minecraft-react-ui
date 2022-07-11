@@ -11,7 +11,9 @@
   --button-bezel-color: var(--bezel-color);
   --button-bezel-color-invert: var(--bezel-color-invert);
 
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 8px 16px;
   font-size: 14px;
   font-weight: 400;

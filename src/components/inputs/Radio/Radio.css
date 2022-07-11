@@ -60,7 +60,7 @@
 }
 
 .Radio:hover:before {
-  background-color: var(--radio-text-hover-color);
+  background-color: var(--background-color-hover);
 }
 
 .Radio:hover:checked:before {
