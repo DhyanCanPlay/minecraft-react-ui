@@ -7,7 +7,7 @@ export type RadioProps = Omit<
   React.HTMLProps<HTMLInputElement>,
   "onChange" | "value"
 > & {
-  value: string;
+  value?: string;
   checked?: boolean;
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
@@ -18,7 +18,7 @@ export type RadioProps = Omit<
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
     { onChange, disabled, className, value, checked, indeterminate, ...rest },
-    ref
+    ref?
   ) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       onChange(event.target.value, event);

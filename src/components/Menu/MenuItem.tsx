@@ -8,6 +8,7 @@ export type MenuItemProps = {
   label: React.ReactNode;
   onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   disabled?: boolean;
+  [key: string]: any;
 };
 
 const MenuItem = ({ label, onClick, disabled }: MenuItemProps) => {

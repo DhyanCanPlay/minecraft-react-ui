@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import CheckboxGroup from "./CheckboxGroup";
 import type { CheckboxGroupProps } from "./CheckboxGroup";
 
-const options = [
+const defaultOptions = [
   {
     label: "Option 1",
     value: "option-1",
@@ -42,7 +42,7 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     value: {
-      control: { options: options.map(({ value }) => value) },
+      control: { options: defaultOptions.map(({ value }) => value) },
     },
     disabled: {
       control: { type: "boolean" },
@@ -57,10 +57,12 @@ export default {
 const Template: ComponentStory<typeof CheckboxGroup> = ({
   value,
   onChange,
+  options,
+  ref,
   ...args
 }: CheckboxGroupProps) => {
-  const [localValue, setValue] = React.useState<Array<string>>(
-    (value as Array<string>) || []
+  const [localValue, setValue] = React.useState<Array<string> | undefined>(
+    (value as Array<string>) || undefined
   );
   const handleChange = (
     value: Array<string>,
@@ -72,10 +74,11 @@ const Template: ComponentStory<typeof CheckboxGroup> = ({
 
   return (
     <CheckboxGroup
-      options={options}
-      {...args}
+      ref={undefined}
+      options={options || defaultOptions}
       value={localValue}
       onChange={handleChange}
+      {...args}
     />
   );
 };

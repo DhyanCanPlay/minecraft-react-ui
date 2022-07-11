@@ -12,23 +12,24 @@ const DropdownMenu = ({
   className,
   onClick,
   tabIndex,
-}: MenuProps & ButtonProps & Omit<DropdownProps, "children" | "content">) => {
+}: MenuProps & ButtonProps & Omit<DropdownProps, "target" | "content">) => {
   return (
     <Dropdown
       closeOnClickOutside
       closeOnClickContent
       placement={placement}
       content={<Menu items={items} />}
-    >
-      <Button
-        onClick={onClick}
-        variant={"clear"}
-        className={className}
-        tabIndex={tabIndex}
-      >
-        <MenuIcon />
-      </Button>
-    </Dropdown>
+      target={
+        <Button
+          onClick={onClick}
+          variant={"clear"}
+          className={className}
+          tabIndex={tabIndex}
+        >
+          <MenuIcon />
+        </Button>
+      }
+    />
   );
 };
 

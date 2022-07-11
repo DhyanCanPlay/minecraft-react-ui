@@ -5,18 +5,18 @@ export type ListProps = {
   className?: string;
   children?: React.ReactNode;
   items: Array<Item>;
-  menu?: ListMenuProps | undefined;
-  search?: ListSearchProps | undefined;
-  selection?: ListSelectionProps | undefined;
+  menu?: ListMenuProps;
+  search?: ListSearchProps;
+  selection?: ListSelectionProps;
   renderItem: (renderItemProps: RenderItemProps) => React.ReactNode;
   direction?: "row" | "column";
-  draggable?: boolean;
-  itemSize?: number;
+  draggable: boolean;
+  itemSize: number;
   innerRef: (ref: any) => void;
 };
 
 export type Item = {
-  id: string | number;
+  id: string;
   [key: string]: any;
 };
 

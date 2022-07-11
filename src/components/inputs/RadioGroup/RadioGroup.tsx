@@ -12,15 +12,15 @@ export type RadioGroupOption = {
 };
 
 export type RadioGroupProps = Omit<
-  React.HTMLProps<HTMLInputElement>,
+  React.HTMLProps<HTMLDivElement>,
   "onChange" | "value"
 > & {
   name: string;
-  value: string;
+  value: string | undefined;
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
   options: Array<RadioGroupOption>;
   className?: string;
-  direction: "row" | "column";
+  direction?: "row" | "column";
   disabled?: boolean;
   readOnly?: boolean;
 };
@@ -37,7 +37,7 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
       className,
       direction,
     },
-    ref
+    ref?
   ) => {
     const optionId = (option: RadioGroupOption) => `${name}-${option.value}`;
     const handleChange = (

@@ -25,12 +25,16 @@ const Container = ({ children }: { children: React.ReactNode }) => (
 );
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Tooltip> = (args) => {
+const Template: ComponentStory<typeof Tooltip> = ({
+  children,
+  content,
+  ...args
+}) => {
   return (
     <Container>
       <Tooltip
-        children={"Hover me!"}
-        content={<p>Tooltip message</p>}
+        children={children || <>"Hover me!"</>}
+        content={content || <p>Tooltip message</p>}
         trigger={"hover"}
         {...args}
       />

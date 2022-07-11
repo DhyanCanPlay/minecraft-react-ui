@@ -22,7 +22,7 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(({ items }, ref) => {
 Menu.displayName = "Menu";
 
 Menu.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  items: PropTypes.array.isRequired,
 };
 
 export default Menu;

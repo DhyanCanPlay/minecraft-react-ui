@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, CSSProperties } from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -21,7 +21,12 @@ type DragDropItemProps = ListItemProps & {
   isScrolling?: boolean;
 };
 
-const DragDropListItem = React.memo((props: DragDropItemProps) => {
+const DragDropListItem = React.memo<{
+  index: number;
+  style: CSSProperties;
+  isScrolling?: boolean;
+  data: { items: Array<Item>; draggable: boolean };
+}>((props) => {
   const {
     index,
     data: { items, draggable },

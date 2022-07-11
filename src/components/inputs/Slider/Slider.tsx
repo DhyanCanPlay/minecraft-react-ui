@@ -53,24 +53,30 @@ const Slider = ({
 
   const relativeValue = ((value - min) / (max - min)) * 100;
 
-  const handleMouseMove = (event) => {
+  const handleMouseMove = (event: MouseEvent) => {
     if (isDragging) {
       const { clientX } = event;
-      const { left, width } = sliderRef.current.getBoundingClientRect();
+      const { left, width } = sliderRef.current?.getBoundingClientRect() || {
+        left: 0,
+        width: 0,
+      };
       const relativeX = (clientX - left) / width;
       const newValue = Math.round(relativeX * (max - min)) + min;
       onChange(Math.min(max, Math.max(min, newValue)));
     }
   };
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent) => {
     const { clientX } = event;
-    const { left, width } = sliderRef.current.getBoundingClientRect();
+    const { left, width } = sliderRef.current?.getBoundingClientRect() || {
+      left: 0,
+      width: 0,
+    };
     const relativeX = (clientX - left) / width;
     const newValue = Math.round(relativeX * (max - min)) + min;
     onChange(Math.min(max, Math.max(min, newValue)));
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "ArrowLeft") {
       onChange(Math.max(min, value - 1));
     } else if (event.key === "ArrowRight") {

@@ -28,6 +28,7 @@ export default {
 const Template: ComponentStory<typeof Radio> = ({
   value,
   onChange,
+  ref,
   ...args
 }: RadioProps) => {
   const [localValue, setLocalValue] = React.useState<string>(
@@ -41,7 +42,14 @@ const Template: ComponentStory<typeof Radio> = ({
     onChange(value, event);
   };
 
-  return <Radio value={localValue} onChange={handleChange} {...args} />;
+  return (
+    <Radio
+      ref={undefined}
+      value={localValue}
+      onChange={handleChange}
+      {...args}
+    />
+  );
 };
 
 export const Default = Template.bind({});

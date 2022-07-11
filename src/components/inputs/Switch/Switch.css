@@ -4,7 +4,7 @@
   --switch-bg-checked-hover-color: var(--primary-color-hover);
   --switch-text-color: #fff;
   --switch-text-color-30: rgba(255, 255, 255, 0.3);
-  --switch-border-color: #1d4d13;
+  --switch-border-color: var(--primary-border-color);
 
   --switch-text-hover-color: #f4f6f9;
   --switch-text-hover-color-30: #6a6a72;
@@ -75,7 +75,7 @@
 .Switch:checked:after {
   transform: translate3d(calc(100% - 4px), calc(-50% - 3px), 0);
   background-color: var(--switch-bg-checked-color);
-  --switch-border-color: #1d4d13;
+  --switch-border-color: var(--primary-border-color);
   border-width: 0 0 2px 0;
 
   box-shadow: inset 0px -2px 0px 0px var(--switch-bezel-color),

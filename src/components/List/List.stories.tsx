@@ -3,6 +3,13 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import List from "./List";
 import FlexBox from "../FlexBox";
 import Tag from "../Tag";
+import type { MenuItemProps } from "../Menu/MenuItem";
+import type {
+  ListItemProps,
+  ListSearchProps,
+  ListMenuProps,
+  Item,
+} from "./types";
 
 export default {
   title: "ReactComponentLibrary/List",
@@ -10,8 +17,8 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof List>;
 
-const menu = {
-  items: (item) => {
+const menu: ListMenuProps = {
+  items: (item?: Item) => {
     if (item) {
       const options = [];
       if (item.status === "pending") {
@@ -54,19 +61,17 @@ const menu = {
   },
 };
 
-const selection = {
-  itemDisabled: (item) => item.status === "deleted",
+const selection: { [key: string]: any } = {
+  itemDisabled: (item: MenuItemProps) => item.status === "deleted",
 };
 
-const search = {
+const search: ListSearchProps = {
   searchItem: (item, keywords) =>
     keywords &&
     (item.text.includes(keywords) || item.status.includes(keywords)),
 };
 
-const globalSeed = Math.floor(Math.random() * 5);
-
-const Execution = ({ item }) => {
+const Execution = ({ item }: { item: ListItemProps["item"] }) => {
   return (
     <FlexBox align="center" justify="space-between">
       <div>{item.text}</div>
@@ -75,7 +80,9 @@ const Execution = ({ item }) => {
   );
 };
 
-const Template: ComponentStory<typeof List> = (args) => {
+const Template: ComponentStory<typeof List & { [key: string]: any }> = (
+  args
+) => {
   return (
     <List
       {...args}

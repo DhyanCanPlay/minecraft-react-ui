@@ -4,7 +4,10 @@ import cn from "classnames";
 import "./Input.css";
 
 export type InputProps = Omit<React.HTMLProps<HTMLInputElement>, "onChange"> & {
-  onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    value: string,
+    event?: React.ChangeEvent<HTMLInputElement>
+  ) => void;
   disabled?: boolean;
   className?: string;
 };

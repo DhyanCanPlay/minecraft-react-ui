@@ -13,105 +13,100 @@ type TooltipProps = {
   trigger?: "hover" | "click";
 };
 
-const Tooltip = React.forwardRef(
-  ({ content, children, placement, trigger }: TooltipProps, ref: any) => {
-    const [visible, setVisible] = React.useState<boolean>(false);
-    const [referenceElement, setReferenceElement] =
-      React.useState<HTMLSpanElement | null>();
-    const [popperElement, setPopperElement] =
-      React.useState<HTMLDivElement | null>(null);
-    const [arrowElement, setArrowElement] =
-      React.useState<HTMLSpanElement | null>();
-    const instance = usePopper(referenceElement, popperElement, {
-      placement,
-      modifiers: [
-        {
-          name: "arrow",
-          options: {
-            element: arrowElement,
-            padding: 0,
-          },
+const Tooltip = React.forwardRef(({ content, children, placement, trigger }: TooltipProps, ref: any) => {
+  const [visible, setVisible] = React.useState<boolean>(false);
+  const [referenceElement, setReferenceElement] = React.useState<HTMLSpanElement | null>();
+  const [popperElement, setPopperElement] = React.useState<HTMLDivElement | null>(null);
+  const [arrowElement, setArrowElement] = React.useState<HTMLSpanElement | null>();
+  const instance = usePopper(referenceElement, popperElement, {
+    placement,
+    modifiers: [
+      {
+        name: "arrow",
+        options: {
+          element: arrowElement,
+          padding: 0,
         },
-      ],
-    });
-    const { styles, attributes } = instance;
+      },
+    ],
+  });
+  const { styles, attributes } = instance;
 
-    useImperativeHandle(ref, () => instance);
+  useImperativeHandle(ref, () => instance);
 
-    const handleMouseEnter = (event: React.MouseEvent) => {
-      if (trigger === "hover") {
-        setVisible(true);
-      }
-    };
-    const handleMouseLeave = (event: React.MouseEvent) => {
-      if (trigger === "hover") {
-        setVisible(false);
-      }
-    };
-    const handleMouseDown = (event: React.MouseEvent) => {
-      if (trigger === "click") {
-        setVisible(!visible);
-      }
-    };
+  const handleMouseEnter = (event: React.MouseEvent) => {
+    if (trigger === "hover") {
+      setVisible(true);
+    }
+  };
+  const handleMouseLeave = (event: React.MouseEvent) => {
+    if (trigger === "hover") {
+      setVisible(false);
+    }
+  };
+  const handleMouseDown = (event: React.MouseEvent) => {
+    if (trigger === "click") {
+      setVisible(!visible);
+    }
+  };
 
-    useEffect(() => {
-      if (visible && trigger === "click") {
-        const handler: (event: MouseEvent | TouchEvent) => void = (event) => {
-          if (
-            !referenceElement?.contains(event.target as HTMLElement) &&
-            !popperElement?.contains(event.target as HTMLElement)
-          ) {
-            setVisible(false);
-          }
-        };
-        document.addEventListener("touchstart", handler);
-        document.addEventListener("mousedown", handler);
-        return () => {
-          document.removeEventListener("touchstart", handler);
-          document.removeEventListener("mousedown", handler);
-        };
-      }
-    }, [visible, trigger, referenceElement, popperElement]);
+  useEffect(() => {
+    if (visible && trigger === "click") {
+      const handler: (event: MouseEvent | TouchEvent) => void = (event) => {
+        if (
+          !referenceElement?.contains(event.target as HTMLElement) &&
+          !popperElement?.contains(event.target as HTMLElement)
+        ) {
+          setVisible(false);
+        }
+      };
+      document.addEventListener("touchstart", handler);
+      document.addEventListener("mousedown", handler);
+      return () => {
+        document.removeEventListener("touchstart", handler);
+        document.removeEventListener("mousedown", handler);
+      };
+    }
+  }, [visible, trigger, referenceElement, popperElement]);
 
-    return (
-      <>
-        <span
-          ref={setReferenceElement}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          onMouseDown={handleMouseDown}
-          className={cn("TooltipTarget", { visible })}
-        >
-          {children}
-        </span>
-        {visible &&
-          ReactDOM.createPortal(
-            <div
-              ref={setPopperElement}
-              style={styles.popper}
-              className={cn("Tooltip", {
-                ["Tooltip_visible"]: visible,
-                [`Tooltip_${placement}`]: true,
-              })}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              {...attributes.popper}
-            >
-              <span
-                ref={setArrowElement}
-                data-popper-arrow
-                style={styles.arrow}
-                className={cn("TooltipArrow")}
-                {...attributes.arrow}
-              />
-              <div className={cn("TooltipWrapper")}>{content}</div>
-            </div>,
-            document.querySelector("body")
-          )}
-      </>
-    );
-  }
-);
+  return (
+    <>
+      <span
+        ref={setReferenceElement}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onMouseDown={handleMouseDown}
+        className={cn("TooltipTarget", { visible })}
+      >
+        {children}
+      </span>
+      {visible &&
+        ReactDOM.createPortal(
+          <div
+            ref={setPopperElement}
+            style={styles.popper}
+            className={cn("Tooltip", {
+              ["Tooltip_visible"]: visible,
+              [`Tooltip_${placement}`]: true,
+            })}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            {...attributes.popper}
+          >
+            <span
+              ref={setArrowElement}
+              data-popper-arrow
+              style={styles.arrow}
+              className={cn("TooltipArrow")}
+              {...attributes.arrow}
+            />
+            <div className={cn("TooltipWrapper")}>{content}</div>
+          </div>,
+          document.querySelector("body")!
+        )}
+    </>
+  );
+});
 
 Tooltip.propTypes = {
   content: PropTypes.node.isRequired,

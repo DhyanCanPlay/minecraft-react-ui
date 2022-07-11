@@ -25,17 +25,23 @@ const Container = ({ children }: { children: React.ReactNode }) => (
 );
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Dropdown> = (args) => {
+const Template: ComponentStory<typeof Dropdown> = ({
+  content,
+  target,
+  ...args
+}) => {
   return (
     <Container>
-      <Dropdown {...args} content={<p>Dropdown message</p>}>
-        <div>Click me!</div>
-      </Dropdown>
+      <Dropdown
+        {...args}
+        content={<p>Dropdown message</p>}
+        target={<div>Click me!</div>}
+      />
     </Container>
   );
 };
 
 export const Click = Template.bind({});
 Click.args = {
-  children: "Click me!",
+  target: <span>Click me!</span>,
 };

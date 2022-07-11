@@ -6,9 +6,25 @@ import { usePopper } from "react-popper";
 import cn from "classnames";
 import "./Dropdown.css";
 
+export type DropdownTargetProps = {
+  open: () => void;
+  close: () => void;
+  visible: boolean;
+  ref: React.LegacyRef<HTMLDivElement> | undefined;
+  className: string;
+};
+
+export type TargetFunction = (
+  targetProps: DropdownTargetProps
+) => React.ReactNode;
+
+export type Target =
+  | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+  | TargetFunction;
+
 export type DropdownProps = {
   content: React.ReactNode;
-  children: any;
+  target: Target;
   /**
    * If true, Dropdown closes by clicking on the content.
    */
@@ -24,16 +40,16 @@ export type DropdownProps = {
 
 const Dropdown = ({
   content,
-  children,
+  target,
   placement,
   closeOnClickContent,
   closeOnClickOutside,
 }: DropdownProps) => {
   const [visible, setVisible] = React.useState<boolean>(false);
   const [referenceElement, setReferenceElement] =
-    React.useState<React.LegacyRef<HTMLDivElement> | undefined>(null);
+    React.useState<HTMLDivElement | null>();
   const [popperElement, setPopperElement] =
-    React.useState<React.LegacyRef<HTMLDivElement> | undefined>(null);
+    React.useState<HTMLDivElement | null>();
 
   const instance = usePopper(referenceElement, popperElement, {
     placement,
@@ -53,10 +69,12 @@ const Dropdown = ({
 
   React.useEffect(() => {
     if (visible) {
-      const handler = (event) => {
+      const handler: EventListener = (event) => {
         if (
           closeOnClickOutside &&
+          // @ts-ignore: Unreachable code error
           !referenceElement.contains(event.target) &&
+          // @ts-ignore: Unreachable code error
           !popperElement.contains(event.target)
         ) {
           setVisible(false);
@@ -71,8 +89,8 @@ const Dropdown = ({
 
   return (
     <>
-      {typeof children === "function"
-        ? children({
+      {typeof target === "function"
+        ? target({
             ref: setReferenceElement,
             open: () => setVisible(true),
             close: () => setVisible(false),
@@ -81,11 +99,11 @@ const Dropdown = ({
               ["DropdownTarget_visible"]: visible,
             }),
           })
-        : React.cloneElement(children, {
+        : React.cloneElement(target, {
             ref: setReferenceElement,
             onClick: handleMouseDown,
             active: visible,
-            className: cn("DropdownTarget", children.props.className, {
+            className: cn("DropdownTarget", target.props.className, {
               ["DropdownTarget_visible"]: visible,
             }),
           })}
@@ -95,6 +113,7 @@ const Dropdown = ({
             ref={setPopperElement}
             style={{
               ...styles.popper,
+              // @ts-ignore: Unreachable code error
               minWidth: `${instance?.state?.elements?.reference?.offsetWidth}px`,
             }}
             className={cn("Dropdown", {
@@ -105,15 +124,13 @@ const Dropdown = ({
           >
             {content}
           </div>,
-          document.querySelector("body")
+          document.querySelector("body")!
         )}
     </>
   );
 };
 
 Dropdown.propTypes = {
-  content: PropTypes.node.isRequired,
-  children: PropTypes.node.isRequired,
   placement: PropTypes.string,
   closeOnClickContent: PropTypes.bool,
   closeOnClickOutside: PropTypes.bool,

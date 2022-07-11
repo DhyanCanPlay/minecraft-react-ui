@@ -28,9 +28,10 @@ export default {
 const Template: ComponentStory<typeof Checkbox> = ({
   value,
   onChange,
+  ref = undefined,
   ...args
 }: CheckboxProps) => {
-  const [localValue, setLocalValue] = React.useState<boolean>(
+  const [localValue, setLocalValue] = React.useState<boolean | undefined>(
     (value as boolean) || false
   );
   const handleChange = (
@@ -40,8 +41,14 @@ const Template: ComponentStory<typeof Checkbox> = ({
     setLocalValue(value);
     onChange(value, event);
   };
-
-  return <Checkbox value={localValue} onChange={handleChange} {...args} />;
+  return (
+    <Checkbox
+      ref={undefined}
+      value={localValue}
+      onChange={handleChange}
+      {...args}
+    />
+  );
 };
 
 export const Default = Template.bind({});

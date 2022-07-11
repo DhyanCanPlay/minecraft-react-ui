@@ -7,7 +7,7 @@ export type CheckboxProps = Omit<
   React.HTMLProps<HTMLInputElement>,
   "onChange" | "value"
 > & {
-  value: boolean;
+  value?: boolean;
   onChange: (
     value: boolean,
     event: React.ChangeEvent<HTMLInputElement>
@@ -18,7 +18,7 @@ export type CheckboxProps = Omit<
   label?: string;
 };
 
-const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
+const Checkbox = React.forwardRef(
   (
     {
       onChange,
@@ -29,8 +29,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       label,
       onClick,
       ...rest
-    },
-    ref
+    }: CheckboxProps,
+    ref?: React.Ref<HTMLInputElement>
   ) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       onChange(event.target.checked, event);

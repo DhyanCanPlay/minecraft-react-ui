@@ -4,6 +4,7 @@ import cn from "classnames";
 import Input from "../Input";
 import Button from "../../Button";
 import Dropdown from "../../layers/Dropdown";
+import type { DropdownTargetProps } from "../../layers/Dropdown";
 import "./Select.css";
 
 type SelectOption = {
@@ -13,9 +14,9 @@ type SelectOption = {
 };
 
 type SelectProps = {
-  value: string;
+  value?: string;
   options: Array<SelectOption>;
-  onChange: (value: string) => void;
+  onChange: (value?: string) => void;
   onFocus: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
   className: string;
@@ -107,8 +108,13 @@ const Select = ({
           ))}
         </div>
       }
-    >
-      {({ open, close, visible, ref, className: dropdownClassName }) => (
+      target={({
+        open,
+        close,
+        visible,
+        ref,
+        className: dropdownClassName,
+      }: DropdownTargetProps): React.ReactNode => (
         <div
           ref={ref}
           className={cn(className, dropdownClassName, "Select", {
@@ -157,7 +163,7 @@ const Select = ({
           </div>
         </div>
       )}
-    </Dropdown>
+    />
   );
 };
 

@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import RadioGroup from "./RadioGroup";
 import type { RadioGroupProps } from "./RadioGroup";
 
-const options = [
+const defaultOptions = [
   {
     label: "Option 1",
     value: "option-1",
@@ -42,7 +42,7 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     value: {
-      control: { options: options.map(({ value }) => value) },
+      control: { options: defaultOptions.map(({ value }) => value) },
     },
     disabled: {
       control: { type: "boolean" },
@@ -57,10 +57,12 @@ export default {
 const Template: ComponentStory<typeof RadioGroup> = ({
   value,
   onChange,
+  options,
+  ref,
   ...args
 }: RadioGroupProps) => {
-  const [localValue, setValue] = React.useState<string>(
-    (value as string) || []
+  const [localValue, setValue] = React.useState<string | undefined>(
+    (value as string) || undefined
   );
   const handleChange = (
     value: string,
@@ -72,10 +74,11 @@ const Template: ComponentStory<typeof RadioGroup> = ({
 
   return (
     <RadioGroup
-      options={options}
-      {...args}
-      value={localValue}
+      ref={undefined}
+      options={options || defaultOptions}
       onChange={handleChange}
+      value={localValue}
+      {...args}
     />
   );
 };
@@ -96,7 +99,6 @@ ShowSelectAll.args = {
   onChange: (value) => {
     console.log(value);
   },
-  showSelectAll: true,
 };
 
 export const DirectionRow = Template.bind({});
@@ -107,5 +109,4 @@ DirectionRow.args = {
   onChange: (value) => {
     console.log(value);
   },
-  showSelectAll: true,
 };

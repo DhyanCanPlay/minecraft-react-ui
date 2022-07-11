@@ -16,7 +16,10 @@ export default {
 } as ComponentMeta<typeof Input>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Input> = (args: InputProps) => {
+const Template: ComponentStory<typeof Input> = ({
+  ref,
+  ...args
+}: InputProps) => {
   const [value, setValue] = React.useState<string>(
     (args.value as string) || ""
   );
@@ -26,7 +29,9 @@ const Template: ComponentStory<typeof Input> = (args: InputProps) => {
     args.onChange(value);
   };
 
-  return <Input {...args} value={value} onChange={handleChange} />;
+  return (
+    <Input ref={undefined} {...args} value={value} onChange={handleChange} />
+  );
 };
 
 export const Default = Template.bind({});

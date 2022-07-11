@@ -28,6 +28,7 @@ export default {
 const Template: ComponentStory<typeof Switch> = ({
   value,
   onChange,
+  ref,
   ...args
 }: SwitchProps) => {
   const [localValue, setLocalValue] = React.useState<boolean>(
@@ -41,7 +42,14 @@ const Template: ComponentStory<typeof Switch> = ({
     onChange(value, event);
   };
 
-  return <Switch value={localValue} onChange={handleChange} {...args} />;
+  return (
+    <Switch
+      ref={undefined}
+      value={localValue}
+      onChange={handleChange}
+      {...args}
+    />
+  );
 };
 
 export const Default = Template.bind({});

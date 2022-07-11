@@ -11,14 +11,18 @@ export default {
 } as ComponentMeta<typeof Select>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Select> = (args) => {
-  const [value, setValue] = React.useState<string>(
-    (args.value as string) || ""
+const Template: ComponentStory<typeof Select> = ({
+  onChange,
+  value,
+  ...args
+}) => {
+  const [localValue, setValue] = React.useState<string | undefined>(
+    (value as string) || undefined
   );
-  const handleChange = (value: string): void => {
+  const handleChange = (value?: string): void => {
     console.log(value);
     setValue(value);
-    args.onChange(value);
+    onChange(value);
   };
   return (
     <Select
@@ -46,7 +50,7 @@ const Template: ComponentStory<typeof Select> = (args) => {
           value: "option-4",
         },
       ]}
-      value={value}
+      value={localValue}
       onChange={handleChange}
     />
   );
@@ -58,5 +62,5 @@ Default.args = {
   placeholder: "Select a value",
   searchPlaceholder: "Search for a value",
   value: "option-1",
-  onChange: (value: string): void => console.log(value),
+  onChange: (value?: string): void => console.log(value),
 };

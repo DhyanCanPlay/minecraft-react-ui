@@ -12,18 +12,18 @@ export type CheckboxGroupOption = {
 };
 
 export type CheckboxGroupProps = Omit<
-  React.HTMLProps<HTMLInputElement>,
+  React.HTMLProps<HTMLDivElement>,
   "onChange" | "value"
 > & {
   name: string;
-  value: Array<string>;
+  value?: Array<string>;
   onChange: (
     value: Array<string>,
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
   options: Array<CheckboxGroupOption>;
   className?: string;
-  direction: "row" | "column";
+  direction?: "row" | "column";
   showSelectAll?: boolean;
   disabled?: boolean;
   readOnly?: boolean;
@@ -42,7 +42,7 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
       showSelectAll,
       direction,
     },
-    ref
+    ref?
   ) => {
     const optionId = (option: CheckboxGroupOption) => `${name}-${option.value}`;
     const handleChange = (
@@ -52,16 +52,22 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
     ) => {
       onChange(
         [
-          ...value.filter((optionValue) => optionValue !== option.value),
+          ...(value?.filter((optionValue) => optionValue !== option.value) ||
+            []),
           ...(checked ? [option.value] : []),
         ],
         event
       );
     };
 
-    const allSelected = options.every((option) => value.includes(option.value));
+    const allSelected = options.every((option) =>
+      value?.includes(option.value)
+    );
 
-    const handleSelectAll = (event) => {
+    const handleSelectAll = (
+      value: boolean,
+      event: React.ChangeEvent<HTMLInputElement>
+    ) => {
       if (allSelected) {
         onChange([], event);
       } else {
@@ -93,7 +99,7 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
               id={optionId(option)}
               disabled={disabled || option.disabled}
               readOnly={readOnly || option.readOnly}
-              value={value.includes(option.value)}
+              value={value?.includes(option.value) ?? false}
               onChange={(value, event) => handleChange(option, value, event)}
             />
             <span title={option.label}>{option.label}</span>
@@ -107,9 +113,9 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
             <Checkbox
               id={"select_all"}
               disabled={disabled}
-              value={options.every((option) => value.includes(option.value))}
+              value={options.every((option) => value?.includes(option.value))}
               onChange={handleSelectAll}
-              indeterminate={!allSelected && value.length > 0}
+              indeterminate={!allSelected && (value ? value.length > 0 : false)}
             />
             <span>Select all</span>
           </label>
