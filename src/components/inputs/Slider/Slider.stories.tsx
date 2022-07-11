@@ -20,10 +20,10 @@ const Template: ComponentStory<typeof Slider> = (args) => {
   return <Slider {...args} value={value} onChange={handleChange} />;
 };
 
-export const Primary = Template.bind({});
+export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 
-Primary.args = {
+Default.args = {
   value: 1,
   min: 1,
   max: 5,

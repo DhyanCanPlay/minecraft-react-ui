@@ -61,16 +61,6 @@ Default.args = {
   },
 };
 
-export const Indeterminate = Template.bind({});
-
-Indeterminate.args = {
-  readOnly: true,
-  indeterminate: true,
-  onChange: (value) => {
-    console.log(value);
-  },
-};
-
 export const Disabled = Template.bind({});
 
 Disabled.args = {

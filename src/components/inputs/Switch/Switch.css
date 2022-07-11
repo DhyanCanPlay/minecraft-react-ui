@@ -7,7 +7,7 @@
   --switch-border-color: var(--primary-border-color);
 
   --switch-text-hover-color: #f4f6f9;
-  --switch-text-hover-color-30: var(----background-color-hover);
+  --switch-text-hover-color-30: var(--background-color-hover);
   --switch-bezel-color: var(--bezel-color);
   --switch-bezel-color-invert: var(--bezel-color-invert);
 }
