@@ -36,6 +36,7 @@ export type DropdownProps = {
   closeOnClickOutside?: boolean;
 
   placement?: Placement;
+  trigger?: "click" | "hover";
 };
 
 const Dropdown = ({
@@ -44,6 +45,7 @@ const Dropdown = ({
   placement,
   closeOnClickContent,
   closeOnClickOutside,
+  trigger,
 }: DropdownProps) => {
   const [visible, setVisible] = React.useState<boolean>(false);
   const [referenceElement, setReferenceElement] =
@@ -61,6 +63,18 @@ const Dropdown = ({
     setVisible(!visible);
   };
 
+  const handleMouseEnter = (event: React.MouseEvent) => {
+    if (trigger === "hover" && !visible) {
+      setVisible(true);
+    }
+  };
+
+  const handleMouseLeave = (event: React.MouseEvent) => {
+    if (trigger === "hover" && visible) {
+      setVisible(false);
+    }
+  };
+
   const handleClickOnContent = (event: React.MouseEvent) => {
     if (closeOnClickContent) {
       setVisible(false);
@@ -68,7 +82,7 @@ const Dropdown = ({
   };
 
   React.useEffect(() => {
-    if (visible) {
+    if (visible && trigger === "click") {
       const handler: EventListener = (event) => {
         if (
           closeOnClickOutside &&
@@ -83,6 +97,25 @@ const Dropdown = ({
       document.addEventListener("mousedown", handler);
       return () => {
         document.removeEventListener("mousedown", handler);
+      };
+    }
+  }, [visible, referenceElement, popperElement]);
+
+  React.useEffect(() => {
+    if (visible && trigger === "hover") {
+      const handler: EventListener = (event) => {
+        if (
+          // @ts-ignore: Unreachable code error
+          !referenceElement.contains(event.target) &&
+          // @ts-ignore: Unreachable code error
+          !popperElement.contains(event.target)
+        ) {
+          setVisible(false);
+        }
+      };
+      document.addEventListener("mouseleave", handler);
+      return () => {
+        document.removeEventListener("mouseleave", handler);
       };
     }
   }, [visible, referenceElement, popperElement]);
@@ -102,6 +135,9 @@ const Dropdown = ({
         : React.cloneElement(target, {
             ref: setReferenceElement,
             onClick: handleMouseDown,
+            onMouseEnter: handleMouseEnter,
+            onMouseMove: handleMouseEnter,
+            onMouseLeave: handleMouseLeave,
             active: visible,
             className: cn("DropdownTarget", target.props.className, {
               ["DropdownTarget_visible"]: visible,
@@ -120,6 +156,9 @@ const Dropdown = ({
               ["Dropdown_visible"]: visible,
             })}
             onClick={handleClickOnContent}
+            onMouseEnter={handleMouseEnter}
+            onMouseMove={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             {...attributes.popper}
           >
             {content}
@@ -138,6 +177,7 @@ Dropdown.propTypes = {
 
 Dropdown.defaultProps = {
   placement: "bottom-start",
+  trigger: "click",
 };
 
 export default Dropdown;

@@ -34,14 +34,25 @@ const Template: ComponentStory<typeof Dropdown> = ({
     <Container>
       <Dropdown
         {...args}
-        content={<p>Dropdown message</p>}
-        target={<div>Click me!</div>}
+        content={content || <p>Dropdown message</p>}
+        target={target || <div>Click me!</div>}
       />
     </Container>
   );
 };
 
 export const Click = Template.bind({});
+
 Click.args = {
   target: <span>Click me!</span>,
+  closeOnClickOutside: true,
+  trigger: "click",
+};
+
+export const Hover = Template.bind({});
+
+Hover.args = {
+  target: <span>Hover me!</span>,
+  content: <p>Hover me too!</p>,
+  trigger: "hover",
 };
