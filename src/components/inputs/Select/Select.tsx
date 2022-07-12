@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import Input from "../Input";
-import Button from "../../Button";
+import Button from "../../buttons/Button";
 import Dropdown from "../../layers/Dropdown";
 import type { DropdownTargetProps } from "../../layers/Dropdown";
 import "./Select.css";
