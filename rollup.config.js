@@ -3,6 +3,9 @@ import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 import postcss from "rollup-plugin-postcss";
+import postcssImport from "postcss-import";
+import postcssMixins from "postcss-mixins";
+import autoprefixer from "autoprefixer";
 
 const packageJson = require("./package.json");
 
@@ -25,12 +28,23 @@ export default [
       resolve(),
       commonjs(),
       typescript({ tsconfig: "./.tsconfig.json" }),
-      postcss(),
+      postcss({
+        extract: "minecraft-react-ui.css",
+        plugins: [
+          postcssImport(),
+          postcssMixins({
+            mixinsDir: ["src/styles/mixins"],
+          }),
+          autoprefixer(),
+        ],
+      }),
+      ,
     ],
   },
   {
     input: "dist/esm/types/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [dts()],
+    external: [/\.css$/, /\.otf/],
   },
 ];
