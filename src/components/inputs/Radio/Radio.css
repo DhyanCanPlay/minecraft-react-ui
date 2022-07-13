@@ -6,9 +6,6 @@
   --radio-text-color-30: rgba(255, 255, 255, 0.3);
 
   --radio-text-hover-color: #f4f6f9;
-  --radio-bezel-color: var(--bezel-color);
-  --radio-bezel-color-semi: var(--bezel-color-semi);
-  --radio-bezel-color-invert: var(--bezel-color-invert);
 
   width: 16px;
   height: 16px;
@@ -22,8 +19,7 @@
 }
 
 .Radio:focus:not(:active) {
-  box-shadow: 0 0 0px 1px var(--radio-bg-color),
-    0 0 0 2px var(--radio-text-color);
+  @mixin bezel-invert;
 }
 
 .Radio:before,
@@ -39,10 +35,7 @@
   width: 16px;
   height: 16px;
   background-color: var(--text-color-invert);
-  box-shadow: inset 0px -2px 0px 0px var(--radio-bezel-color-semi),
-    inset -2px 0px 0px 0px var(--radio-bezel-color-invert),
-    inset 0px 2px 0px 0px var(--radio-bezel-color-semi),
-    inset 2px 0px 0px 0px var(--radio-bezel-color);
+  @mixin bezel-invert;
 }
 
 .Radio:after {
@@ -52,11 +45,7 @@
 
 .Radio:checked:before {
   background-color: var(--radio-bg-checked-color);
-
-  box-shadow: inset 0px -2px 0px 0px var(--radio-bezel-color-semi),
-    inset -2px 0px 0px 0px var(--radio-bezel-color),
-    inset 0px 2px 0px 0px var(--radio-bezel-color-semi),
-    inset 2px 0px 0px 0px var(--radio-bezel-color-invert);
+  @mixin bezel;
 }
 
 .Radio:hover:before {
@@ -69,11 +58,7 @@
 
 .Radio:checked:after {
   background-color: var(--radio-text-color);
-
-  box-shadow: 0px -2px 0px 0px var(--radio-bezel-color-semi),
-    -2px 0px 0px 0px var(--radio-bezel-color),
-    0px 2px 0px 0px var(--radio-bezel-color-semi),
-    2px 0px 0px 0px var(--radio-bezel-color-invert);
+  @mixin bezel-invert;
 }
 
 .Radio:hover:checked:after {
@@ -84,10 +69,7 @@
   background-color: var(--radio-bg-checked-color);
   width: 8px;
   height: 8px;
-  box-shadow: inset 0px -2px 0px 0px var(--radio-bezel-color),
-    inset -2px 0px 0px 0px var(--radio-bezel-color-semi),
-    inset 0px 2px 0px 0px var(--radio-bezel-color-invert),
-    inset 2px 0px 0px 0px var(--radio-bezel-color-semi);
+  @mixin bezel-invert;
 }
 
 .Radio_indeterminate:hover:after {

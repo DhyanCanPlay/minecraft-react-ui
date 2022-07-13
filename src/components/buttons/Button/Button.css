@@ -35,10 +35,7 @@
   background-clip: padding-box;
   box-sizing: border-box;
   text-transform: uppercase;
-  box-shadow: inset 0px -2px 0px 0px var(--button-bezel-color),
-    inset -2px 0px 0px 0px var(--button-bezel-color),
-    inset 0px 2px 0px 0px var(--button-bezel-color-invert),
-    inset 2px 0px 0px 0px var(--button-bezel-color-invert);
+  @mixin bezel;
 }
 
 .Button:hover {
@@ -76,14 +73,11 @@
   border-width: 4px 0 0;
   border-bottom-color: var(--button-bg-color);
   background-color: var(--button-bg-active-color);
-
-  box-shadow: inset 0px -2px 0px 0px var(--button-bezel-color-invert),
-    inset -2px 0px 0px 0px var(--button-bezel-color-invert),
-    inset 0px 2px 0px 0px var(--button-bezel-color),
-    inset 2px 0px 0px 0px var(--button-bezel-color);
+  @mixin bezel-invert;
 }
 
 .Button_primary {
+  @mixin bezel;
   --button-bg-color: var(--primary-color);
   --button-bg-hover-color: var(--primary-color-hover);
   --button-bg-active-color: var(--primary-color-active);

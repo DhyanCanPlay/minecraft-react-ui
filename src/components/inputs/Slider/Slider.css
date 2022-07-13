@@ -5,8 +5,6 @@
   --slider-rail-fill-color: var(--primary-color);
   --slider-tooltip-pixel-size: 4px;
   --slider-tooltip-bg-color: var(--accent-color);
-  --slider-bezel-color: var(--bezel-color);
-  --slider-bezel-color-invert: var(--bezel-color-invert);
   width: 100%;
   padding: 8px 16px;
   position: relative;
@@ -27,11 +25,9 @@
   position: relative;
   width: 100%;
   background-color: var(--slider-rail-bg-color);
-  box-shadow: inset 0px -2px 0px 0px var(--slider-bezel-color-invert),
-    inset -2px 0px 0px 0px var(--slider-bezel-color-invert),
-    inset 0px 2px 0px 0px var(--slider-bezel-color),
-    inset 2px 0px 0px 0px var(--slider-bezel-color);
+  @mixin bezel;
 }
+
 .SliderTooltip {
   opacity: 0;
   transition: opacity 0.2s ease-in-out;

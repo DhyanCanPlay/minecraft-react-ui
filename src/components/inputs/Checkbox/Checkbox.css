@@ -6,8 +6,6 @@
   --checkbox-text-color-30: rgba(255, 255, 255, 0.3);
 
   --checkbox-text-hover-color: #f4f6f9;
-  --checkbox-bezel-color: var(--bezel-color);
-  --checkbox-bezel-color-invert: var(--bezel-color-invert);
 }
 
 .Checkbox {
@@ -22,8 +20,7 @@
 }
 
 .Checkbox:focus:not(:active) {
-  box-shadow: 0 0 0px 1px var(--checkbox-bg-color),
-    0 0 0 2px var(--checkbox-text-color);
+  @mixin bezel-invert;
 }
 
 .Checkbox:before,
@@ -39,24 +36,17 @@
   width: 16px;
   height: 16px;
   background-color: var(--text-color-invert);
-  box-shadow: inset 0px -2px 0px 0px var(--checkbox-bezel-color-invert),
-    inset -2px 0px 0px 0px var(--checkbox-bezel-color-invert),
-    inset 0px 2px 0px 0px var(--checkbox-bezel-color),
-    inset 2px 0px 0px 0px var(--checkbox-bezel-color);
+  @mixin bezel-invert;
 }
 
 .Checkbox:after {
-  width: 5px;
-  height: 5px;
+  width: 8px;
+  height: 8px;
 }
 
 .Checkbox:checked:before {
   background-color: var(--checkbox-bg-checked-color);
-
-  box-shadow: inset 0px -2px 0px 0px var(--checkbox-bezel-color),
-    inset -2px 0px 0px 0px var(--checkbox-bezel-color),
-    inset 0px 2px 0px 0px var(--checkbox-bezel-color-invert),
-    inset 2px 0px 0px 0px var(--checkbox-bezel-color-invert);
+  @mixin bezel;
 }
 
 .Checkbox:hover:before {
@@ -69,11 +59,7 @@
 
 .Checkbox:checked:after {
   background-color: var(--checkbox-text-color);
-
-  box-shadow: 0px -2px 0px 0px var(--checkbox-bezel-color),
-    -2px 0px 0px 0px var(--checkbox-bezel-color),
-    0px 2px 0px 0px var(--checkbox-bezel-color-invert),
-    2px 0px 0px 0px var(--checkbox-bezel-color-invert);
+  @mixin bezel-invert;
 }
 
 .Checkbox:hover:checked:after {
@@ -84,10 +70,7 @@
   background-color: var(--checkbox-bg-checked-color);
   width: 8px;
   height: 8px;
-  box-shadow: inset 0px -2px 0px 0px var(--checkbox-bezel-color),
-    inset -2px 0px 0px 0px var(--checkbox-bezel-color),
-    inset 0px 2px 0px 0px var(--checkbox-bezel-color-invert),
-    inset 2px 0px 0px 0px var(--checkbox-bezel-color-invert);
+  @mixin bezel;
 }
 
 .Checkbox_indeterminate:hover:after {

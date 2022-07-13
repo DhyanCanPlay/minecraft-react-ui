@@ -1,7 +1,5 @@
 .Input {
   --input-background-color: #313234;
-  --input-bezel-color: var(--bezel-color);
-  --input-bezel-color-invert: var(--bezel-color-invert);
   padding: 6px 12px;
   background-color: var(--input-background-color);
   color: #fff;
@@ -10,10 +8,7 @@
   line-height: 1.4;
   border: none;
   box-sizing: border-box;
-  box-shadow: inset 0px -2px 0px 0px var(--input-bezel-color-invert),
-    inset -2px 0px 0px 0px var(--input-bezel-color-invert),
-    inset 0px 2px 0px 0px var(--input-bezel-color),
-    inset 2px 0px 0px 0px var(--input-bezel-color);
+  @mixin bezel-invert;
 }
 
 .Input::placeholder {

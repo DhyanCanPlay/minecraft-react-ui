@@ -1,0 +1,13 @@
+@define-mixin bezel {
+  box-shadow: inset 0px -2px 0px 0px var(--bezel-color),
+    inset -2px 0px 0px 0px var(--bezel-color),
+    inset 0px 2px 0px 0px var(--bezel-color-invert),
+    inset 2px 0px 0px 0px var(--bezel-color-invert);
+}
+
+@define-mixin bezel-invert {
+  box-shadow: inset 0px -2px 0px 0px var(--bezel-color-invert),
+    inset -2px 0px 0px 0px var(--bezel-color-invert),
+    inset 0px 2px 0px 0px var(--bezel-color),
+    inset 2px 0px 0px 0px var(--bezel-color);
+}
