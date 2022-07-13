@@ -1,4 +1,4 @@
-import "../src/assets/styles/minecraft-ui.css";
+import "../src/styles/minecraft-ui.css";
 import "./style.css";
 
 export const parameters = {

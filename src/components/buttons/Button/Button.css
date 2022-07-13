@@ -20,7 +20,7 @@
   line-height: 1.5;
   text-align: center;
   white-space: nowrap;
-  font-family: minecraft-bold;
+  font-family: Minecraft;
   color: var(--button-text-color);
   border: none;
   position: relative;
@@ -91,7 +91,7 @@
   --button-text-hover-color: var(--text-color);
   --button-text-active-color: var(--text-color);
   --button-border-color: #1d4d13;
-  font-family: minecraft-bold;
+  font-family: Minecraft;
 }
 
 .Button_clear {
