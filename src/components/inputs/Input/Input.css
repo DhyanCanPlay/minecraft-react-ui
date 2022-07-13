@@ -1,19 +1,18 @@
 .Input {
-  --input-background-color: #313234;
+  --input-background-color: var(--midground-color);
   padding: 6px 12px;
   background-color: var(--input-background-color);
-  color: #fff;
+  color: var(--text-color);
   font-family: "Minecraft";
-  font-size: 16px;
-  line-height: 1.4;
+  font-size: 1rem;
+  line-height: 1.5;
   border: none;
   box-sizing: border-box;
   @mixin bezel-invert;
 }
 
 .Input::placeholder {
-  color: #eee;
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 .Input:focus {

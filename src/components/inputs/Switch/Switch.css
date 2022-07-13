@@ -1,13 +1,12 @@
 :root {
-  --switch-bg-color: #23232a;
+  --switch-bg-color: var(--midground-color);
   --switch-bg-checked-color: var(--primary-color);
   --switch-bg-checked-hover-color: var(--primary-color-hover);
-  --switch-text-color: #fff;
+  --switch-text-color: var(--text-color);
   --switch-text-color-30: rgba(255, 255, 255, 0.3);
   --switch-border-color: var(--primary-border-color);
-
-  --switch-text-hover-color: #f4f6f9;
-  --switch-text-hover-color-30: var(--background-color-hover);
+  --switch-text-hover-color: var(--text-color);
+  --switch-text-hover-color-30: var(--foreground-color);
 }
 
 .Switch {
@@ -56,7 +55,7 @@
   border-style: solid;
   border-width: 0 0 2px 0;
   border-top-color: transparent;
-  --switch-border-color: #58585a;
+  --switch-border-color: var(--midground-color);
   border-bottom-color: var(--switch-border-color);
   border-left-color: transparent;
   border-right-color: transparent;

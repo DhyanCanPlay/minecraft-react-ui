@@ -1,6 +1,6 @@
 .Tooltip {
   --tooltip-pixel-size: 5px;
-  --tooltip-bg-color: #2e6be5;
+  --tooltip-bg-color: var(--accent-color);
   display: none;
 }
 

@@ -1,11 +1,11 @@
 .Radio {
-  --radio-bg-color: #23232a;
+  --radio-bg-color: var(--midground-color);
   --radio-bg-checked-color: var(--primary-color);
   --radio-bg-checked-hover-color: var(--primary-color-hover);
-  --radio-text-color: #fff;
+  --radio-text-color: var(--text-color);
   --radio-text-color-30: rgba(255, 255, 255, 0.3);
 
-  --radio-text-hover-color: #f4f6f9;
+  --radio-text-hover-color: var(--foreground-color);
 
   width: 16px;
   height: 16px;
@@ -49,7 +49,7 @@
 }
 
 .Radio:hover:before {
-  background-color: var(--background-color-hover);
+  background-color: var(--foreground-color);
 }
 
 .Radio:hover:checked:before {

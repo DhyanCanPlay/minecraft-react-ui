@@ -1,11 +1,11 @@
 :root {
-  --checkbox-bg-color: #23232a;
+  --checkbox-bg-color: var(--midground-color);
   --checkbox-bg-checked-color: var(--primary-color);
   --checkbox-bg-checked-hover-color: var(--primary-color-hover);
-  --checkbox-text-color: #fff;
+  --checkbox-text-color: var(--text-color);
   --checkbox-text-color-30: rgba(255, 255, 255, 0.3);
 
-  --checkbox-text-hover-color: #f4f6f9;
+  --checkbox-text-hover-color: var(--foreground-color);
 }
 
 .Checkbox {
@@ -50,7 +50,7 @@
 }
 
 .Checkbox:hover:before {
-  background-color: var(--background-color-hover);
+  background-color: var(--foreground-color);
 }
 
 .Checkbox:hover:checked:before {

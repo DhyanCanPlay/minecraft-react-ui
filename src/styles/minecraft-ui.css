@@ -1,31 +1,12 @@
-@font-face {
-  font-family: "Minecraft";
-  src: url("https://cdn.jsdelivr.net/npm/typeface-minecraft@1.0.0/files/minecraft.eot");
-  src: url("https://cdn.jsdelivr.net/npm/typeface-minecraft@1.0.0/files/minecraft.eot")
-      format("embedded-opentype"),
-    url("https://cdn.jsdelivr.net/npm/typeface-minecraft@1.0.0/files/minecraft.woff2")
-      format("woff2"),
-    url("https://cdn.jsdelivr.net/npm/typeface-minecraft@1.0.0/files/minecraft.woff")
-      format("woff"),
-    url("https://cdn.jsdelivr.net/npm/typeface-minecraft@1.0.0/files/minecraft.ttf")
-      format("truetype"),
-    url("https://cdn.jsdelivr.net/npm/typeface-minecraft@1.0.0/files/minecraft.svg#minecraft")
-      format("svg");
-}
-
-body {
-  font-family: "Minecraft";
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--text-color);
-  background-color: #23232a;
-}
-
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
+
+html {
+  font-size: 16px;
+  color: var(--text-color);
+}
+
 input,
 textarea,
 button,
@@ -36,7 +17,8 @@ a {
 
 :root {
   --background-color: #23232a;
-  --background-color-hover: #6a6a72;
+  --midground-color: #484848;
+  --foreground-color: #8b8b8b;
 
   --select-color: #fff;
 
@@ -46,6 +28,7 @@ a {
   --primary-color-hover-30: rgba(52, 165, 53, 0.3);
   --primary-color-active: #4bbc22;
   --primary-color-active-30: rgba(42, 100, 28, 0.3);
+  --primary-color-dark: #1d4d13;
 
   --accent-color: #2e6be5;
 
@@ -55,6 +38,7 @@ a {
   --secondary-color-hover-30: rgba(244, 246, 249, 0.3);
   --secondary-color-active: #ffffff;
   --secondary-color-active-30: rgba(177, 178, 181, 0.3);
+  --secondary-color-dark: #58585a;
 
   --success-color: #89ffb2;
   --warning-color: #fcd58c;

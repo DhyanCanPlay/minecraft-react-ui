@@ -65,7 +65,7 @@ Disabled.args = {
 export const WithValue = Template.bind({});
 
 WithValue.args = {
-  value: "Value from storybook",
+  value: "Minecraft UI",
   placeholder: "Placeholder",
   onChange: (value) => {
     console.log(value);

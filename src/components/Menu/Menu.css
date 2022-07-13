@@ -1,6 +1,7 @@
 .Menu {
   display: flex;
   flex-direction: column;
-  background-color: #23232a;
+  background-color: var(--midground-color);
+  padding: 2px;
   @mixin bezel;
 }

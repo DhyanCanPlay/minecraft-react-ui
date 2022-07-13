@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import Input from "../Input";
+import Menu from "../../Menu";
 import Button from "../../buttons/Button";
 import Dropdown from "../../layers/Dropdown";
 import type { DropdownTargetProps } from "../../layers/Dropdown";
@@ -93,20 +94,14 @@ const Select = ({
     <Dropdown
       closeOnClickOutside
       content={
-        <div className={cn("SelectOptions")}>
-          {filteredOptions.map((option) => (
-            <div
-              key={option.value}
-              className={cn("SelectOption", {
-                ["SelectOption_disabled"]: option.disabled,
-                ["SelectOption_selected"]: option.value === value,
-              })}
-              onMouseDown={() => selectOption(option)}
-            >
-              {option.label}
-            </div>
-          ))}
-        </div>
+        <Menu
+          items={filteredOptions.map((option) => ({
+            id: option.value,
+            label: option.label,
+            disabled: option.disabled,
+            onMouseDown: () => selectOption(option),
+          }))}
+        />
       }
       target={({
         open,

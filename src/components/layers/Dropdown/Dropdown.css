@@ -1,6 +1,4 @@
 .Dropdown {
-  --dropdown-pixel-size: 5px;
-  --dropdown-bg-color: #2e6be5;
   display: none;
 }
 
