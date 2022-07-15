@@ -10,29 +10,27 @@ Built with React and documented with Storybook.
 
 ## Tech Stack
 
-**Technologies:** Typescript, React and CSS
+**UI:** Typescript, React and CSS
 
 **Docs:** Storybook
+
+**Build**: Rollup
 
 ## Used By
 
 This project is not yet using by anyone. If you are using it, please let me know.
 
-## Running Tests
-
-To run tests, run the following command
-
-```bash
-  npm run test
-```
-
 ## Badges
 
-Add badges from somewhere like: [shields.io](https://shields.io/)
+[![VERSION](https://img.shields.io/npm/v/minecraft-react-ui?label=version&style=for-the-badge)]()
 
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+[![CODE](https://img.shields.io/npm/types/minecraft-react-ui?label=CODE&style=for-the-badge)]()
+
+[![MINSIZE](https://img.shields.io/bundlephobia/minzip/minecraft-react-ui?style=for-the-badge)](https://www.npmjs.com/package/minecraft-react-ui)
+
+[![CODESIZE](https://img.shields.io/github/languages/code-size/josempineiro/minecraft-react-ui?style=for-the-badge)](https://www.npmjs.com/package/minecraft-react-ui)
+
+[![MIT License](https://img.shields.io/github/license/josempineiro/minecraft-react-ui?style=for-the-badge)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 
 ## Feedback
 
@@ -54,7 +52,7 @@ Currently we do not have any contribution but we do not rule out doing so.
 
 ## Authors
 
-- [@josempineiro](https://www.github.com/josempineiro)
+[@josempineiro](https://www.github.com/josempineiro)
 
 ![Logo](https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg)
 
