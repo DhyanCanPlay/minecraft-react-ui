@@ -4,6 +4,7 @@
   padding: 0.5rem 1.5rem 0.5rem 1rem;
   width: 100%;
   cursor: pointer;
+  font-family: Minecraft, Minercraftory;
 }
 
 .MenuItem:hover {

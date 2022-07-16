@@ -3,7 +3,7 @@
   padding: 6px 12px;
   background-color: var(--input-background-color);
   color: var(--text-color);
-  font-family: "Minecraft";
+  font-family: Minecraft, Minercraftory;
   font-size: 1rem;
   line-height: 1.5;
   border: none;

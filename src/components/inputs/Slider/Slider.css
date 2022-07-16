@@ -41,21 +41,19 @@
   background-color: var(--slider-tooltip-bg-color);
   padding: 0 calc(var(--slider-tooltip-pixel-size) * 3);
   margin-bottom: calc(var(--tooltip-pixel-size) * 2);
+  font-family: Minecraft, Minercraftory;
   clip-path: polygon(
     0% var(--slider-tooltip-pixel-size),
     var(--slider-tooltip-pixel-size) var(--slider-tooltip-pixel-size),
     var(--slider-tooltip-pixel-size) 0%,
     calc(100% - var(--slider-tooltip-pixel-size)) 0%,
-    calc(100% - var(--slider-tooltip-pixel-size))
-      var(--slider-tooltip-pixel-size),
+    calc(100% - var(--slider-tooltip-pixel-size)) var(--slider-tooltip-pixel-size),
     100% var(--slider-tooltip-pixel-size),
     100% calc(100% - var(--slider-tooltip-pixel-size)),
-    calc(100% - var(--slider-tooltip-pixel-size))
-      calc(100% - var(--slider-tooltip-pixel-size)),
+    calc(100% - var(--slider-tooltip-pixel-size)) calc(100% - var(--slider-tooltip-pixel-size)),
     calc(100% - var(--slider-tooltip-pixel-size)) 100%,
     var(--slider-tooltip-pixel-size) 100%,
-    var(--slider-tooltip-pixel-size)
-      calc(100% - var(--slider-tooltip-pixel-size)),
+    var(--slider-tooltip-pixel-size) calc(100% - var(--slider-tooltip-pixel-size)),
     0% calc(100% - var(--slider-tooltip-pixel-size))
   );
 }

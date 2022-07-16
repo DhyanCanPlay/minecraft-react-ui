@@ -1,6 +1,7 @@
 .RadioGroup {
   display: flex;
   gap: 1rem;
+  font-family: Minecraft, Minercraftory;
 }
 .RadioGroup_row {
   flex-direction: row;

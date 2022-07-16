@@ -22,6 +22,7 @@
   background-clip: padding-box;
   box-sizing: border-box;
   text-transform: uppercase;
+  font-family: Minecraft, Minercraftory;
   @mixin bezel;
 }
 
@@ -72,7 +73,6 @@
   --button-text-hover-color: var(--text-color);
   --button-text-active-color: var(--text-color);
   --button-border-color: var(--primary-color-dark);
-  font-family: Minecraft;
 }
 
 .Button_clear {

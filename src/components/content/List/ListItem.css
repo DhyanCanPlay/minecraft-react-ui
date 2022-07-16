@@ -8,6 +8,7 @@
   width: 100%;
   border-bottom: 1px solid #e6e6e611;
   transition: background-color 0.2s ease-in-out;
+  font-family: Minecraft, Minercraftory;
 }
 
 .ListItem_selected {

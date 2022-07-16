@@ -2,10 +2,12 @@
   --tooltip-pixel-size: 5px;
   --tooltip-bg-color: var(--accent-color);
   display: none;
+  font-family: Minecraft, Minercraftory;
 }
 
 .TooltipTarget {
   cursor: pointer;
+  font-family: Minecraft, Minercraftory;
 }
 
 .Tooltip_visible {
@@ -24,8 +26,7 @@
     calc(100% - var(--tooltip-pixel-size)) var(--tooltip-pixel-size),
     100% var(--tooltip-pixel-size),
     100% calc(100% - var(--tooltip-pixel-size)),
-    calc(100% - var(--tooltip-pixel-size))
-      calc(100% - var(--tooltip-pixel-size)),
+    calc(100% - var(--tooltip-pixel-size)) calc(100% - var(--tooltip-pixel-size)),
     calc(100% - var(--tooltip-pixel-size)) 100%,
     var(--tooltip-pixel-size) 100%,
     var(--tooltip-pixel-size) calc(100% - var(--tooltip-pixel-size)),

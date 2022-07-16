@@ -19,6 +19,8 @@
     var(--tag-pixel-size) calc(100% - var(--tag-pixel-size)),
     0% calc(100% - var(--tag-pixel-size))
   );
+
+  font-family: Minecraft, Minercraftory;
 }
 
 .Tag_success {
