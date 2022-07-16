@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
-import Radio from "../Radio";
+import Radio from "@/components/inputs/Radio";
 import "./RadioGroup.css";
 
 export type RadioGroupOption = {
@@ -11,10 +11,7 @@ export type RadioGroupOption = {
   readOnly?: boolean;
 };
 
-export type RadioGroupProps = Omit<
-  React.HTMLProps<HTMLDivElement>,
-  "onChange" | "value"
-> & {
+export type RadioGroupProps = Omit<React.HTMLProps<HTMLDivElement>, "onChange" | "value"> & {
   name: string;
   value: string | undefined;
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -26,24 +23,9 @@ export type RadioGroupProps = Omit<
 };
 
 const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
-  (
-    {
-      name,
-      value,
-      onChange,
-      options,
-      disabled,
-      readOnly,
-      className,
-      direction,
-    },
-    ref?
-  ) => {
+  ({ name, value, onChange, options, disabled, readOnly, className, direction }, ref?) => {
     const optionId = (option: RadioGroupOption) => `${name}-${option.value}`;
-    const handleChange = (
-      option: RadioGroupOption,
-      event: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleChange = (option: RadioGroupOption, event: React.ChangeEvent<HTMLInputElement>) => {
       onChange(option.value, event);
     };
 
@@ -77,7 +59,7 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
         ))}
       </div>
     );
-  }
+  },
 );
 
 RadioGroup.propTypes = {

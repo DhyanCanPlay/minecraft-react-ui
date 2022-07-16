@@ -5,7 +5,7 @@ import type { CheckboxProps } from "./Checkbox";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/inputs/Checkbox",
+  title: "Components/inputs/Checkbox",
   component: Checkbox,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
@@ -25,30 +25,13 @@ export default {
 } as ComponentMeta<typeof Checkbox>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Checkbox> = ({
-  value,
-  onChange,
-  ref = undefined,
-  ...args
-}: CheckboxProps) => {
-  const [localValue, setLocalValue] = React.useState<boolean | undefined>(
-    (value as boolean) || false
-  );
-  const handleChange = (
-    value: boolean,
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+const Template: ComponentStory<typeof Checkbox> = ({ value, onChange, ref = undefined, ...args }: CheckboxProps) => {
+  const [localValue, setLocalValue] = React.useState<boolean | undefined>((value as boolean) || false);
+  const handleChange = (value: boolean, event: React.ChangeEvent<HTMLInputElement>): void => {
     setLocalValue(value);
     onChange(value, event);
   };
-  return (
-    <Checkbox
-      ref={undefined}
-      value={localValue}
-      onChange={handleChange}
-      {...args}
-    />
-  );
+  return <Checkbox ref={undefined} value={localValue} onChange={handleChange} {...args} />;
 };
 
 export const Default = Template.bind({});

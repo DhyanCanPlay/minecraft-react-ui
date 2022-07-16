@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
-import Input from "../Input";
-import Menu from "../../Menu";
-import Button from "../../buttons/Button";
-import Dropdown from "../../layers/Dropdown";
-import type { DropdownTargetProps } from "../../layers/Dropdown";
+import Input from "@/components/inputs/Input";
+import Menu from "@/components/content/Menu";
+import Button from "@/components/buttons/Button";
+import Dropdown from "@/components/layers/Dropdown";
+import type { DropdownTargetProps } from "@/components/layers/Dropdown";
 import "./Select.css";
 
 type SelectOption = {
@@ -103,13 +103,7 @@ const Select = ({
           }))}
         />
       }
-      target={({
-        open,
-        close,
-        visible,
-        ref,
-        className: dropdownClassName,
-      }: DropdownTargetProps): React.ReactNode => (
+      target={({ open, close, visible, ref, className: dropdownClassName }: DropdownTargetProps): React.ReactNode => (
         <div
           ref={ref}
           className={cn(className, dropdownClassName, "Select", {
@@ -173,7 +167,7 @@ Select.propTypes = {
       label: PropTypes.string,
       value: PropTypes.string,
       disabled: PropTypes.bool,
-    })
+    }),
   ),
 };
 Select.defaultProps = {

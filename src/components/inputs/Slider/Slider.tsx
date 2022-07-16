@@ -2,7 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import { useEventListener } from "usehooks-ts";
-import Button from "../../buttons/Button";
+import Button from "@/components/buttons/Button";
 import "./Slider.css";
 
 export type SliderProps = {
@@ -19,14 +19,7 @@ export type SliderProps = {
   onChange: (value: number) => void;
 };
 
-const Slider = ({
-  disabled,
-  className,
-  value = 50,
-  onChange,
-  min = 0,
-  max = 100,
-}: SliderProps) => {
+const Slider = ({ disabled, className, value = 50, onChange, min = 0, max = 100 }: SliderProps) => {
   const [isFocus, setFocus] = React.useState<boolean>(false);
   const [isDragging, setIsDragging] = React.useState<boolean>(false);
   const sliderRef = React.useRef<HTMLDivElement>(null);
@@ -86,27 +79,21 @@ const Slider = ({
 
   const backgroundRailStyles = (() => ({
     backgroundImage: `
-    linear-gradient(to right, ${
-      value === min ? "transparent" : "var(--slider-rail-fill-color)"
-    }, ${Array.from(new Array(max - min - 1))
+    linear-gradient(to right, ${value === min ? "transparent" : "var(--slider-rail-fill-color)"}, ${Array.from(
+      new Array(max - min - 1),
+    )
       .map(
         (_, index) =>
-          `${
-            index + 1 <= value - min
-              ? "var(--slider-rail-fill-color)"
-              : "transparent"
-          } calc(${(100 / (max - min)) * (index + 1)}% - 2px), ` +
+          `${index + 1 <= value - min ? "var(--slider-rail-fill-color)" : "transparent"} calc(${
+            (100 / (max - min)) * (index + 1)
+          }% - 2px), ` +
           `black calc(${(100 / (max - min)) * (index + 1)}% - 2px), ` +
           `black calc(${(100 / (max - min)) * (index + 1)}% + 2px), ` +
-          `${
-            index + 2 <= value - min
-              ? "var(--slider-rail-fill-color)"
-              : "transparent"
-          } calc(${(100 / (max - min)) * (index + 1)}% + 2px)`
+          `${index + 2 <= value - min ? "var(--slider-rail-fill-color)" : "transparent"} calc(${
+            (100 / (max - min)) * (index + 1)
+          }% + 2px)`,
       )
-      .join(", ")}, ${
-      value === max ? "var(--slider-rail-fill-color)" : "transparent"
-    })
+      .join(", ")}, ${value === max ? "var(--slider-rail-fill-color)" : "transparent"})
 `,
   }))();
 

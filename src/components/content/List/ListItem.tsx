@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
-import Checkbox from "../inputs/Checkbox";
-import DropdownMenu from "../DropdownMenu";
+import Checkbox from "@/components/inputs/Checkbox";
+import DropdownMenu from "@/components/content/DropdownMenu";
 import { useListItemContext } from "./ListContext";
 import type { ListItemProps } from "./types";
 import "./ListItem.css";
@@ -35,11 +35,7 @@ const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
         })}
       >
         {selection && (
-          <Checkbox
-            className={cn("ListItemCheckbox")}
-            onChange={() => selection.toggle()}
-            value={selection.selected}
-          />
+          <Checkbox className={cn("ListItemCheckbox")} onChange={() => selection.toggle()} value={selection.selected} />
         )}
         <div onClick={handleClick} className={cn("ListItemContent")}>
           {renderItem({ item, index })}
@@ -47,9 +43,7 @@ const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
         {menu && (
           <DropdownMenu
             className={cn("ListItemOptions")}
-            onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-              event.stopPropagation()
-            }
+            onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => event.stopPropagation()}
             tabIndex={selection && selection.selectedIds.length > 0 ? -1 : 0}
             placement="bottom-end"
             {...menu}
@@ -57,7 +51,7 @@ const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
         )}
       </li>
     );
-  }
+  },
 );
 
 ListItem.propTypes = {

@@ -1,5 +1,5 @@
 import React from "react";
-import type { MenuProps } from "../Menu";
+import type { MenuProps } from "@/components/content/Menu";
 
 export type ListProps = {
   className?: string;

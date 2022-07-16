@@ -4,7 +4,7 @@ import Menu from "./Menu";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/Menu",
+  title: "Components/content/Menu",
   component: Menu,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},

@@ -1,18 +1,13 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import List from "./List";
-import FlexBox from "../FlexBox";
-import Tag from "../Tag";
-import type { MenuItemProps } from "../Menu/MenuItem";
-import type {
-  ListItemProps,
-  ListSearchProps,
-  ListMenuProps,
-  Item,
-} from "./types";
+import FlexBox from "@/components/css/FlexBox";
+import Tag from "@/components/Tag";
+import type { MenuItemProps } from "@/components/content/Menu/MenuItem";
+import type { ListItemProps, ListSearchProps, ListMenuProps, Item } from "./types";
 
 export default {
-  title: "ReactComponentLibrary/List",
+  title: "Components/content/List",
   component: List,
   argTypes: {},
 } as ComponentMeta<typeof List>;
@@ -66,9 +61,7 @@ const selection: { [key: string]: any } = {
 };
 
 const search: ListSearchProps = {
-  searchItem: (item, keywords) =>
-    keywords &&
-    (item.text.includes(keywords) || item.status.includes(keywords)),
+  searchItem: (item, keywords) => keywords && (item.text.includes(keywords) || item.status.includes(keywords)),
 };
 
 const Execution = ({ item }: { item: ListItemProps["item"] }) => {
@@ -80,9 +73,7 @@ const Execution = ({ item }: { item: ListItemProps["item"] }) => {
   );
 };
 
-const Template: ComponentStory<typeof List & { [key: string]: any }> = (
-  args
-) => {
+const Template: ComponentStory<typeof List & { [key: string]: any }> = (args) => {
   return (
     <List
       {...args}

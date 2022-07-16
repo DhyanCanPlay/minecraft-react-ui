@@ -5,7 +5,7 @@ import type { RadioProps } from "./Radio";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/inputs/Radio",
+  title: "Components/inputs/Radio",
   component: Radio,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
@@ -25,31 +25,14 @@ export default {
 } as ComponentMeta<typeof Radio>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Radio> = ({
-  value,
-  onChange,
-  ref,
-  ...args
-}: RadioProps) => {
-  const [localValue, setLocalValue] = React.useState<string>(
-    (value as string) || "value"
-  );
-  const handleChange = (
-    value: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+const Template: ComponentStory<typeof Radio> = ({ value, onChange, ref, ...args }: RadioProps) => {
+  const [localValue, setLocalValue] = React.useState<string>((value as string) || "value");
+  const handleChange = (value: string, event: React.ChangeEvent<HTMLInputElement>): void => {
     setLocalValue(value);
     onChange(value, event);
   };
 
-  return (
-    <Radio
-      ref={undefined}
-      value={localValue}
-      onChange={handleChange}
-      {...args}
-    />
-  );
+  return <Radio ref={undefined} value={localValue} onChange={handleChange} {...args} />;
 };
 
 export const Default = Template.bind({});

@@ -37,7 +37,7 @@ const defaultOptions = [
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/inputs/RadioGroup",
+  title: "Components/inputs/RadioGroup",
   component: RadioGroup,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
@@ -54,20 +54,9 @@ export default {
 } as ComponentMeta<typeof RadioGroup>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof RadioGroup> = ({
-  value,
-  onChange,
-  options,
-  ref,
-  ...args
-}: RadioGroupProps) => {
-  const [localValue, setValue] = React.useState<string | undefined>(
-    (value as string) || undefined
-  );
-  const handleChange = (
-    value: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+const Template: ComponentStory<typeof RadioGroup> = ({ value, onChange, options, ref, ...args }: RadioGroupProps) => {
+  const [localValue, setValue] = React.useState<string | undefined>((value as string) || undefined);
+  const handleChange = (value: string, event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(value);
     onChange(value, event);
   };

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
-import Checkbox from "../Checkbox";
+import Checkbox from "@/components/inputs/Checkbox";
 import "./CheckboxGroup.css";
 
 export type CheckboxGroupOption = {
@@ -11,16 +11,10 @@ export type CheckboxGroupOption = {
   readOnly?: boolean;
 };
 
-export type CheckboxGroupProps = Omit<
-  React.HTMLProps<HTMLDivElement>,
-  "onChange" | "value"
-> & {
+export type CheckboxGroupProps = Omit<React.HTMLProps<HTMLDivElement>, "onChange" | "value"> & {
   name: string;
   value?: Array<string>;
-  onChange: (
-    value: Array<string>,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  onChange: (value: Array<string>, event: React.ChangeEvent<HTMLInputElement>) => void;
   options: Array<CheckboxGroupOption>;
   className?: string;
   direction?: "row" | "column";
@@ -30,50 +24,28 @@ export type CheckboxGroupProps = Omit<
 };
 
 const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
-  (
-    {
-      name,
-      value,
-      onChange,
-      options,
-      disabled,
-      readOnly,
-      className,
-      showSelectAll,
-      direction,
-    },
-    ref?
-  ) => {
+  ({ name, value, onChange, options, disabled, readOnly, className, showSelectAll, direction }, ref?) => {
     const optionId = (option: CheckboxGroupOption) => `${name}-${option.value}`;
     const handleChange = (
       option: CheckboxGroupOption,
       checked: boolean,
-      event: React.ChangeEvent<HTMLInputElement>
+      event: React.ChangeEvent<HTMLInputElement>,
     ) => {
       onChange(
-        [
-          ...(value?.filter((optionValue) => optionValue !== option.value) ||
-            []),
-          ...(checked ? [option.value] : []),
-        ],
-        event
+        [...(value?.filter((optionValue) => optionValue !== option.value) || []), ...(checked ? [option.value] : [])],
+        event,
       );
     };
 
-    const allSelected = options.every((option) =>
-      value?.includes(option.value)
-    );
+    const allSelected = options.every((option) => value?.includes(option.value));
 
-    const handleSelectAll = (
-      value: boolean,
-      event: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleSelectAll = (value: boolean, event: React.ChangeEvent<HTMLInputElement>) => {
       if (allSelected) {
         onChange([], event);
       } else {
         onChange(
           options.map((option) => option.value),
-          event
+          event,
         );
       }
     };
@@ -106,10 +78,7 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
           </label>
         ))}
         {showSelectAll && (
-          <label
-            htmlFor={`${name}-SELECT_ALL`}
-            className={cn("CheckboxOption")}
-          >
+          <label htmlFor={`${name}-SELECT_ALL`} className={cn("CheckboxOption")}>
             <Checkbox
               id={"select_all"}
               disabled={disabled}
@@ -122,7 +91,7 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 CheckboxGroup.propTypes = {

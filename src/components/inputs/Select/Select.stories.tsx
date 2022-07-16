@@ -4,21 +4,15 @@ import Select from "./Select";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/inputs/Select",
+  title: "Components/inputs/Select",
   component: Select,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},
 } as ComponentMeta<typeof Select>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Select> = ({
-  onChange,
-  value,
-  ...args
-}) => {
-  const [localValue, setValue] = React.useState<string | undefined>(
-    (value as string) || undefined
-  );
+const Template: ComponentStory<typeof Select> = ({ onChange, value, ...args }) => {
+  const [localValue, setValue] = React.useState<string | undefined>((value as string) || undefined);
   const handleChange = (value?: string): void => {
     console.log(value);
     setValue(value);

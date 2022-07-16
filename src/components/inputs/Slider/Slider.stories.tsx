@@ -4,7 +4,7 @@ import Slider from "./Slider";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/inputs/Slider",
+  title: "Components/inputs/Slider",
   component: Slider,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},

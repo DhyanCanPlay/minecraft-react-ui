@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Dropdown, { DropdownProps } from "../layers/Dropdown";
-import Button, { ButtonProps } from "../buttons/Button";
-import Menu, { MenuProps, MenuIcon } from "../Menu";
+import Dropdown, { DropdownProps } from "@/components/layers/Dropdown";
+import Button, { ButtonProps } from "@/components/buttons/Button";
+import Menu, { MenuProps, MenuIcon } from "@/components/content/Menu";
 
 export type DropdownMenuProps = MenuProps & ButtonProps & DropdownProps;
 
@@ -20,12 +20,7 @@ const DropdownMenu = ({
       placement={placement}
       content={<Menu items={items} />}
       target={
-        <Button
-          onClick={onClick}
-          variant={"clear"}
-          className={className}
-          tabIndex={tabIndex}
-        >
+        <Button onClick={onClick} variant={"clear"} className={className} tabIndex={tabIndex}>
           <MenuIcon />
         </Button>
       }

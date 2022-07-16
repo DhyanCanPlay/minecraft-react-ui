@@ -4,7 +4,7 @@ import Tooltip from "./Tooltip";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/layers/Tooltip",
+  title: "Components/layers/Tooltip",
   component: Tooltip,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},
@@ -25,11 +25,7 @@ const Container = ({ children }: { children: React.ReactNode }) => (
 );
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Tooltip> = ({
-  children,
-  content,
-  ...args
-}) => {
+const Template: ComponentStory<typeof Tooltip> = ({ children, content, ...args }) => {
   return (
     <Container>
       <Tooltip

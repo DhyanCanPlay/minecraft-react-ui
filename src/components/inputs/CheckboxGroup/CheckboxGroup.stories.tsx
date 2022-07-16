@@ -37,7 +37,7 @@ const defaultOptions = [
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/inputs/CheckboxGroup",
+  title: "Components/inputs/CheckboxGroup",
   component: CheckboxGroup,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
@@ -61,13 +61,8 @@ const Template: ComponentStory<typeof CheckboxGroup> = ({
   ref,
   ...args
 }: CheckboxGroupProps) => {
-  const [localValue, setValue] = React.useState<Array<string> | undefined>(
-    (value as Array<string>) || undefined
-  );
-  const handleChange = (
-    value: Array<string>,
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const [localValue, setValue] = React.useState<Array<string> | undefined>((value as Array<string>) || undefined);
+  const handleChange = (value: Array<string>, event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(value);
     onChange(value, event);
   };

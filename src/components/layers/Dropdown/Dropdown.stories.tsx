@@ -4,7 +4,7 @@ import Dropdown from "./Dropdown";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/layers/Dropdown",
+  title: "Components/layers/Dropdown",
   component: Dropdown,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},
@@ -25,18 +25,10 @@ const Container = ({ children }: { children: React.ReactNode }) => (
 );
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Dropdown> = ({
-  content,
-  target,
-  ...args
-}) => {
+const Template: ComponentStory<typeof Dropdown> = ({ content, target, ...args }) => {
   return (
     <Container>
-      <Dropdown
-        {...args}
-        content={content || <p>Dropdown message</p>}
-        target={target || <div>Click me!</div>}
-      />
+      <Dropdown {...args} content={content || <p>Dropdown message</p>} target={target || <div>Click me!</div>} />
     </Container>
   );
 };

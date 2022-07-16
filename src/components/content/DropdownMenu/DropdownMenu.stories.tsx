@@ -4,7 +4,7 @@ import DropdownMenu from "./DropdownMenu";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/DropdownMenu",
+  title: "Components/content/DropdownMenu",
   component: DropdownMenu,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},

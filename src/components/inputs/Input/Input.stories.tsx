@@ -5,7 +5,7 @@ import type { InputProps } from "./Input";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ReactComponentLibrary/inputs/Input",
+  title: "Components/inputs/Input",
   component: Input,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
@@ -16,22 +16,15 @@ export default {
 } as ComponentMeta<typeof Input>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Input> = ({
-  ref,
-  ...args
-}: InputProps) => {
-  const [value, setValue] = React.useState<string>(
-    (args.value as string) || ""
-  );
+const Template: ComponentStory<typeof Input> = ({ ref, ...args }: InputProps) => {
+  const [value, setValue] = React.useState<string>((args.value as string) || "");
   const handleChange = (value: string): void => {
     console.log(value);
     setValue(value);
     args.onChange(value);
   };
 
-  return (
-    <Input ref={undefined} {...args} value={value} onChange={handleChange} />
-  );
+  return <Input ref={undefined} {...args} value={value} onChange={handleChange} />;
 };
 
 export const Default = Template.bind({});
