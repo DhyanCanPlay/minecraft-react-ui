@@ -12,7 +12,8 @@
   "scripts": {
     "build": "rollup -c",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "verify": "npm ci --legacy-peer-deps && npm build && npm run build-storybook"
   },
   "repository": {
     "type": "git",
