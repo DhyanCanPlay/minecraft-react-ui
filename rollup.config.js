@@ -27,7 +27,7 @@ export default [
     plugins: [
       resolve(),
       commonjs(),
-      typescript({ tsconfig: "./.tsconfig.json" }),
+      typescript({ tsconfig: "./tsconfig.json" }),
       postcss({
         extract: "minecraft-react-ui.css",
         plugins: [
