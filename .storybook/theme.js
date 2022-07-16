@@ -4,11 +4,12 @@ export default create({
   base: "dark",
   brandTitle: "Minecraft React UI",
   brandUrl: "https://minecraft-react-ui.vercel.app",
-  brandImage:
-    "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+  brandImage: "/images/brand.png",
   brandTarget: "_self",
 
-  fontBase: "minecraft",
+  fontBase: '"Open Sans", sans-serif',
+  fontCode: "monospace",
+
   appBorderRadius: 0,
   inputBorderRadius: 0,
 
