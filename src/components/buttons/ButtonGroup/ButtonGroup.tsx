@@ -2,7 +2,8 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import "./ButtonGroup.css";
-import Button, { ButtonProps } from "@/components/buttons/Button";
+import Button from "@/components/buttons/Button";
+import { ButtonProps } from "@/components/buttons/Button/Button.types";
 
 type ButtonGroupOptionProps = ButtonProps & { value: string; label: string };
 

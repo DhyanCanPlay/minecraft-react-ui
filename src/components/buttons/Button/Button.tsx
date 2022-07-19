@@ -3,21 +3,10 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import "./Button.css";
 
-export type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
-  children?: React.ReactNode;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  disabled?: boolean;
-  active?: boolean;
-  className?: string;
-  type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "clear";
-};
+import { ButtonProps } from "./Button.types";
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    { children, onClick, active, disabled, className, type, variant, ...rest },
-    ref
-  ) => {
+  ({ children, onClick, active, disabled, className, type, variant, ...rest }, ref) => {
     return (
       <button
         ref={ref}
@@ -33,7 +22,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         <span className={cn("ButtonText")}>{children}</span>
       </button>
     );
-  }
+  },
 );
 
 Button.propTypes = {

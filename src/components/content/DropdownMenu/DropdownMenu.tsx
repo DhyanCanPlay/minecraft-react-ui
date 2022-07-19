@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Dropdown, { DropdownProps } from "@/components/layers/Dropdown";
-import Button, { ButtonProps } from "@/components/buttons/Button";
+import Button from "@/components/buttons/Button";
 import Menu, { MenuProps, MenuIcon } from "@/components/content/Menu";
+import { ButtonProps } from "@/components/buttons/Button/Button.types";
 
 export type DropdownMenuProps = MenuProps & ButtonProps & DropdownProps;
 
