@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf build && rollup -c && npm run copy",
-    "copy": "cp package.json build/package.json && cp README.md build/README.md && cp .npmignore build/.npmignore",
+    "copy": "cp package.json build/package.json && cp README.md build/README.md && cp .npmignore build/.npmignore && cp .npmrc build/.npmrc",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "verify": "npm ci --legacy-peer-deps && npm build && npm run build-storybook"
